@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace BenBjurstrom\Prezet\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class PrezetCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'prezet';
 
     public $description = 'My command';
 
