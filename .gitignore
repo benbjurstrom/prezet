@@ -1,11 +1,15 @@
 .idea
 .phpunit.cache
+.prettierignore
+.prettierrc
 build
 composer.lock
 coverage
 docs
+package.json
 phpunit.xml
 phpstan.neon
+pnpm-lock.yaml
 testbench.yaml
 vendor
 node_modules

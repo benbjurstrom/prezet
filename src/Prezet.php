@@ -61,10 +61,10 @@ class Prezet
         return GetNav::handle();
     }
 
-//    public function getFrontmatterFromFile(string $filePath): array
-//    {
-//        return GetFrontmatter::handle($filePath);
-//    }
+    public function getFrontmatterFromFile(string $filePath): array
+    {
+        return GetFrontmatter::handle($filePath);
+    }
 
     public function getImage(string $path): string
     {
