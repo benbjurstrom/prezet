@@ -2,9 +2,9 @@
 
 namespace BenBjurstrom\Prezet\Tests;
 
+use BenBjurstrom\Prezet\PrezetServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use BenBjurstrom\Prezet\PrezetServiceProvider;
 
 class TestCase extends Orchestra
 {
