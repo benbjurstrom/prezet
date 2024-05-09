@@ -16,13 +16,19 @@ class InstallCommand extends Command
     public function handle(): int
     {
         // Add the prezet disk to the filesystems config
-        $this->addPrezetStorageDisk();
+        $this->addStorageDisk();
         $this->copyContentStubs();
-        $this->addCustomCss();
         $this->publishVendorFiles();
+        $this->copyTailwindConfig();
         $this->installNodeDependencies();
 
         return self::SUCCESS;
+    }
+
+    protected function copyTailwindConfig()
+    {
+        $files = new Filesystem;
+        $files->copy(__DIR__.'/../../tailwind.config.js', base_path('tailwind.config.js'));
     }
 
     protected function copyContentStubs()
@@ -51,14 +57,6 @@ class InstallCommand extends Command
         } else {
             $this->runCommands(['npm install', 'npm run build']);
         }
-    }
-
-    protected function addCustomCss()
-    {
-        $cssCode = "\n.heading-permalink {\n   scroll-margin-top: 50px;\n    margin-right: .5rem;\n}\n";
-
-        $appCssPath = resource_path('css/app.css');
-        file_put_contents($appCssPath, $cssCode, FILE_APPEND);
     }
 
     /**
@@ -90,7 +88,7 @@ class InstallCommand extends Command
         );
     }
 
-    protected function addPrezetStorageDisk()
+    protected function addStorageDisk()
     {
         if (config('filesystems.disks.prezet')) {
             return false;

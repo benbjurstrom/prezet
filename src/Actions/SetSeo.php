@@ -10,7 +10,7 @@ class SetSeo
     {
         seo()
             ->title($fm->title)
-            ->description($fm->description)
+            ->description($fm->excerpt)
             ->image($fm->ogimage);
     }
 }

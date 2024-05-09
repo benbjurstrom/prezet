@@ -53,7 +53,7 @@ return [
 
         'config' => [
             'heading_permalink' => [
-                'html_class' => 'heading-permalink',
+                'html_class' => 'mr-2 scroll-mt-12',
                 'id_prefix' => 'content',
                 'apply_id_to_heading' => false,
                 'heading_class' => '',

@@ -9,10 +9,10 @@ class IndexController
 {
     public function __invoke(Request $request)
     {
-        $posts = Prezet::getAllPosts();
+        $articles = Prezet::getAllPosts();
 
         return view('prezet::index', [
-            'posts' => $posts,
+            'articles' => $articles,
         ]);
     }
 }
