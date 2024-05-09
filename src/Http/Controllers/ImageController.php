@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class ImageController
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, string $path)
     {
         $file = GetImage::handle($path);

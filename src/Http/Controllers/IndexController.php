@@ -7,12 +7,9 @@ use Illuminate\Http\Request;
 
 class IndexController
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request)
     {
-        $posts = Prezet::GetAllPosts();
+        $posts = Prezet::getAllPosts();
 
         return view('prezet::index', [
             'posts' => $posts,

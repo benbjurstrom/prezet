@@ -105,7 +105,7 @@
                         <h1
                             class="font-display text-3xl tracking-tight text-slate-900"
                         >
-                            {{ $article->title }}
+                            {{ $frontmatter->title }}
                         </h1>
                     </header>
                     <div

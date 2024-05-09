@@ -16,6 +16,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Data classes
+    |--------------------------------------------------------------------------
+    |
+    | These classes are used to store the markdown information. You can
+    | create your own data classes and use them here.
+    |
+    |
+    */
+
+    'data' => [
+        'frontmatter' => BenBjurstrom\Prezet\Data\FrontmatterData::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | CommonMark
     |--------------------------------------------------------------------------
     |

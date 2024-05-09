@@ -8,9 +8,6 @@ use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatte
 
 class OgimageController
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(string $slug)
     {
         $md = GetMarkdown::handle($slug);
