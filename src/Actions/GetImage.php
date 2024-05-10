@@ -27,7 +27,7 @@ class GetImage
             $path = $matches[1].'.webp';
         }
 
-        $file = Storage::disk('prezet')->get('attachments/'.$path);
+        $file = Storage::disk('prezet')->get('images/'.$path);
         if (! $file) {
             abort(404);
         }

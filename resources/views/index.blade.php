@@ -4,7 +4,7 @@
 
 <x-prezet::layout>
     <div
-        class="max-w-8xl relative mx-auto flex w-full flex-auto justify-center sm:px-2 lg:px-8 xl:px-12"
+        class="relative mx-auto flex w-full max-w-8xl flex-auto justify-center sm:px-2 lg:px-8 xl:px-12"
     >
         {{-- Left Sidebar --}}
         <div class="hidden lg:relative lg:block lg:flex-none">
@@ -25,7 +25,7 @@
             <section class="mt-12">
                 <header class="mb-9 space-y-1">
                     <p
-                        class="font-display text-primary-500 text-sm font-medium"
+                        class="font-display text-sm font-medium text-primary-500"
                     >
                         Prezet
                     </p>
@@ -71,7 +71,7 @@
                                                 class="mt-4 flex items-center gap-4"
                                             >
                                                 <a
-                                                    class="text-primary-500 hover:text-primary-700 active:text-primary-900 flex items-center text-sm font-bold leading-6"
+                                                    class="flex items-center text-sm font-bold leading-6 text-primary-500 hover:text-primary-700 active:text-primary-900"
                                                     href="{{ route('prezet.show', $article->slug) }}"
                                                 >
                                                     Read more

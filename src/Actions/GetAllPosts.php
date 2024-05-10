@@ -16,7 +16,7 @@ class GetAllPosts
         $ext = new FrontMatterExtension();
         $parser = $ext->getFrontMatterParser();
 
-        $files = collect($storage->allFiles('posts'));
+        $files = collect($storage->allFiles('content'));
 
         return $files->map(function ($filePath) use ($parser, $storage) {
             $md = $storage->get($filePath);
@@ -30,13 +30,13 @@ class GetAllPosts
                 return false;
             }
 
-            $relativePath = trim(str_replace('posts', '', $filePath), '/');
+            $relativePath = trim(str_replace('content', '', $filePath), '/');
             $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
             $fm['slug'] = $slug;
 
             return FrontmatterData::fromArray($fm);
         })->reject(function ($value) {
             return $value === false;
-        });
+        })->sortByDesc('date');
     }
 }

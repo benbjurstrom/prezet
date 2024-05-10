@@ -18,7 +18,7 @@ class GetMarkdown
             }
         }
 
-        $path = 'posts/'.implode('/', $segments).'.md';
+        $path = 'content/'.implode('/', $segments).'.md';
         if (! $storage->exists($path)) {
             abort(404);
         }

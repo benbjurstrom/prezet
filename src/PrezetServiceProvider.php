@@ -21,7 +21,8 @@ class PrezetServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews('prezet')
             ->hasViewComponents('prezet',
-                'components.youtube'
+                'components.youtube',
+                'components.meta',
             )
             ->hasRoute('web')
             ->hasCommands([

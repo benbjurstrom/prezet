@@ -1,6 +1,6 @@
 <x-prezet::layout>
     <div
-        class="max-w-8xl relative mx-auto flex w-full flex-auto justify-center sm:px-2 lg:px-8 xl:px-12"
+        class="relative mx-auto flex w-full max-w-8xl flex-auto justify-center sm:px-2 lg:px-8 xl:px-12"
         x-data="{
             activeHeading: null,
             init() {
@@ -74,7 +74,7 @@
                                             <a
                                                 @class([
                                                     'block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full',
-                                                    'text-primary-500 before:bg-primary-500 font-semibold' =>
+                                                    'font-semibold text-primary-500 before:bg-primary-500' =>
                                                         url()->current() === route('prezet.show', ['slug' => $link['slug']]),
                                                     'text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block' =>
                                                         url()->current() !== route('prezet.show', ['slug' => $link['slug']]),
@@ -92,36 +92,14 @@
                 </nav>
             </div>
         </div>
-
         {{-- Main Content --}}
         <div
             class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16"
         >
-            <a
-                href="{{ route('prezet.index') }}"
-                class="flex items-center text-sm text-slate-600"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="mr-2 h-4 w-4"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-                    />
-                </svg>
-                Articles
-            </a>
-
-            <article class="mt-12">
+            <article>
                 <header class="mb-9 space-y-1">
                     <p
-                        class="font-display text-primary-500 text-sm font-medium"
+                        class="font-display text-sm font-medium text-primary-500"
                     >
                         {{ $frontmatter->category }}
                     </p>

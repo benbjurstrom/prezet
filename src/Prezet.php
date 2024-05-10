@@ -7,7 +7,7 @@ use BenBjurstrom\Prezet\Actions\GetFrontmatter;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
 use BenBjurstrom\Prezet\Actions\GetMarkdown;
-use BenBjurstrom\Prezet\Actions\GetNav;
+use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
 use BenBjurstrom\Prezet\Actions\SetSeo;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
@@ -58,7 +58,7 @@ class Prezet
 
     public function getNav(): array
     {
-        return GetNav::handle();
+        return GetSummary::handle();
     }
 
     public function getFrontmatterFromFile(string $filePath): array

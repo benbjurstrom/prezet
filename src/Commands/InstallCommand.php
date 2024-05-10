@@ -34,7 +34,7 @@ class InstallCommand extends Command
     protected function copyContentStubs()
     {
         $files = new Filesystem;
-        $files->copyDirectory(__DIR__.'/../../stubs/content', storage_path('contents'));
+        $files->copyDirectory(__DIR__.'/../../stubs/prezet', storage_path('prezet'));
     }
 
     protected function publishVendorFiles()
@@ -97,7 +97,7 @@ class InstallCommand extends Command
         $configFile = config_path('filesystems.php');
         $config = file_get_contents($configFile);
 
-        $diskConfig = "\n        'prezet' => [\n            'driver' => 'local',\n            'root' => storage_path('content'),\n            'throw' => false,\n        ],";
+        $diskConfig = "\n        'prezet' => [\n            'driver' => 'local',\n            'root' => storage_path('prezet'),\n            'throw' => false,\n        ],";
 
         $disksPosition = strpos($config, "'disks' => [");
         if ($disksPosition !== false) {

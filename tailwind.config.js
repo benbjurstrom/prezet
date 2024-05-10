@@ -1,3 +1,4 @@
+import colors from 'tailwindcss/colors'
 import defaultTheme from 'tailwindcss/defaultTheme'
 import forms from '@tailwindcss/forms'
 import typography from '@tailwindcss/typography'
@@ -14,6 +15,12 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
+            },
+            maxWidth: {
+                '8xl': '88rem',
+            },
+            colors: {
+                primary: colors.green,
             },
         },
     },
