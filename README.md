@@ -1,36 +1,84 @@
-# This is my package prezet
+<p align="center">
+    <img src="https://raw.githubusercontent.com/benbjurstrom/prezet/1-proof-of-concept/art/logo.png" width="256" alt="PREZET">
+</p>
+
+# Prezet: A Supercharged Markdown Blogging Preset for Laravel
+
+Use this package to transforms your markdown files into SEO-friendly blogs, articles, and documentation. It offers automatic image optimization, dynamic tables of contents, validated frontmatter DTOs, and integrated Blade components.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+## Table of contents
+- [Features](https://github.com/benbjurstrom/prezet#features)
+- [Quick Start](https://github.com/benbjurstrom/prezet#quick-start)
+- [Configuration](https://github.com/benbjurstrom/prezet#configuration)
+- [Documentation](https://github.com/benbjurstrom/prezet#documentation)
 
-## Support us
+## 🌟 Features
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/prezet.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/prezet)
+### Automatic Image Optimization:
+Streamline your media with automated compression, WebP conversion, and responsive srcset handling.
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+### Dynamic Table of Contents:
+Extracts H2 and H3 headings to generate a nested, scroll-synced TOC.
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+### Validated Frontmatter:
+Confidently validate and cast frontmatter data into structured DTOs for consistency across your content.
+
+### SUMMARY.md Support:
+Easily organize your blog-level TOC similar to GitBook.
+
+### Configurable Markdown:
+Tailor CommonMark extensions, route settings, and frontmatter DTOs through the configuration file. 
+
+### SEO Optimization:
+Automatically generate SEO tags based on the frontmatter data for better discoverability.
+
+### Blade Components in Markdown:
+Effortlessly include Laravel Blade components in your markdown for enriched, interactive content.
+
+### Complete Customization:
+Rapidly configure routes, controllers, views, and more, with modular action classes for flexible customization.
+
+## 🚀 Quick start
 
 ## Installation
 
-You can install the package via composer:
+Install with composer:
+
+```bash
+composer create-project laravel/laravel prezet
+cd prezet
+composer require laravel/breeze --dev
+git init && git add . && git commit -m "Initial commit"
+```
+
+Install with composer:
 
 ```bash
 composer require benbjurstrom/prezet
 ```
 
-You can publish and run the migrations with:
+Add the prezet storage disk in `config/filestem.php`:
 
-```bash
-php artisan vendor:publish --tag="prezet-migrations"
-php artisan migrate
+```php
+'prezet' => [
+    'driver' => 'local',
+    'root' => storage_path('content'),
+    'throw' => false,
+],
 ```
 
-You can publish the config file with:
+Run the installer:
+
+```bash
+php artisan prezet:install
+```
+
+Publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="prezet-config"
@@ -49,30 +97,8 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="prezet-views"
 ```
 
-## Usage
-
-```php
-$prezet = new BenBjurstrom\Prezet();
-echo $prezet->echoPhrase('Hello, BenBjurstrom!');
-```
-
-## Testing
-
-```bash
-composer test
-```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+## Documentation
+Access detailed documentation at [prezet.com](https://prezet.com)
 
 ## Credits
 
