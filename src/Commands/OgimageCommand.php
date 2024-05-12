@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Spatie\Browsershot\Browsershot as SpatieBrowsershot;
 
 use function Laravel\Prompts\info;
@@ -17,20 +18,27 @@ class OgimageCommand extends Command
 
     public function handle(): int
     {
-        $url = text(
-            label: 'What url would you like to screenshot?',
-            required: true
+        $mdPath = text(
+            label: 'Which markdown file would you like to generate an og:image for?',
+            required: true,
+            default: 'seo'
         );
+
+        $mdPath = Str::rtrim($mdPath, '.md');
+
+        $url = (route('prezet.ogimage', ['slug' => $mdPath]));
 
         $screenshot = SpatieBrowsershot::url($url)
             ->windowSize(1200, 630)
             ->waitUntilNetworkIdle()
             ->screenshot();
 
-        $value = Storage::disk('prezet')->put('ogimages/ogimage2.png', $screenshot);
+        $filename = Str::slug(str_replace('/','-', $mdPath)) . '.png';
+        $filepath = 'images/ogimages/' . $filename;
+        $value = Storage::disk('prezet')->put($filepath, $screenshot);
 
         if ($value) {
-            info('Screenshot saved: '.$value);
+            info('OgImage url: '. config('prezet.image.path') . 'ogimages/' . $filename);
         } else {
             info('Failed to save screenshot');
         }

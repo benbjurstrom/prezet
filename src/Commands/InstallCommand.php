@@ -39,7 +39,7 @@ class InstallCommand extends Command
 
     protected function publishVendorFiles()
     {
-        $this->runCommands(['php artisan vendor:publish --provider="BenBjurstrom\Prezet\PrezetServiceProvider"']);
+        $this->runCommands(['artisan vendor:publish --provider="BenBjurstrom\Prezet\PrezetServiceProvider" --tag=prezet-views --tag=prezet-config']);
     }
 
     protected function installNodeDependencies()

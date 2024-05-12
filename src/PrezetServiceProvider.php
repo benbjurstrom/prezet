@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet;
 
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
+use BenBjurstrom\Prezet\Components\YoutubeComponent;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -20,10 +21,6 @@ class PrezetServiceProvider extends PackageServiceProvider
             ->name('prezet')
             ->hasConfigFile()
             ->hasViews('prezet')
-            ->hasViewComponents('prezet',
-                'components.youtube',
-                'components.meta',
-            )
             ->hasRoute('web')
             ->hasCommands([
                 OgimageCommand::class,

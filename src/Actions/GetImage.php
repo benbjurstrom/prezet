@@ -8,49 +8,90 @@ class GetImage
 {
     public static function handle(string $path): string
     {
-        if (! preg_match('/^[\w-]+\.webp$/', $path)) {
-            abort(404, 'Invalid path');
+        $allowedExtensions = ['png', 'jpg', 'webp'];
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+        if (!in_array($extension, $allowedExtensions)) {
+            abort(404, 'Invalid file extension');
         }
 
-        $gdInfo = gd_info();
-        if (! isset($gdInfo['WebP Support']) || $gdInfo['WebP Support'] !== true) {
-            abort(500, 'WebP support is not available in the GD extension.');
-        }
+        $size = self::extractSize($path);
+        $path = self::removeSize($path);
 
-        $allowedWidths = config('prezet.image.widths');
-
-        $pattern = '/(.+)-(\d+)w\.webp$/';
-        preg_match($pattern, $path, $matches);
-
-        if (isset($matches[2]) && in_array((int) $matches[2], $allowedWidths)) {
-            $size = (int) $matches[2];
-            $path = $matches[1].'.webp';
-        }
-
-        $file = Storage::disk('prezet')->get('images/'.$path);
-        if (! $file) {
+        $imageStr = Storage::disk('prezet')->get('images/'.$path);
+        if (!$imageStr) {
             abort(404);
         }
 
-        $image = imagecreatefromstring($file);
+        $image = imagecreatefromstring($imageStr);
 
-        // resize image
         if (isset($size)) {
-            $originalWidth = imagesx($image);
-            $originalHeight = imagesy($image);
-            $ratio = $size / $originalWidth;
-            $newHeight = $originalHeight * $ratio;
-            $resizedImage = imagecreatetruecolor($size, $newHeight);
-            imagecopyresampled($resizedImage, $image, 0, 0, 0, 0, $size, $newHeight, $originalWidth, $originalHeight);
-            imagedestroy($image);
-            $image = $resizedImage;
+            $image = self::resizeImage($image, $size);
         }
 
-        ob_start();
-        imagewebp($image, null, 75);
-        $file = ob_get_clean();
-        imagedestroy($image);
+        return self::outputImage($image, $extension);
+    }
 
-        return $file;
+    private static function extractSize(string $path): ?int
+    {
+        $allowedWidths = config('prezet.image.widths');
+        $pattern = '/(.+)-(\d+)w\.(?:png|jpg|webp)$/';
+
+        if (preg_match($pattern, $path, $matches) && in_array((int) $matches[2], $allowedWidths)) {
+            return (int) $matches[2];
+        }
+
+        return null;
+    }
+
+    private static function removeSize(string $path): string
+    {
+        $pattern = '/(.+)-(\d+)w\.(\w+)$/';
+        return preg_replace($pattern, '$1.$3', $path);
+    }
+
+    private static function create(string $file, string $extension)
+    {
+        switch ($extension) {
+            case 'png':
+                return imagecreatefromstring($file);
+            case 'jpg':
+                return imagecreatefromstring($file);
+            case 'webp':
+                return imagecreatefromstring($file);
+            default:
+                abort(500, 'Unsupported file extension');
+        }
+    }
+
+    private static function resizeImage($image, int $size)
+    {
+        $originalWidth = imagesx($image);
+        $originalHeight = imagesy($image);
+        $ratio = $size / $originalWidth;
+        $newHeight = $originalHeight * $ratio;
+        $resizedImage = imagecreatetruecolor($size, $newHeight);
+        imagecopyresampled($resizedImage, $image, 0, 0, 0, 0, $size, $newHeight, $originalWidth, $originalHeight);
+        imagedestroy($image);
+        return $resizedImage;
+    }
+
+    private static function outputImage($image, string $extension): string
+    {
+        ob_start();
+        switch ($extension) {
+            case 'png':
+                imagepng($image);
+                break;
+            case 'jpg':
+                imagejpeg($image);
+                break;
+            case 'webp':
+                imagewebp($image);
+                break;
+        }
+        $output = ob_get_clean();
+        imagedestroy($image);
+        return $output;
     }
 }

@@ -19,33 +19,34 @@ Use this package to transforms your markdown files into SEO-friendly blogs, arti
 
 ## 🌟 Features
 
-### Automatic Image Optimization:
+#### Installs in seconds:
+Installer command sets up your project with a single command. See quickstart for more details.
+
+#### Automatic Image Optimization:
 Streamline your media with automated compression, WebP conversion, and responsive srcset handling.
 
-### Dynamic Table of Contents:
+#### Dynamic Table of Contents:
 Extracts H2 and H3 headings to generate a nested, scroll-synced TOC.
 
-### Validated Frontmatter:
+#### Validated Frontmatter:
 Confidently validate and cast frontmatter data into structured DTOs for consistency across your content.
 
-### SUMMARY.md Support:
+#### SUMMARY.md Support:
 Easily organize your blog-level TOC similar to GitBook.
 
-### Configurable Markdown:
+#### Configurable Markdown:
 Tailor CommonMark extensions, route settings, and frontmatter DTOs through the configuration file. 
 
-### SEO Optimization:
+#### SEO Optimization:
 Automatically generate SEO tags based on the frontmatter data for better discoverability.
 
-### Blade Components in Markdown:
+#### Blade Components in Markdown:
 Effortlessly include Laravel Blade components in your markdown for enriched, interactive content.
 
-### Complete Customization:
+#### Complete Customization:
 Rapidly configure routes, controllers, views, and more, with modular action classes for flexible customization.
 
 ## 🚀 Quick start
-
-## Installation
 
 Install with composer:
 
