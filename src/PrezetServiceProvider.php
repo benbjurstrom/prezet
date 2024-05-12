@@ -4,7 +4,6 @@ namespace BenBjurstrom\Prezet;
 
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
-use BenBjurstrom\Prezet\Components\YoutubeComponent;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

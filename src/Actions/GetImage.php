@@ -11,7 +11,7 @@ class GetImage
         $allowedExtensions = ['png', 'jpg', 'webp'];
         $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
-        if (!in_array($extension, $allowedExtensions)) {
+        if (! in_array($extension, $allowedExtensions)) {
             abort(404, 'Invalid file extension');
         }
 
@@ -19,7 +19,7 @@ class GetImage
         $path = self::removeSize($path);
 
         $imageStr = Storage::disk('prezet')->get('images/'.$path);
-        if (!$imageStr) {
+        if (! $imageStr) {
             abort(404);
         }
 
@@ -47,6 +47,7 @@ class GetImage
     private static function removeSize(string $path): string
     {
         $pattern = '/(.+)-(\d+)w\.(\w+)$/';
+
         return preg_replace($pattern, '$1.$3', $path);
     }
 
@@ -73,6 +74,7 @@ class GetImage
         $resizedImage = imagecreatetruecolor($size, $newHeight);
         imagecopyresampled($resizedImage, $image, 0, 0, 0, 0, $size, $newHeight, $originalWidth, $originalHeight);
         imagedestroy($image);
+
         return $resizedImage;
     }
 
@@ -92,6 +94,7 @@ class GetImage
         }
         $output = ob_get_clean();
         imagedestroy($image);
+
         return $output;
     }
 }

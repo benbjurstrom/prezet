@@ -2,9 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
-use DOMDocument;
-use DOMElement;
-use DOMXPath;
 use Illuminate\Support\Facades\Storage;
 
 class GetSummary
@@ -47,5 +44,3 @@ class GetSummary
         return $result;
     }
 }
-
-

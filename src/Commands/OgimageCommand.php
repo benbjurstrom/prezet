@@ -33,12 +33,12 @@ class OgimageCommand extends Command
             ->waitUntilNetworkIdle()
             ->screenshot();
 
-        $filename = Str::slug(str_replace('/','-', $mdPath)) . '.png';
-        $filepath = 'images/ogimages/' . $filename;
+        $filename = Str::slug(str_replace('/', '-', $mdPath)).'.png';
+        $filepath = 'images/ogimages/'.$filename;
         $value = Storage::disk('prezet')->put($filepath, $screenshot);
 
         if ($value) {
-            info('OgImage url: '. config('prezet.image.path') . 'ogimages/' . $filename);
+            info('OgImage url: '.config('prezet.image.path').'ogimages/'.$filename);
         } else {
             info('Failed to save screenshot');
         }
