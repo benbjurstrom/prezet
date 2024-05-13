@@ -12,13 +12,15 @@ class GetAllPosts
 {
     public static function handle(): Collection
     {
+        $fmClass = config('prezet.data.frontmatter');
+
         $storage = Storage::disk('prezet');
         $ext = new FrontMatterExtension();
         $parser = $ext->getFrontMatterParser();
 
         $files = collect($storage->allFiles('content'));
 
-        return $files->map(function ($filePath) use ($parser, $storage) {
+        return $files->map(function ($filePath) use ($parser, $storage, $fmClass) {
             $md = $storage->get($filePath);
             $fm = $parser->parse($md)->getFrontMatter();
 
@@ -34,7 +36,7 @@ class GetAllPosts
             $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
             $fm['slug'] = $slug;
 
-            return FrontmatterData::fromArray($fm);
+            return $fmClass::fromArray($fm);
         })->reject(function ($value) {
             return $value === false;
         })->sortByDesc('date');

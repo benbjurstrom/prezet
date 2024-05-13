@@ -2,9 +2,9 @@
     <img src="https://raw.githubusercontent.com/benbjurstrom/prezet/1-proof-of-concept/art/logo.png" width="256" alt="PREZET">
 </p>
 
-# Prezet: A Supercharged Markdown Blogging Preset for Laravel
+# Prezet: A Markdown Blogging Preset for Laravel
 
-Use this package to transforms your markdown files into SEO-friendly blogs, articles, and documentation. It offers automatic image optimization, dynamic tables of contents, validated frontmatter DTOs, and integrated Blade components.
+Transform your markdown files into SEO-friendly blogs, articles, and documentation with Prezet. Including built in automatic image optimization, dynamic tables of contents, validated front matter DTOs, and integrated Blade components.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -20,31 +20,31 @@ Use this package to transforms your markdown files into SEO-friendly blogs, arti
 ## 🌟 Features
 
 #### Installs in seconds:
-Installer command sets up your project with a single command. See quickstart for more details.
+Set up your project with a single command. See Quick Start for details.
 
 #### Automatic Image Optimization:
 Streamline your media with automated compression, WebP conversion, and responsive srcset handling.
 
 #### Dynamic Table of Contents:
-Extracts H2 and H3 headings to generate a nested, scroll-synced TOC.
+Automatically generate a nested, scroll-synced TOC from H2 and H3 headings.
 
 #### Validated Frontmatter:
-Confidently validate and cast frontmatter data into structured DTOs for consistency across your content.
+Validate and cast frontmatter data into structured DTOs for consistency across your content.
 
 #### SUMMARY.md Support:
-Easily organize your blog-level TOC similar to GitBook.
+Organize your blog level hierarchy with simple headings and links.
 
 #### Configurable Markdown:
-Tailor CommonMark extensions, route settings, and frontmatter DTOs through the configuration file. 
+Tailor CommonMark extensions, route settings, and front matter DTOs through the package's configuration file.
 
 #### SEO Optimization:
-Automatically generate SEO tags based on the frontmatter data for better discoverability.
+Automatically generate meta tags based on front matter data for better search engine discoverability.
 
 #### Blade Components in Markdown:
-Effortlessly include Laravel Blade components in your markdown for enriched, interactive content.
+Include Laravel Blade components in your markdown for enriched, interactive content.
 
 #### Complete Customization:
-Rapidly configure routes, controllers, views, and more, with modular action classes for flexible customization.
+Prezet is built on top of modular action classes allowing you full customization of the package's built in controllers.
 
 ## 🚀 Quick start
 

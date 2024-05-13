@@ -1,6 +1,6 @@
 ---
 title: 'Include Blade Components in Markdown'
-date: 2024-05-02
+date: 2024-05-07
 category: Features
 excerpt: 'This post contains an embedded youtube video rendered via a blade component.'
 ---

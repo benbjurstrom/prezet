@@ -48,7 +48,8 @@ class Prezet
         $fm = $content->getFrontMatter();
         $fm['slug'] = $slug;
 
-        return FrontmatterData::fromArray($fm);
+        $fmClass = config('prezet.data.frontmatter');
+        return $fmClass::fromArray($fm);
     }
 
     public function parseMarkdown(string $md): RenderedContentInterface

@@ -1,6 +1,6 @@
 ---
 title: Automatic Image Optimization
-date: 2024-05-08
+date: 2024-05-06
 category: Features
 excerpt: 'Prezet automatically optimizes images for the web.'
 ogimage: '/prezet/img/ogimages/example.png'

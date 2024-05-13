@@ -2,8 +2,7 @@
 title: Markdown Powered Blogging
 date: 2024-05-08
 category: Features
-excerpt: 'This post contains a variety of markdown features that Prezet supports.'
-ogimage: '/prezet/img/ogimages/example.png'
+excerpt: Prezet is a markdown powered blogging platform that is easy to use and customize.
 ---
 
 This blog is generated entirely from markdown files. When you ran the `prezet::install` command markdown files were loaded into you laravel application's `./storage/prezet/` directory. Here is the structure of those files:
@@ -29,8 +28,6 @@ storage/
     └── SUMMARY.md
 ```
 
-[table](https://tree.nathanfriend.io/?s=(%27options!(%27fancy!true~fullPath!false~trailingSlash!true~rootDot!false)~B(%27B%27storageGprezet6.obsidianH...6content6E7draft787seo7customizeH*routes7*frontmatter7E-views7*controllersF6C*8-20240509210223449.webpHogCSUMMARYF%27)~version!%271%27)*%20%206G*7FH8markdownBsource!Cimages6E*bladeF.mdG%5Cn*H6*%01HGFECB876*)
-
 The `./storage/prezet/content/` directory contains the actual markdown files that are converted into html when the blog is loaded.
 
 The `./storage/prezet/images/` directory stores the images that are referenced in the markdown files. Those images are automatically linked to a packaged controller that serves the images in the most efficient format and size based on the user's device. You can find more information about how Prezet automatically optimizes images [here](content/images)
@@ -45,3 +42,7 @@ If you're on desktop, you should see a table of contents on the right side of th
 
 ## Blade Components
 Much like MDX where you can include JSX components in a markdown file, Prezet lets you include blade components in your markdown files. You can read more about using blade components in markdown [here](content/blade).
+
+
+
+[table](https://tree.nathanfriend.io/?s=(%27options!(%27fancy!true~fullPath!false~trailingSlash!true~rootDot!false)~B(%27B%27storageGprezet6.obsidianH...6content6E7draft787seo7customizeH*routes7*frontmatter7E-views7*controllersF6C*8-20240509210223449.webpHogCSUMMARYF%27)~version!%271%27)*%20%206G*7FH8markdownBsource!Cimages6E*bladeF.mdG%5Cn*H6*%01HGFECB876*)

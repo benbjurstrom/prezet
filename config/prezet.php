@@ -9,19 +9,18 @@ return [
     | This is the path to the blog. It is used to generate the routes for the
     | blog posts. The path should not have a leading or trailing slash.
     |
-    |
     */
 
     'path' => 'prezet',
 
     /*
     |--------------------------------------------------------------------------
-    | Data classes
+    | Data Classes
     |--------------------------------------------------------------------------
     |
-    | These classes are used to store the markdown information. You can
-    | create your own data classes and use them here.
-    |
+    | These classes are used to store markdown information in a Validated DTO.
+    | You can override the default classes with your own and configure Pezet to
+    | use them here.
     |
     */
 
@@ -34,10 +33,9 @@ return [
     | CommonMark
     |--------------------------------------------------------------------------
     |
-    | This is the configuration for the CommonMark markdown parser. You can
-    | configure the extensions that are used and the configuration for each
-    | extension. The extensions are added in the order they are listed.
-    |
+    | Configure the CommonMark Markdown parser. You can specify the extensions
+    | to be used and their configuration. Extensions are added in the order
+    | they are listed.
     |
     */
 
@@ -72,11 +70,12 @@ return [
     |--------------------------------------------------------------------------
     | Images
     |--------------------------------------------------------------------------
-    | These configuration options determine how image tags are handled when
-    | converting from markdown.
     |
-    | Sizes is used to determine the size of the image, or how much of the
-    | viewport the image takes up at each viewport width.
+    | Configure how image tags are handled when converting from markdown.
+    |
+    | 'path' specifies the route for serving images.
+    | 'widths' defines the various widths for responsive images.
+    | 'sizes' indicates the sizes attribute for responsive images.
     */
 
     'image' => [
