@@ -51,20 +51,6 @@ class GetImage
         return preg_replace($pattern, '$1.$3', $path);
     }
 
-    private static function create(string $file, string $extension)
-    {
-        switch ($extension) {
-            case 'png':
-                return imagecreatefromstring($file);
-            case 'jpg':
-                return imagecreatefromstring($file);
-            case 'webp':
-                return imagecreatefromstring($file);
-            default:
-                abort(500, 'Unsupported file extension');
-        }
-    }
-
     private static function resizeImage($image, int $size)
     {
         $originalWidth = imagesx($image);

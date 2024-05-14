@@ -1,6 +1,6 @@
 {
     "name": "benbjurstrom/prezet",
-    "description": "This is my package prezet",
+    "description": "Prezet: Markdown Blogging for Laravel",
     "keywords": [
         "Prezet",
         "laravel",
@@ -40,8 +40,7 @@
     },
     "autoload": {
         "psr-4": {
-            "BenBjurstrom\\Prezet\\": "src/",
-            "BenBjurstrom\\Prezet\\Database\\Factories\\": "database/factories/"
+            "BenBjurstrom\\Prezet\\": "src/"
         }
     },
     "autoload-dev": {
