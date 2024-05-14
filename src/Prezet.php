@@ -49,6 +49,7 @@ class Prezet
         $fm['slug'] = $slug;
 
         $fmClass = config('prezet.data.frontmatter');
+
         return $fmClass::fromArray($fm);
     }
 

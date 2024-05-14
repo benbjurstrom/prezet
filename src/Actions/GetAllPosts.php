@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
