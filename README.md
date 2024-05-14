@@ -1,91 +1,88 @@
-# :package_description
+<p align="center">
+    <img src="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/logo.png" width="256" alt="PREZET">
+</p>
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+# Prezet: A Markdown Blogging Preset for Laravel
 
-1. Press the "Use this template" button at the top of this repo to create a new repo with the contents of this skeleton.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Transform your markdown files into SEO-friendly blogs, articles, and documentation with Prezet. Including built in automatic image optimization, dynamic tables of contents, validated front matter DTOs, and integrated Blade components.
 
-## Support us
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
+## Table of contents
+- [Features](https://github.com/benbjurstrom/prezet#features)
+- [Quick Start](https://github.com/benbjurstrom/prezet#quick-start)
+- [Configuration](https://github.com/benbjurstrom/prezet#configuration)
+- [Documentation](https://github.com/benbjurstrom/prezet#documentation)
 
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+## 🌟 Features
 
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+#### Installs in seconds:
+Set up your project with a single command. See Quick Start for details.
 
-## Installation
+#### Automatic Image Optimization:
+Streamline your media with automated compression, WebP conversion, and responsive srcset handling.
 
-You can install the package via composer:
+#### Dynamic Table of Contents:
+Automatically generate a nested, scroll-synced TOC from H2 and H3 headings.
 
-```bash
-composer require :vendor_slug/:package_slug
-```
+#### Validated Frontmatter:
+Validate and cast frontmatter data into structured DTOs for consistency across your content.
 
-You can publish and run the migrations with:
+#### SUMMARY.md Support:
+Organize your blog level hierarchy with simple headings and links.
 
-```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
-php artisan migrate
-```
+#### Configurable Markdown:
+Tailor CommonMark extensions, route settings, and front matter DTOs through the package's configuration file.
 
-You can publish the config file with:
+#### SEO Optimization:
+Automatically generate meta tags based on front matter data for better search engine discoverability.
 
-```bash
-php artisan vendor:publish --tag=":package_slug-config"
-```
+#### Blade Components in Markdown:
+Include Laravel Blade components in your markdown for enriched, interactive content.
 
-This is the contents of the published config file:
+#### Complete Customization:
+Prezet is built on top of modular action classes allowing you full customization of the package's built in controllers.
 
-```php
-return [
-];
-```
+## 🚀 Quick start
 
-Optionally, you can publish the views using
+#### Create a fresh Laravel install
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-views"
+composer create-project laravel/laravel prezet
+cd prezet
+git init && git add . && git commit -m "Initial commit"
 ```
 
-## Usage
-
-```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
-```
-
-## Testing
+#### Install the Prezet package:
 
 ```bash
-composer test
+composer require benbjurstrom/prezet
 ```
 
-## Changelog
+#### Run the package installer:
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+_⚠️ NOTE: Before running the installer on an existing application it is recommended to switch to a clean branch. As part of the install process Prezet configures your application with Tailwind CSS. Any existing Tailwind configuration will be overwritten._
 
-## Contributing
+```bash
+php artisan prezet:install
+```
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+#### Start your server:
+```bash
+php artisan serve
+```
 
-## Security Vulnerabilities
+Check out your new markdown blog at [http://localhost:8000/prezet](http://localhost:8000/prezet)
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+## Documentation
+Access detailed documentation at [prezet.com](https://prezet.com)
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Ben Bjurstrom](https://github.com/benbjurstrom)
 - [All Contributors](../../contributors)
 
 ## License

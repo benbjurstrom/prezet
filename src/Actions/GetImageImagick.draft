@@ -1,0 +1,49 @@
+<?php
+
+namespace BenBjurstrom\Prezet;
+
+use Illuminate\Support\Facades\Storage;
+use Imagick;
+
+class GetImageImagick
+{
+    /**
+     * @throws \ImagickException
+     */
+    public static function handle(string $path): string
+    {
+        $allowedSizes = [480, 640, 768, 960, 1536];
+
+        $pattern = '/(.+)-(\d+)w\.webp$/';
+        preg_match($pattern, $path, $matches);
+
+        if (isset($matches[2]) && in_array((int) $matches[2], $allowedSizes)) {
+            $size = (int) $matches[2];
+            $path = $matches[1].'.webp';
+        }
+
+        $file = Storage::disk('prezet')->get('attachments/'.$path);
+        if (! $file) {
+            abort(404);
+        }
+
+        $imagick = new Imagick();
+        $imagick->readImageBlob($file);
+
+        if (isset($size)) {
+            $imagick->scaleImage(columns: $size, rows: 0);
+        }
+
+        $imagick->setImageFormat('webp');
+        $imagick->setImageCompressionQuality(75);
+        $imagick->stripImage();
+        $imagick->setInterlaceScheme(Imagick::INTERLACE_PLANE);
+
+        $file = $imagick->getImageBlob();
+
+        $imagick->clear();
+        $imagick->destroy();
+
+        return $file;
+    }
+}
