@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/benbjurstrom/prezet/1-proof-of-concept/art/logo.png" width="256" alt="PREZET">
+    <img src="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/logo.png" width="256" alt="PREZET">
 </p>
 
 # Prezet: A Markdown Blogging Preset for Laravel
@@ -48,7 +48,7 @@ Prezet is built on top of modular action classes allowing you full customization
 
 ## 🚀 Quick start
 
-First create a fresh laravel install
+#### Create a fresh Laravel install
 
 ```bash
 composer create-project laravel/laravel prezet
@@ -56,24 +56,26 @@ cd prezet
 git init && git add . && git commit -m "Initial commit"
 ```
 
-Install the Prezet package:
+#### Install the Prezet package:
 
 ```bash
 composer require benbjurstrom/prezet
 ```
 
-Run the installer:
+#### Run the package installer:
+
+_⚠️ NOTE: Before running the installer on an existing application it is recommended to switch to a clean branch. As part of the install process Prezet configures your application with Tailwind CSS. Any existing Tailwind configuration will be overwritten._
 
 ```bash
 php artisan prezet:install
 ```
 
-Start your server:
+#### Start your server:
 ```bash
 php artisan serve
 ```
 
-And check out your new markdown blog at [http://localhost:8000/prezet](http://localhost:8000/prezet)
+Check out your new markdown blog at [http://localhost:8000/prezet](http://localhost:8000/prezet)
 
 ## Documentation
 Access detailed documentation at [prezet.com](https://prezet.com)

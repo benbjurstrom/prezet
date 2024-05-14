@@ -19,17 +19,18 @@ class InstallCommand extends Command
         $this->addStorageDisk();
         $this->copyContentStubs();
         $this->publishVendorFiles();
-        $this->copyTailwindConfig();
+        $this->copyTailwindFiles();
         $this->installNodeDependencies();
 
         return self::SUCCESS;
     }
 
-    protected function copyTailwindConfig()
+    protected function copyTailwindFiles()
     {
         $files = new Filesystem;
         $files->copy(__DIR__.'/../../tailwind.config.js', base_path('tailwind.config.js'));
-        $files->copy(__DIR__.'/../../postcss.config.js', base_path('postcss.config.js'));
+        $files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
+        $files->copy(__DIR__.'/../../stubs/app.css', resource_path('css/app.css'));
     }
 
     protected function copyContentStubs()
