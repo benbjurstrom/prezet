@@ -35,6 +35,11 @@ class GetAllPosts
             $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
             $fm['slug'] = $slug;
 
+            // depending on the environment, the date may be a string or a timestamp
+            if (! empty($fm['date']) && is_string($fm['date'])) {
+                $fm['date'] = strtotime($fm['date']);
+            }
+
             return $fmClass::fromArray($fm);
         })->reject(function ($value) {
             return $value === false;
