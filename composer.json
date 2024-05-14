@@ -1,6 +1,6 @@
 {
     "name": "benbjurstrom/prezet",
-    "description": "This is my package prezet",
+    "description": "Prezet: Markdown Blogging for Laravel",
     "keywords": [
         "Prezet",
         "laravel",

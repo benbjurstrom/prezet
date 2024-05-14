@@ -48,6 +48,6 @@ class FrontmatterData extends ValidatedDTO
      */
     protected function failedValidation(): void
     {
-        throw new FrontmatterException($this->validator->errors(), $this->data['slug']);
+        throw new FrontmatterException($this->validator->errors(), $this->data['slug'] ?? false);
     }
 }

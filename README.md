@@ -2,7 +2,7 @@
     <img src="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/logo.png" width="256" alt="PREZET">
 </p>
 
-# Prezet: A Markdown Blogging Preset for Laravel
+# Prezet: Markdown Blogging for Laravel
 
 Transform your markdown files into SEO-friendly blogs, articles, and documentation with Prezet. Including built in automatic image optimization, dynamic tables of contents, validated front matter DTOs, and integrated Blade components.
 
