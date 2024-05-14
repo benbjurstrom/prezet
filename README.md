@@ -48,29 +48,18 @@ Prezet is built on top of modular action classes allowing you full customization
 
 ## 🚀 Quick start
 
-Install with composer:
+First create a fresh laravel install
 
 ```bash
 composer create-project laravel/laravel prezet
 cd prezet
-composer require laravel/breeze --dev
 git init && git add . && git commit -m "Initial commit"
 ```
 
-Install with composer:
+Install the Prezet package:
 
 ```bash
 composer require benbjurstrom/prezet
-```
-
-Add the prezet storage disk in `config/filestem.php`:
-
-```php
-'prezet' => [
-    'driver' => 'local',
-    'root' => storage_path('content'),
-    'throw' => false,
-],
 ```
 
 Run the installer:
@@ -79,24 +68,12 @@ Run the installer:
 php artisan prezet:install
 ```
 
-Publish the config file with:
-
+Start your server:
 ```bash
-php artisan vendor:publish --tag="prezet-config"
+php artisan serve
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="prezet-views"
-```
+And check out your new markdown blog at [http://localhost:8000/prezet](http://localhost:8000/prezet)
 
 ## Documentation
 Access detailed documentation at [prezet.com](https://prezet.com)

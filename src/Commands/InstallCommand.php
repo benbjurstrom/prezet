@@ -29,6 +29,7 @@ class InstallCommand extends Command
     {
         $files = new Filesystem;
         $files->copy(__DIR__.'/../../tailwind.config.js', base_path('tailwind.config.js'));
+        $files->copy(__DIR__.'/../../postcss.config.js', base_path('postcss.config.js'));
     }
 
     protected function copyContentStubs()
@@ -46,7 +47,12 @@ class InstallCommand extends Command
     {
         $this->updateNodePackages(function ($packages) {
             return [
+                "@tailwindcss/forms" => "^0.5.2",
                 '@tailwindcss/typography' => '^0.5.13',
+                'alpinejs' => '^3.4.2',
+                'autoprefixer' => '^10.4.2',
+                'postcss' => '^8.4.31',
+                'tailwindcss' => '^3.1.0',
             ] + $packages;
         });
 
