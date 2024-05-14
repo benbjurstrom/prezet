@@ -22,7 +22,7 @@ class TestCase extends Orchestra
     {
         return [
             PrezetServiceProvider::class,
-            SEOServiceProvider::class
+            SEOServiceProvider::class,
         ];
     }
 
@@ -30,7 +30,7 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
         config()->set('app.debug', 'true');
-        config()->set('filesystems.disks.prezet',[
+        config()->set('filesystems.disks.prezet', [
             'driver' => 'local',
             'root' => base_path('tests/stubs/disk'),
             'throw' => false,

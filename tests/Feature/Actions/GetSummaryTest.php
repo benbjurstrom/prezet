@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Storage;
 
 it('can parse the SUMMARY.md file', function () {
     Storage::fake('prezet');
-    Storage::disk('prezet')->put('SUMMARY.md', <<<EOT
+    Storage::disk('prezet')->put('SUMMARY.md', <<<'EOT'
 ## 🚀 Features
 
 -  [Markdown Powered](content/markdown)

@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-
 it('can get markdown content', function () {
     Storage::fake('prezet');
     Storage::disk('prezet')->put('content/post1.md', '# Post 1 Content');

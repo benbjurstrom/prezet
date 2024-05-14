@@ -9,7 +9,7 @@ class FrontmatterException extends Exception
 {
     public function __construct(MessageBag $bag, string|bool $slug)
     {
-        if($slug === false) {
+        if ($slug === false) {
             $slug = 'unknown';
         }
 

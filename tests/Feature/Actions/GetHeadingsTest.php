@@ -3,7 +3,7 @@
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 
 it('gets the headings html', function () {
-    $html = <<<HTML
+    $html = <<<'HTML'
 <p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
 <h2>Heading 1</h2>
 <p>This is another paragraph</p>

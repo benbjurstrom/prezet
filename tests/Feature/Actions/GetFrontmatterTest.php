@@ -1,7 +1,6 @@
 <?php
 
 use BenBjurstrom\Prezet\Actions\GetFrontmatter;
-use BenBjurstrom\Prezet\Exceptions\FrontmatterException;
 use Illuminate\Support\Facades\Storage;
 
 it('can get frontmatter from a markdown file', function () {

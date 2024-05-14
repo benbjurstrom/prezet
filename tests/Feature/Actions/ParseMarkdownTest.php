@@ -3,7 +3,7 @@
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
 
 it('parses markdown into html', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
 ---
 title: 'Example Post'
 excerpt: 'This is an example post.'
@@ -20,7 +20,7 @@ MD;
 
     $parseMarkdown = new ParseMarkdown();
 
-    $expectedHtml = <<<HTML
+    $expectedHtml = <<<'HTML'
 <h1>Heading 1</h1>
 <p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
 <ul>
