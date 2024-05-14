@@ -21,7 +21,7 @@ class GetFrontmatter
         $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
 
         // https://github.com/benbjurstrom/prezet/actions/runs/9083722352/job/24963014554?pr=4
-        if(!empty($fm['date']) && is_string($fm['date'])) {
+        if (! empty($fm['date']) && is_string($fm['date'])) {
             $fm['date'] = strtotime($fm['date']);
         }
 
