@@ -2,7 +2,7 @@
     /* @var \BenBjurstrom\Prezet\Data\FrontmatterData $article */
 @endphp
 
-<x-prezet::layout>
+<x-prezet::template>
     <div
         class="relative mx-auto flex w-full max-w-8xl flex-auto justify-center sm:px-2 lg:px-8 xl:px-12"
     >
@@ -87,4 +87,4 @@
             </section>
         </div>
     </div>
-</x-prezet::layout>
+</x-prezet::template>

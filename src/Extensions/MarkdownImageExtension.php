@@ -29,7 +29,7 @@ class MarkdownImageExtension implements ExtensionInterface
             // if this isn't an external link, set the prefix
             if (! Str::startsWith($node->getUrl(), 'http')) {
                 $originalUrl = $node->getUrl();
-                $node->setUrl(config('prezet.image.path').$originalUrl);
+                $node->setUrl(route('prezet.image', $originalUrl, false));
 
                 // Generate the srcset attribute
                 $srcset = $this->generateSrcset($originalUrl);
@@ -58,8 +58,7 @@ class MarkdownImageExtension implements ExtensionInterface
     private function generateImageUrl(string $url, int $width): string
     {
         // Generate the image URL for the specified width
-        $resizedUrl = config('prezet.image.path').pathinfo($url, PATHINFO_FILENAME).'-'.$width.'w.'.pathinfo($url, PATHINFO_EXTENSION);
-
-        return $resizedUrl;
+        $filename = pathinfo($url, PATHINFO_FILENAME).'-'.$width.'w.'.pathinfo($url, PATHINFO_EXTENSION);
+        return route('prezet.image', $filename, false);
     }
 }
