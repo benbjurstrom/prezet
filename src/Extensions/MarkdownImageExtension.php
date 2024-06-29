@@ -59,6 +59,7 @@ class MarkdownImageExtension implements ExtensionInterface
     {
         // Generate the image URL for the specified width
         $filename = pathinfo($url, PATHINFO_FILENAME).'-'.$width.'w.'.pathinfo($url, PATHINFO_EXTENSION);
+
         return route('prezet.image', $filename, false);
     }
 }

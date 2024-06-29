@@ -38,7 +38,7 @@ class OgimageCommand extends Command
         $value = Storage::disk('prezet')->put($filepath, $screenshot);
 
         if ($value) {
-            info('OgImage url: '. route('prezet.ogimage', $filename));
+            info('OgImage url: '.route('prezet.ogimage', $filename));
         } else {
             info('Failed to save screenshot');
         }
