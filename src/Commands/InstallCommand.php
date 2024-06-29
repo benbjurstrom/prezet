@@ -56,12 +56,12 @@ class InstallCommand extends Command
     {
         $this->updateNodePackages(function ($packages) {
             return [
-                '@tailwindcss/forms' => '^0.5.2',
+                '@tailwindcss/forms' => '^0.5.7',
                 '@tailwindcss/typography' => '^0.5.13',
                 'alpinejs' => '^3.4.2',
-                'autoprefixer' => '^10.4.2',
-                'postcss' => '^8.4.31',
-                'tailwindcss' => '^3.1.0',
+                'autoprefixer' => '^10.4.19',
+                'postcss' => '^8.4.38',
+                'tailwindcss' => '^3.4.3',
             ] + $packages;
         });
 

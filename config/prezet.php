@@ -68,8 +68,6 @@ return [
 
     'image' => [
 
-        'path' => '/prezet/img/',
-
         'widths' => [
             480, 640, 768, 960, 1536,
         ],
