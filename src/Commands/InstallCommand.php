@@ -17,12 +17,20 @@ class InstallCommand extends Command
     {
         // Add the prezet disk to the filesystems config
         $this->addStorageDisk();
+        $this->addRoutes();
         $this->copyContentStubs();
         $this->publishVendorFiles();
         $this->copyTailwindFiles();
         $this->installNodeDependencies();
 
         return self::SUCCESS;
+    }
+
+    protected function addRoutes()
+    {
+        $files = new Filesystem;
+        $files->copy(__DIR__.'/../../routes/prezet.php', base_path('routes/prezet.php'));
+        $files->append(base_path('routes/web.php'), "require __DIR__.'/prezet.php';");
     }
 
     protected function copyTailwindFiles()
