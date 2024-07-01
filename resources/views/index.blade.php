@@ -8,12 +8,12 @@
     >
         {{-- Left Sidebar --}}
         <div class="hidden lg:relative lg:block lg:flex-none">
-            <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50"></div>
+            <div class="absolute inset-y-0 right-0 w-[50vw] bg-stone-50"></div>
             <div
-                class="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-slate-800"
+                class="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-stone-800"
             ></div>
             <div
-                class="absolute bottom-0 right-0 top-28 hidden w-px bg-slate-800"
+                class="absolute bottom-0 right-0 top-28 hidden w-px bg-stone-800"
             ></div>
             <div class="h-[calc(100vh-4.75rem)] w-64 xl:w-72"></div>
         </div>
@@ -30,13 +30,13 @@
                         Prezet
                     </p>
                     <h1
-                        class="font-display text-4xl font-medium tracking-tight text-slate-900"
+                        class="font-display text-4xl font-medium tracking-tight text-stone-900"
                     >
                         Articles
                     </h1>
                 </header>
                 <div
-                    class="divide-y divide-slate-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100"
+                    class="divide-y divide-stone-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-stone-100"
                 >
                     @foreach ($articles as $article)
                         <article class="py-10 sm:py-12">
@@ -48,7 +48,7 @@
                                         <div class="flex flex-col items-start">
                                             <h2
                                                 id="episode-5-title"
-                                                class="mt-2 text-lg font-bold text-slate-900"
+                                                class="mt-2 text-lg font-bold text-stone-900"
                                             >
                                                 <a
                                                     href="{{ route('prezet.show', $article->slug) }}"
@@ -58,12 +58,12 @@
                                             </h2>
                                             <time
                                                 datetime="2022-02-24T00:00:00.000Z"
-                                                class="order-first font-mono text-sm leading-7 text-slate-500"
+                                                class="order-first font-mono text-sm leading-7 text-stone-500"
                                             >
                                                 {{ $article->date->format('F j, Y') }}
                                             </time>
                                             <p
-                                                class="mt-1 text-base leading-7 text-slate-700"
+                                                class="mt-1 text-base leading-7 text-stone-700"
                                             >
                                                 {{ $article->excerpt }}
                                             </p>

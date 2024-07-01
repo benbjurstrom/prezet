@@ -2,7 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
-use BenBjurstrom\Prezet\Facades\Prezet;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
 
 class ShowController

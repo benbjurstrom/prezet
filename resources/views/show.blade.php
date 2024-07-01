@@ -46,12 +46,12 @@
     >
         {{-- Left Sidebar --}}
         <div class="hidden lg:relative lg:block lg:flex-none">
-            <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50"></div>
+            <div class="absolute inset-y-0 right-0 w-[50vw] bg-stone-50"></div>
             <div
-                class="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-slate-800"
+                class="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-stone-800"
             ></div>
             <div
-                class="absolute bottom-0 right-0 top-28 hidden w-px bg-slate-800"
+                class="absolute bottom-0 right-0 top-28 hidden w-px bg-stone-800"
             ></div>
             <div
                 class="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-y-auto overflow-x-hidden py-16 pl-0.5 pr-8 xl:w-72 xl:pr-16"
@@ -61,22 +61,22 @@
                         @foreach ($nav as $section)
                             <li>
                                 <h2
-                                    class="font-display font-medium text-slate-900"
+                                    class="font-display font-medium text-stone-900"
                                 >
                                     {{ $section['title'] }}
                                 </h2>
                                 <ul
                                     role="list"
-                                    class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200"
+                                    class="mt-2 space-y-2 border-l-2 border-stone-100 lg:mt-4 lg:space-y-4 lg:border-stone-200"
                                 >
                                     @foreach ($section['links'] as $link)
                                         <li class="relative">
                                             <a
                                                 @class([
-                                                    'block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full',
+                                                    'before:-transtone-y-1/2 block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:rounded-full',
                                                     'font-semibold text-primary-500 before:bg-primary-500' =>
                                                         url()->current() === route('prezet.show', ['slug' => $link['slug']]),
-                                                    'text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block' =>
+                                                    'text-stone-500 before:hidden before:bg-stone-300 hover:text-stone-600 hover:before:block' =>
                                                         url()->current() !== route('prezet.show', ['slug' => $link['slug']]),
                                                 ])
                                                 href="{{ route('prezet.show', ['slug' => $link['slug']]) }}"
@@ -104,13 +104,13 @@
                         {{ $frontmatter->category }}
                     </p>
                     <h1
-                        class="font-display text-4xl font-medium tracking-tight text-slate-900"
+                        class="font-display text-4xl font-medium tracking-tight text-stone-900"
                     >
                         {{ $frontmatter->title }}
                     </h1>
                 </header>
                 <div
-                    class="prose-headings:font-display prose prose-slate max-w-none prose-a:border-b prose-a:border-dashed prose-a:border-black/30 prose-a:font-semibold prose-a:no-underline hover:prose-a:border-solid prose-img:rounded"
+                    class="prose-headings:font-display prose prose-stone max-w-none prose-a:border-b prose-a:border-dashed prose-a:border-black/30 prose-a:font-semibold prose-a:no-underline hover:prose-a:border-solid prose-img:rounded"
                 >
                     {!! $body !!}
                 </div>
@@ -124,7 +124,7 @@
             <nav aria-labelledby="on-this-page-title" class="w-56">
                 <h2
                     id="on-this-page-title"
-                    class="font-display text-sm font-medium text-slate-900"
+                    class="font-display text-sm font-medium text-stone-900"
                 >
                     On this page
                 </h2>

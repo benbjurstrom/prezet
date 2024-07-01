@@ -6,7 +6,7 @@ use BenBjurstrom\Prezet\Http\Controllers\OgimageController;
 use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('prezet/{path}', ImageController::class)
+Route::get('prezet/img/{path}', ImageController::class)
     ->name('prezet.image')
     ->where('path', '.*');
 
