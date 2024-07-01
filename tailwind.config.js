@@ -20,7 +20,7 @@ export default {
                 '8xl': '88rem',
             },
             colors: {
-                primary: colors.green,
+                primary: colors.orange,
             },
         },
     },

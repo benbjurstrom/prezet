@@ -17,27 +17,27 @@ use League\CommonMark\Output\RenderedContentInterface;
 
 class Prezet
 {
-    public function getAllPosts(): Collection
+    public static function getAllPosts(): Collection
     {
         return GetAllPosts::handle();
     }
 
-    public function getMarkdown(string $slug): string
+    public static function getMarkdown(string $slug): string
     {
         return GetMarkdown::handle($slug);
     }
 
-    public function setSeo(FrontmatterData $fm): void
+    public static function setSeo(FrontmatterData $fm): void
     {
         SetSeo::handle($fm);
     }
 
-    public function getHtml(RenderedContentInterface $content): string
+    public static function getHtml(RenderedContentInterface $content): string
     {
         return $content->getContent();
     }
 
-    public function getFrontmatter(
+    public static function getFrontmatter(
         RenderedContentInterface $content,
         string $slug
     ): FrontmatterData {
@@ -53,27 +53,32 @@ class Prezet
         return $fmClass::fromArray($fm);
     }
 
-    public function parseMarkdown(string $md): RenderedContentInterface
+    public static function parseMarkdown(string $md): RenderedContentInterface
     {
         return ParseMarkdown::handle($md);
     }
 
-    public function getNav(): array
+    public static function getSumamry(): Collection
     {
         return GetSummary::handle();
     }
 
-    public function getFrontmatterFromFile(string $filePath): array
+    public static function getNav(): array
+    {
+        return GetSummary::handle();
+    }
+
+    public static function getFrontmatterFromFile(string $filePath): array
     {
         return GetFrontmatter::handle($filePath);
     }
 
-    public function getImage(string $path): string
+    public static function getImage(string $path): string
     {
         return GetImage::handle($path);
     }
 
-    public function getHeadings(string $html): array
+    public static function getHeadings(string $html): array
     {
         return GetHeadings::handle($html);
     }

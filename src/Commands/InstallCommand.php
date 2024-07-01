@@ -30,7 +30,14 @@ class InstallCommand extends Command
     {
         $files = new Filesystem;
         $files->copy(__DIR__.'/../../routes/prezet.php', base_path('routes/prezet.php'));
-        $files->append(base_path('routes/web.php'), "require __DIR__.'/prezet.php';");
+
+        $web = $files->get(base_path('routes/web.php'));
+        $includePos = strpos($web, "require __DIR__.'/prezet.php';");
+        if($includePos !== false) {
+            return;
+        }
+
+        $files->append(base_path('routes/web.php'), "\nrequire __DIR__.'/prezet.php';");
     }
 
     protected function copyTailwindFiles()
