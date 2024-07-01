@@ -33,7 +33,7 @@ class InstallCommand extends Command
 
         $web = $files->get(base_path('routes/web.php'));
         $includePos = strpos($web, "require __DIR__.'/prezet.php';");
-        if($includePos !== false) {
+        if ($includePos !== false) {
             return;
         }
 
