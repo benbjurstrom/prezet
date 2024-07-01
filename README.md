@@ -45,7 +45,7 @@ composer require benbjurstrom/prezet
 
 #### Run the package installer:
 
-_⚠️ NOTE: Before running the installer on an existing application it is recommended to switch to a clean branch. As part of the install process Prezet configures your application with Tailwind CSS. Any existing Tailwind configuration will be overwritten._
+_⚠️ NOTE: Before running the installer on existing applications it is recommended to switch to a clean branch. As part of the install process Prezet configures your application with Tailwind CSS. Any existing Tailwind configuration will be overwritten._
 
 ```bash
 php artisan prezet:install
