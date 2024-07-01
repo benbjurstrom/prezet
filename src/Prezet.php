@@ -58,7 +58,7 @@ class Prezet
         return ParseMarkdown::handle($md);
     }
 
-    public static function getSumamry(): Collection
+    public static function getSumamry(): array
     {
         return GetSummary::handle();
     }
