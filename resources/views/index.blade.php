@@ -3,6 +3,19 @@
 @endphp
 
 <x-prezet::template>
+    {{-- Mobile Sidebar --}}
+    <div x-show="showSidebar">
+        <div
+            class="fixed inset-0 z-40 flex h-full items-start overflow-y-auto bg-stone-900/50 pr-10 backdrop-blur lg:hidden"
+        >
+            <div
+                class="min-h-full w-full max-w-xs bg-white px-4 pb-12 pt-24 sm:px-6"
+                x-on:click.outside="showSidebar = false"
+            >
+                <x-prezet::nav :nav="$nav" />
+            </div>
+        </div>
+    </div>
     <div
         class="relative mx-auto flex w-full max-w-8xl flex-auto justify-center sm:px-2 lg:px-8 xl:px-12"
     >
@@ -15,7 +28,11 @@
             <div
                 class="absolute bottom-0 right-0 top-28 hidden w-px bg-stone-800"
             ></div>
-            <div class="h-[calc(100vh-4.75rem)] w-64 xl:w-72"></div>
+            <div
+                class="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-y-auto overflow-x-hidden py-16 pl-0.5 pr-8 xl:w-72 xl:pr-16"
+            >
+                <x-prezet::nav :nav="$nav" />
+            </div>
         </div>
 
         {{-- Main Content --}}

@@ -10,7 +10,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-
+    safelist: ['mr-2', 'scroll-mt-12'],
     theme: {
         extend: {
             fontFamily: {
