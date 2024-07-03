@@ -25,11 +25,30 @@
         @vite(['resources/css/app.css'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen" x-data="{ showSidebar: false }">
-            <x-prezet::header />
-            <main>
-                {{ $slot }}
-            </main>
+        <div class="min-h-screen">
+            <x-prezet::alpine>
+                <x-prezet::header />
+                <div
+                    class="relative mx-auto flex w-full max-w-8xl flex-auto justify-center sm:px-2 lg:px-8 xl:px-12"
+                >
+                    {{-- Left Sidebar --}}
+                    @if (isset($left))
+                        {{ $left }}
+                    @endif
+
+                    {{-- Main Content --}}
+                    <main
+                        class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16"
+                    >
+                        {{ $slot }}
+                    </main>
+
+                    {{-- Right Sidebar --}}
+                    @if (isset($right))
+                        {{ $right }}
+                    @endif
+                </div>
+            </x-prezet::alpine>
         </div>
     </body>
 </html>

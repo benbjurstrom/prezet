@@ -22,8 +22,11 @@
         class="absolute bottom-0 right-0 top-28 hidden w-px bg-stone-800"
     ></div>
     <div
-        class="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 overflow-y-auto overflow-x-hidden py-16 pl-0.5 pr-8 xl:w-72 xl:pr-16"
+        class="sticky top-[4.75rem] -ml-0.5 flex h-[calc(100vh-4.75rem)] w-64 flex-col justify-between overflow-y-auto overflow-x-hidden pb-4 pl-0.5 pr-8 pt-16 xl:w-72 xl:pr-16"
     >
         <x-prezet::nav :nav="$nav" />
+        <div class="text-xs text-stone-400">
+            <a target="_blank" href="https://prezet.com">Powered by Prezet</a>
+        </div>
     </div>
 </div>
