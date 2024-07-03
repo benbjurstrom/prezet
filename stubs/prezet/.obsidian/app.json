@@ -1,9 +1,0 @@
-{
-  "attachmentFolderPath": "images",
-  "useMarkdownLinks": true,
-  "propertiesInDocument": "source",
-  "useTab": false,
-  "tabSize": 2,
-  "newFileLocation": "folder",
-  "newFileFolderPath": "content"
-}

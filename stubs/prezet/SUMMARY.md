@@ -1,13 +1,8 @@
-## 🚀 Features
+## 🚀 Introduction
 
--  [Markdown Powered](content/markdown)
--  [Blade Components](content/blade)
--  [Optimized Images](content/images)
--  [SEO](content/seo)
+-   [Welcome to Prezet](welcome-to-prezet)
+-   [Advanced Prezet Features](advanced-prezet-features)
 
-## 🎨 Customize
+## 🎨 Customization
 
--   [Routes](content/customize/routes)
--   [Front Matter](content/customize/frontmatter)
--   [Blade Views](content/customize/blade-views)
--   [Controllers](content/customize/controllers)
+-   [Customizing Prezet](customizing-prezet)
