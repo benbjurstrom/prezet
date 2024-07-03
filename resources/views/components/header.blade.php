@@ -2,27 +2,25 @@
     class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between bg-white px-4 py-5 shadow-md shadow-stone-900/5 transition duration-500 sm:px-6 lg:px-8"
 >
     <div class="relative flex flex-grow basis-0 items-center">
-        @if (request()->route()->getName() === 'prezet.show')
-            <button
-                class="mr-4 rounded-lg p-1.5 hover:bg-stone-100 active:bg-stone-200 lg:hidden"
-                x-on:click="showSidebar = ! showSidebar"
+        <button
+            class="mr-4 rounded-lg p-1.5 hover:bg-stone-100 active:bg-stone-200 lg:hidden"
+            x-on:click="showSidebar = ! showSidebar"
+        >
+            <svg
+                class="h-6 w-6 text-stone-600"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
             >
-                <svg
-                    class="h-6 w-6 text-stone-600"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-                    <line x1="4" x2="20" y1="12" y2="12"></line>
-                    <line x1="4" x2="20" y1="6" y2="6"></line>
-                    <line x1="4" x2="20" y1="18" y2="18"></line>
-                </svg>
-            </button>
-        @endif
+                <line x1="4" x2="20" y1="12" y2="12"></line>
+                <line x1="4" x2="20" y1="6" y2="6"></line>
+                <line x1="4" x2="20" y1="18" y2="18"></line>
+            </svg>
+        </button>
 
         <a href="{{ route('prezet.index') }}">
             <svg
