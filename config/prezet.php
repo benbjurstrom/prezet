@@ -31,8 +31,9 @@ return [
 
         'extensions' => [
             League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension::class,
-            League\CommonMark\Extension\FrontMatter\FrontMatterExtension::class,
             League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension::class,
+            League\CommonMark\Extension\ExternalLink\ExternalLinkExtension::class,
+            League\CommonMark\Extension\FrontMatter\FrontMatterExtension::class,
             BenBjurstrom\Prezet\Extensions\MarkdownBladeExtension::class,
             BenBjurstrom\Prezet\Extensions\MarkdownImageExtension::class,
         ],
@@ -50,6 +51,14 @@ return [
                 'title' => 'Permalink',
                 'symbol' => '#',
                 'aria_hidden' => true,
+            ],
+            'external_link' => [
+                'internal_hosts' => 'www.example.com', // Don't forget to set this!
+                'open_in_new_window' => true,
+                'html_class' => 'external-link',
+                'nofollow' => 'external',
+                'noopener' => 'external',
+                'noreferrer' => 'external',
             ],
         ],
     ],
