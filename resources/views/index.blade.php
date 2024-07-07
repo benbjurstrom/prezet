@@ -3,12 +3,18 @@
 @endphp
 
 <x-prezet::template>
+    @seo([
+        'title' => 'Prezet: Markdown Blogging for Laravel',
+        'description' =>
+            'Transform your markdown files into SEO-friendly blogs, articles, and documentation!',
+        'url' => route('prezet.index'),
+    ])
     <x-slot name="left">
         <x-prezet::sidebar :nav="$nav" />
     </x-slot>
     <section class="mt-12">
         <div class="mb-9 space-y-1">
-            <p class="font-display text-sm font-medium text-primary-500">
+            <p class="font-display text-sm font-medium text-primary-600">
                 Prezet
             </p>
             <h1
@@ -51,7 +57,7 @@
                                     </p>
                                     <div class="mt-4 flex items-center gap-4">
                                         <a
-                                            class="flex items-center text-sm font-bold leading-6 text-primary-500 hover:text-primary-700 active:text-primary-900"
+                                            class="flex items-center text-sm font-bold leading-6 text-primary-600 hover:text-primary-600 active:text-primary-900"
                                             href="{{ route('prezet.show', $article->slug) }}"
                                         >
                                             Read more

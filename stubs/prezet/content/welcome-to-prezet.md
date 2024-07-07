@@ -23,6 +23,7 @@ Prezet allows you to use Blade components directly in your markdown. Here's an e
 <x-prezet::youtube
     videoid="dt1ado9wJi8"
     title="Supercharge Markdown with Laravel"
+    date="2023-12-15T00:00:00+08:00"
 >
     Login
 </x-prezet::youtube>

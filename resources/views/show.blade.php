@@ -5,27 +5,23 @@
     </x-slot>
 
     {{-- Main Content --}}
-    <div
-        class="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16"
-    >
-        <article>
-            <header class="mb-9 space-y-1">
-                <p class="font-display text-sm font-medium text-primary-500">
-                    {{ $frontmatter->category }}
-                </p>
-                <h1
-                    class="font-display text-4xl font-medium tracking-tight text-stone-900"
-                >
-                    {{ $frontmatter->title }}
-                </h1>
-            </header>
-            <div
-                class="prose-headings:font-display prose prose-stone max-w-none prose-a:border-b prose-a:border-dashed prose-a:border-black/30 prose-a:font-semibold prose-a:no-underline hover:prose-a:border-solid prose-img:rounded"
+    <article>
+        <header class="mb-9 space-y-1">
+            <p class="font-display text-sm font-medium text-primary-600">
+                {{ $frontmatter->category }}
+            </p>
+            <h1
+                class="font-display text-4xl font-medium tracking-tight text-stone-900"
             >
-                {!! $body !!}
-            </div>
-        </article>
-    </div>
+                {{ $frontmatter->title }}
+            </h1>
+        </header>
+        <div
+            class="prose-headings:font-display prose prose-stone max-w-none prose-a:border-b prose-a:border-dashed prose-a:border-black/30 prose-a:font-semibold prose-a:no-underline hover:prose-a:border-solid prose-img:rounded"
+        >
+            {!! $body !!}
+        </div>
+    </article>
 
     {{-- Right Sidebar --}}
     <x-slot name="right">
@@ -45,7 +41,7 @@
                             <h3>
                                 <a
                                     href="#{{ $h2['id'] }}"
-                                    :class="{'text-primary-500 hover:text-primary-500': activeHeading === '#{{ $h2['title'] }}'}"
+                                    :class="{'text-primary-700 hover:text-primary-700': activeHeading === '#{{ $h2['title'] }}'}"
                                     x-on:click.prevent="scrollToHeading('{{ $h2['id'] }}')"
                                     class="transition-colors"
                                 >
@@ -62,7 +58,7 @@
                                         <li>
                                             <a
                                                 href="#{{ $h3['id'] }}"
-                                                :class="{'text-primary-500 hover:text-primary-500': activeHeading === '#{{ $h3['title'] }}'}"
+                                                :class="{'text-primary-700 hover:text-primary-700': activeHeading === '#{{ $h3['title'] }}'}"
                                                 x-on:click.prevent="scrollToHeading('{{ $h3['id'] }}')"
                                                 class="transition-colors"
                                             >

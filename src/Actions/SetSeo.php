@@ -9,6 +9,7 @@ class SetSeo
     public static function handle(FrontmatterData $fm): void
     {
         seo()
+            ->withUrl()
             ->title($fm->title)
             ->description($fm->excerpt)
             ->image($fm->ogimage);

@@ -15,9 +15,11 @@ Route::get('/prezet/ogimage/{slug}', OgimageController::class)
     ->where('slug', '.*');
 
 Route::get('prezet', IndexController::class)
-    ->name('prezet.index');
+    ->name('prezet.index')
+    ->middleware('cache.headers:public;max_age=300;etag');
 
 Route::get('prezet/{slug}', ShowController::class)
     ->name('prezet.show')
-    ->where('slug', '.*');
+    ->where('slug', '.*')
+    ->middleware('cache.headers:public;max_age=300;etag');
 // https://laravel.com/docs/11.x/routing#parameters-encoded-forward-slashes
