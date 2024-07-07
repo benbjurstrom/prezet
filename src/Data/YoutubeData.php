@@ -38,8 +38,8 @@ class YoutubeData extends ValidatedDTO
         return [
             '@context' => 'https://schema.org',
             '@type' => 'VideoObject',
-            'thumbnailUrl' => 'https://i.ytimg.com/vi/' . $this->identifier . '/maxresdefault.jpg',
-            'embedUrl' => 'https://www.youtube.com/embed/' . $this->identifier,
+            'thumbnailUrl' => 'https://i.ytimg.com/vi/'.$this->identifier.'/maxresdefault.jpg',
+            'embedUrl' => 'https://www.youtube.com/embed/'.$this->identifier,
         ];
     }
 
@@ -48,7 +48,7 @@ class YoutubeData extends ValidatedDTO
         return [
             'videoid' => 'identifier',
             'title' => 'name',
-            'date' => 'uploadDate'
+            'date' => 'uploadDate',
         ];
     }
 
