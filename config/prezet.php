@@ -50,7 +50,7 @@ return [
                 'max_heading_level' => 3,
                 'title' => 'Permalink',
                 'symbol' => '#',
-                'aria_hidden' => true,
+                'aria_hidden' => false,
             ],
             'external_link' => [
                 'internal_hosts' => 'www.example.com', // Don't forget to set this!
