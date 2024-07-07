@@ -25,10 +25,8 @@ Route::middleware('cache.headers:public;max_age=7200;etag')
             ->name('prezet.ogimage')
             ->where('slug', '.*');
 
-
         Route::get('prezet', IndexController::class)
             ->name('prezet.index');
-
 
         Route::get('prezet/{slug}', ShowController::class)
             ->name('prezet.show')
