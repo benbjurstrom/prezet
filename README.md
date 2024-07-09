@@ -1,6 +1,6 @@
-<p align="center">
-    <img src="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/logo.png" width="256" alt="PREZET">
-</p>
+<div align="center">
+    <img src="https://prezet.com/ogimage.png" width="600" alt="PREZET">
+</div>
 
 # Prezet: Markdown Blogging for Laravel
 
@@ -9,6 +9,8 @@ Transform your markdown files into SEO-friendly blogs, articles, and documentati
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+
+https://github.com/benbjurstrom/prezet/assets/12499093/771efccc-6ac3-414a-a852-62ce66e87f57
 
 ## Table of contents
 - [Features](https://github.com/benbjurstrom/prezet#user-content--features)
