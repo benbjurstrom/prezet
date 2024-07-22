@@ -33,6 +33,7 @@ class GetAllPosts
 
             $relativePath = trim(str_replace('content', '', $filePath), '/');
             $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
+            $slug = trim($slug, './');
             $fm['slug'] = $slug;
 
             // depending on the environment, the date may be a string or a timestamp
