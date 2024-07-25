@@ -26,7 +26,7 @@ class MarkdownImageExtension implements ExtensionInterface
                 continue;
             }
 
-            // if this isn't an external link, set the prefix
+            // if this isn't an external image, set the prefix
             if (! Str::startsWith($node->getUrl(), 'http')) {
                 $originalUrl = $node->getUrl();
                 $node->setUrl(route('prezet.image', $originalUrl, false));

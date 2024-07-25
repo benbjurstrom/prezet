@@ -22,6 +22,7 @@ class PrezetServiceProvider extends PackageServiceProvider
             ->name('prezet')
             ->hasConfigFile()
             ->hasViews('prezet')
+            ->hasRoute('prezet')
             ->hasCommands([
                 OgimageCommand::class,
                 InstallCommand::class,

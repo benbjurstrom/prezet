@@ -2,6 +2,9 @@
 
 namespace BenBjurstrom\Prezet\Commands;
 
+use BenBjurstrom\Prezet\Actions\GenerateOgImage;
+use BenBjurstrom\Prezet\Actions\GetMarkdown;
+use BenBjurstrom\Prezet\Actions\SetOgImage;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -12,37 +15,44 @@ use function Laravel\Prompts\text;
 
 class OgimageCommand extends Command
 {
-    public $signature = 'prezet:ogimage';
+    public $signature = 'prezet:ogimage {--all}';
 
     public $description = 'Take a screenshot of a given url and save it as an og:image';
 
     public function handle(): int
     {
-        $mdPath = text(
-            label: 'Which markdown file would you like to generate an og:image for?',
-            required: true,
-            default: 'seo'
-        );
+        $mdPaths = [];
+        if(!$this->option('all')){
+            $mdPath = text(
+                label: 'Which markdown file would you like to generate an og:image for?',
+                default: 'welcome-to-prezet',
+                required: true,
+            );
 
-        $mdPath = Str::rtrim($mdPath, '.md');
+            $mdPaths = [$mdPath];
+        }else{
+            $mdPaths = Storage::disk('prezet')->files('content');
+            $mdPaths = array_map(function($path){
+                return Str::before(Str::after($path, 'content/'), '.md');
+            }, $mdPaths);
+        }
 
-        $url = (route('prezet.ogimage', ['slug' => $mdPath]));
-
-        $screenshot = SpatieBrowsershot::url($url)
-            ->windowSize(1200, 630)
-            ->waitUntilNetworkIdle()
-            ->screenshot();
-
-        $filename = Str::slug(str_replace('/', '-', $mdPath)).'.png';
-        $filepath = 'images/ogimages/'.$filename;
-        $value = Storage::disk('prezet')->put($filepath, $screenshot);
-
-        if ($value) {
-            info('OgImage url: '.route('prezet.ogimage', $filename));
-        } else {
-            info('Failed to save screenshot');
+        foreach($mdPaths as $mdPath){
+            $imageUrl = GenerateOgImage::handle($mdPath);
+            info('OgImage url: ' . $imageUrl);
         }
 
         return self::SUCCESS;
+    }
+
+    protected function validatePath($mdPath){
+        $mdPath = Str::rtrim($mdPath, '.md');
+
+        // verify the file exists
+        if(! Storage::disk('prezet')->exists('content/'.$mdPath.'.md')) {
+            throw new \Exception('File does not exist');
+        }
+
+        return $mdPath;
     }
 }
