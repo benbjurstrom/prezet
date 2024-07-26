@@ -11,7 +11,7 @@ class ShowController
 {
     public function __invoke(Request $request, string $slug)
     {
-        if(config('app.env') === 'local') {
+        if (config('app.env') === 'local') {
             UpdateIndex::handle();
         }
 
