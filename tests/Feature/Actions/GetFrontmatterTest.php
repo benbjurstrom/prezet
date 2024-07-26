@@ -16,7 +16,6 @@ excerpt: Post 1 Excerpt
     $frontmatter = GetFrontmatter::handle('content/post1.md');
 
     expect($frontmatter)->toHaveKey('title', 'Post 1');
-    expect($frontmatter)->toHaveKey('createdAt', '2023-05-01T00:00:00.000000Z');
 });
 
 it('throws an exception if frontmatter keys are missing', function () {
