@@ -16,7 +16,7 @@ class GetFrontmatter
 
         $md = $storage->get($filePath);
 
-        $ext = new FrontMatterExtension();
+        $ext = new FrontMatterExtension;
         $parser = $ext->getFrontMatterParser();
         $fm = $parser->parse($md)->getFrontMatter();
 
