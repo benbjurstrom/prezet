@@ -24,10 +24,20 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('app.debug', 'true');
+
         config()->set('filesystems.disks.prezet', [
             'driver' => 'local',
-            'root' => base_path('tests/stubs/disk'),
-            'throw' => false,
+            'root' => __DIR__.'/../stubs/prezet',
+            'throw' => true,
         ]);
+
+        config()->set('database.connections.prezet', [
+            'driver' => 'sqlite',
+            'database' => __DIR__.'/../stubs/prezet.sqlite',
+            'prefix' => '',
+            'foreign_key_constraints' => true,
+        ]);
+
+        config()->set('database.default', 'prezet');
     }
 }
