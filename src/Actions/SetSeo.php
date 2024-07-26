@@ -12,6 +12,6 @@ class SetSeo
             ->withUrl()
             ->title($fm->title)
             ->description($fm->excerpt)
-            ->image($fm->ogimage);
+            ->image($fm->image);
     }
 }

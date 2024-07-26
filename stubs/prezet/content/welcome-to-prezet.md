@@ -3,6 +3,9 @@ title: "Welcome to Prezet"
 date: 2024-07-03
 category: "Getting Started"
 excerpt: "An introduction to Prezet and its key features."
+image: /prezet/img/images-20240509210223449-768w.webp
+tags:   
+    - markdown
 ---
 
 Prezet is a powerful markdown blogging package for Laravel. This post will introduce you to some of its key features. For comprehensive documentation, visit [prezet.com](https://prezet.com).

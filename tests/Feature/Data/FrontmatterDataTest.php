@@ -9,9 +9,10 @@ it('can create a valid FrontmatterData instance', function () {
         'title' => 'Test Title',
         'excerpt' => 'Test excerpt',
         'slug' => 'test-slug',
-        'date' => 1715705878,
         'category' => 'Test Category',
-        'ogimage' => 'test-image.jpg',
+        'image' => 'test-image.jpg',
+        'date' => 1715705878,
+        'updatedAt' => 1715705878,
     ];
 
     $frontmatter = new FrontmatterData($data);
@@ -19,10 +20,9 @@ it('can create a valid FrontmatterData instance', function () {
     expect($frontmatter->title)->toBe('Test Title');
     expect($frontmatter->excerpt)->toBe('Test excerpt');
     expect($frontmatter->slug)->toBe('test-slug');
-    expect($frontmatter->date)->toBeInstanceOf(Carbon::class);
-    expect($frontmatter->date->toDateString())->toBe('2024-05-14');
+    expect($frontmatter->createdAt)->toBeInstanceOf(Carbon::class);
     expect($frontmatter->category)->toBe('Test Category');
-    expect($frontmatter->ogimage)->toBe('test-image.jpg');
+    expect($frontmatter->image)->toBe('test-image.jpg');
 });
 
 it('throws an exception when required fields are missing', function () {
@@ -40,6 +40,7 @@ it('allows nullable fields to be null', function () {
         'excerpt' => 'Test excerpt',
         'slug' => 'test-slug',
         'date' => 1715705878,
+        'updatedAt' => 1715705878,
     ];
 
     $frontmatter = new FrontmatterData($data);

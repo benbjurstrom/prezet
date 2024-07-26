@@ -5,4 +5,4 @@
 
 ## 🎨 Customization
 
--   [Customizing Prezet](customizing-prezet)
+-   [Customizing Prezet](customization/customizing-prezet)

@@ -2,7 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Commands;
 
-use BenBjurstrom\Prezet\Actions\GetAllPosts;
+use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
@@ -15,12 +15,16 @@ class UpdateSitemapCommand extends Command
 
     public function handle(): int
     {
-        $result = GetAllPosts::handle();
+        $docs = Document::query()
+            ->orderBy('date', 'desc')
+            ->where('draft', false)
+            ->get();
+
         $sitemap = Sitemap::create();
 
-        foreach ($result as $post) {
-            $sitemap->add(Url::create('/'.$post->slug)
-                ->setLastModificationDate($post->date)
+        foreach ($docs as $doc) {
+            $sitemap->add(Url::create('/'.$doc->slug)
+                ->setLastModificationDate($doc->updated_at)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                 ->setPriority(0.7)
                 // ->addVideo($post->video)

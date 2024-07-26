@@ -2,7 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Commands;
 
-use BenBjurstrom\Prezet\Actions\GetAllPosts;
+use BenBjurstrom\Prezet\Actions\GetAllFrontmatter;
 use Illuminate\Console\Command;
 
 use function Laravel\Prompts\info;
@@ -16,7 +16,7 @@ class ValidateFrontmatterCommand extends Command
 
     public function handle(): int
     {
-        $result = GetAllPosts::handle();
+        $result = GetAllFrontmatter::handle();
         note('Validating frontmatter for '.count($result).' posts');
         info('All posts passed frontmatter validation!');
 
