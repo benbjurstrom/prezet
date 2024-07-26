@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet;
 
-use BenBjurstrom\Prezet\Actions\GetAllFrontmatter;
 use BenBjurstrom\Prezet\Actions\GetFrontmatter;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
@@ -11,28 +10,17 @@ use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
 use BenBjurstrom\Prezet\Actions\SetSeo;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
-use Illuminate\Support\Collection;
 
 class Prezet
 {
-    public static function getAllPosts(): Collection
-    {
-        return GetAllFrontmatter::handle();
-    }
-
     public static function getFrontmatter(string $filepath): FrontmatterData
     {
         return GetFrontmatter::handle($filepath);
     }
 
-    public static function getMarkdown(string $slug): string
+    public static function getMarkdown(string $filePath): string
     {
-        return GetMarkdown::handle($slug);
-    }
-
-    public static function setSeo(FrontmatterData $fm): void
-    {
-        SetSeo::handle($fm);
+        return GetMarkdown::handle($filePath);
     }
 
     public static function getContent(string $md): string
@@ -55,5 +43,10 @@ class Prezet
     public static function getHeadings(string $html): array
     {
         return GetHeadings::handle($html);
+    }
+
+    public static function setSeo(FrontmatterData $fm): void
+    {
+        SetSeo::handle($fm);
     }
 }
