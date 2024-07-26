@@ -11,7 +11,7 @@ class GetHeadings
 {
     public static function handle(string $html): array
     {
-        $dom = new DOMDocument();
+        $dom = new DOMDocument;
         @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         return self::extractHeadings($dom);

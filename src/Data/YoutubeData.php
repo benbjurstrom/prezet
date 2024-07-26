@@ -55,7 +55,7 @@ class YoutubeData extends ValidatedDTO
     protected function casts(): array
     {
         return [
-            'uploadDate' => new CarbonCast(),
+            'uploadDate' => new CarbonCast,
         ];
     }
 }

@@ -62,8 +62,8 @@ class FrontmatterData extends ValidatedDTO
     protected function casts(): array
     {
         return [
-            'createdAt' => new CarbonCast(),
-            'updatedAt' => new CarbonCast(),
+            'createdAt' => new CarbonCast,
+            'updatedAt' => new CarbonCast,
         ];
     }
 
