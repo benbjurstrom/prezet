@@ -18,7 +18,7 @@ This is a paragraph with **bold** and *italic* text.
 - List item 2
 MD;
 
-    $parseMarkdown = new ParseMarkdown();
+    $parseMarkdown = new ParseMarkdown;
 
     $expectedHtml = <<<'HTML'
 <h1>Heading 1</h1>

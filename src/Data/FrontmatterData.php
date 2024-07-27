@@ -14,32 +14,56 @@ class FrontmatterData extends ValidatedDTO
     use EmptyRules;
 
     #[Rules(['required', 'string'])]
+    public string $slug;
+
+    #[Rules(['required', 'string'])]
     public string $title;
 
     #[Rules(['required', 'string'])]
     public string $excerpt;
 
-    #[Rules(['required', 'string'])]
-    public string $slug;
-
-    #[Rules(['required', 'numeric'])]
-    public Carbon $date;
-
     #[Rules(['nullable', 'string'])]
     public ?string $category;
 
+    #[Rules(['array'])]
+    public array $tags;
+
     #[Rules(['nullable', 'string'])]
-    public ?string $ogimage;
+    public ?string $image;
+
+    #[Rules(['bool'])]
+    public bool $draft;
+
+    #[Rules(['required'])]
+    public Carbon $createdAt;
+
+    #[Rules(['required'])]
+    public Carbon $updatedAt;
+
+    //    Good override example
+    //    #[Rules(['nullable', 'string'])]
+    //    public ?string $author;
 
     protected function defaults(): array
     {
-        return [];
+        return [
+            'tags' => [],
+            'draft' => false,
+        ];
+    }
+
+    protected function mapData(): array
+    {
+        return [
+            'date' => 'createdAt',
+        ];
     }
 
     protected function casts(): array
     {
         return [
-            'date' => new CarbonCast(),
+            'createdAt' => new CarbonCast,
+            'updatedAt' => new CarbonCast,
         ];
     }
 

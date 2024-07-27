@@ -47,11 +47,27 @@ composer require benbjurstrom/prezet
 
 #### Run the package installer:
 
-_⚠️ NOTE: Before running the installer on existing applications it is recommended to switch to a clean branch. As part of the install process Prezet configures your application with Tailwind CSS. Any existing Tailwind configuration will be overwritten._
+_⚠️ NOTE: Before running the installer on an existing application it is recommended to switch to a clean branch. As part of the install process Prezet configures your application with Tailwind CSS. Any existing Tailwind configuration will be overwritten._
 
 ```bash
 php artisan prezet:install
 ```
+
+#### Update the index:
+
+After adding or modifying your markdown files, you need to update the index to reflect these changes:
+
+```bash
+php artisan prezet:index
+```
+
+This command updates the SQLite index with the latest frontmatter information from your markdown files. Run this command whenever you:
+
+- Add a new markdown file 
+- Change a markdown file's slug 
+- Modify frontmatter and want to see those changes reflected on the index page
+
+Note that changes to the main content of your markdown files don't require updating the index, as this content is read directly from the file when displaying a single post.
 
 #### Start your server:
 ```bash

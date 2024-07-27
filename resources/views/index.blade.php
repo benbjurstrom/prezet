@@ -28,6 +28,16 @@
         >
             @foreach ($articles as $article)
                 <article class="py-10 sm:py-12">
+                    @if ($article->image)
+                        <a href="{{ route('prezet.show', $article->slug) }}">
+                            <img
+                                class="mb-6 h-64 w-full max-w-xl rounded-2xl object-cover object-center"
+                                src="{{ $article->image }}"
+                                alt=""
+                            />
+                        </a>
+                    @endif
+
                     <div>
                         <div class="lg:max-w-4xl">
                             <div
@@ -45,10 +55,10 @@
                                         </a>
                                     </h2>
                                     <time
-                                        datetime="2022-02-24T00:00:00.000Z"
+                                        datetime="{{ $article->createdAt->toIso8601String() }}"
                                         class="order-first font-mono text-sm leading-7 text-stone-500"
                                     >
-                                        {{ $article->date->format('F j, Y') }}
+                                        {{ $article->createdAt->format('F j, Y') }}
                                     </time>
                                     <p
                                         class="mt-1 text-base leading-7 text-stone-700"
