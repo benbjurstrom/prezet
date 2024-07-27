@@ -30,7 +30,8 @@ class IndexController
             });
         }
 
-        $docs = $query->orderBy('date', 'desc');
+        $docs = $query->orderBy('date', 'desc')
+            ->get();
         $nav = Prezet::getNav();
 
         $frontmatter = $docs->map(function ($doc) {
