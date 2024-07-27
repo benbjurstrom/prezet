@@ -5,8 +5,6 @@ namespace BenBjurstrom\Prezet;
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
 use BenBjurstrom\Prezet\Commands\UpdateIndexCommand;
-use BenBjurstrom\Prezet\Commands\UpdateSitemapCommand;
-use BenBjurstrom\Prezet\Commands\ValidateFrontmatterCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -32,9 +30,7 @@ class PrezetServiceProvider extends PackageServiceProvider
             ->hasCommands([
                 OgimageCommand::class,
                 InstallCommand::class,
-                UpdateSitemapCommand::class,
                 UpdateIndexCommand::class,
-                ValidateFrontmatterCommand::class,
             ]);
     }
 }

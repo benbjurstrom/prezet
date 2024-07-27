@@ -5,7 +5,6 @@ namespace BenBjurstrom\Prezet\Actions;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Tag;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class UpdateIndex
@@ -32,7 +31,7 @@ class UpdateIndex
             }
         });
 
-        // Artisan::call('prezet:update-sitemap');
+        UpdateSitemap::handle();
     }
 
     protected static function setTags(Document $d, array $tags): void

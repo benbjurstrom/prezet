@@ -3,12 +3,17 @@
 namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Exceptions\FrontmatterException;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use Illuminate\Support\Facades\Storage;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 
 class GetFrontmatter
 {
+    /**
+     * @throws FrontmatterMissingException
+     * @throws FrontmatterException
+     */
     public static function handle(string $filePath): FrontmatterData
     {
         $fmClass = config('prezet.data.frontmatter');

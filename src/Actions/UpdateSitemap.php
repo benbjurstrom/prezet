@@ -1,19 +1,14 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Commands;
+namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Models\Document;
-use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
-class UpdateSitemapCommand extends Command
+class UpdateSitemap
 {
-    public $signature = 'prezet:update-sitemap';
-
-    public $description = 'Updates the prezet_sitemap.xml file.';
-
-    public function handle(): int
+    public static function handle(): void
     {
         $docs = Document::query()
             ->orderBy('date', 'desc')
@@ -31,8 +26,8 @@ class UpdateSitemapCommand extends Command
             );
         }
 
-        $sitemap->writeToFile(public_path('prezet_sitemap.xml'));
-
-        return self::SUCCESS;
+        if (config('app.env') !== 'testing') {
+            $sitemap->writeToFile(public_path('prezet_sitemap.xml'));
+        }
     }
 }
