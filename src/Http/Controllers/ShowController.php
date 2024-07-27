@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
-use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
@@ -11,10 +10,6 @@ class ShowController
 {
     public function __invoke(Request $request, string $slug)
     {
-        if (config('app.env') === 'local') {
-            UpdateIndex::handle();
-        }
-
         $doc = Document::query()
             ->where('slug', $slug)
             ->when(config('app.env') !== 'local', function ($query) {
