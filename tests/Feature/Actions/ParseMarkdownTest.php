@@ -42,7 +42,6 @@ it('parses markdown with images html', function () {
         ->name('prezet.image')
         ->where('path', '.*');
 
-
     $markdown = <<<'MD'
 ---
 title: 'Example Post'
