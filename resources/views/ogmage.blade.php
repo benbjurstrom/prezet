@@ -1,3 +1,6 @@
+@php
+    /* @var \BenBjurstrom\Prezet\Data\FrontmatterData $fm */
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -6,7 +9,7 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <meta name="robots" content="noindex" inertia="robots" />
+        <meta name="robots" content="noindex" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net" />
@@ -26,7 +29,7 @@
             class="relative flex h-full w-full items-start justify-start bg-yellow-50"
         >
             <h1 class="z-10 p-20 text-left text-8xl font-bold text-stone-200">
-                {{ $title }}
+                {{ $fm->title }}
             </h1>
 
             {{-- https://app.haikei.app/ --}}

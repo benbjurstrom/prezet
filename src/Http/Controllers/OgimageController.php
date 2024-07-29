@@ -2,22 +2,21 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
-use BenBjurstrom\Prezet\Actions\GetMarkdown;
-use BenBjurstrom\Prezet\Actions\ParseMarkdown;
-use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
+use BenBjurstrom\Prezet\Models\Document;
 
 class OgimageController
 {
     public function __invoke(string $slug)
     {
-        $md = GetMarkdown::handle($slug);
-        $result = ParseMarkdown::handle($md);
-        if ($result instanceof RenderedContentWithFrontMatter) {
-            $frontMatter = $result->getFrontMatter();
-        }
+        $doc = Document::query()
+            ->where('slug', $slug)
+            ->when(config('app.env') !== 'local', function ($query) {
+                return $query->where('draft', false);
+            })
+            ->firstOrFail();
 
         return view('prezet::ogmage', [
-            'title' => $frontMatter['title'] ?? '',
+            'fm' => $doc->frontmatter,
         ]);
     }
 }

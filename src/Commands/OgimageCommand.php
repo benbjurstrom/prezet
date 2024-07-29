@@ -2,45 +2,38 @@
 
 namespace BenBjurstrom\Prezet\Commands;
 
+use BenBjurstrom\Prezet\Actions\GenerateOgImage;
+use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Spatie\Browsershot\Browsershot as SpatieBrowsershot;
 
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\text;
 
 class OgimageCommand extends Command
 {
-    public $signature = 'prezet:ogimage';
+    public $signature = 'prezet:ogimage {--all}';
 
     public $description = 'Take a screenshot of a given url and save it as an og:image';
 
     public function handle(): int
     {
-        $mdPath = text(
-            label: 'Which markdown file would you like to generate an og:image for?',
-            required: true,
-            default: 'seo'
-        );
+        $mdPaths = [];
+        if (! $this->option('all')) {
+            $slug = text(
+                label: 'Provide the slug for the markdown file you would like to create an og:image for.',
+                required: true,
+            );
 
-        $mdPath = Str::rtrim($mdPath, '.md');
-
-        $url = (route('prezet.ogimage', ['slug' => $mdPath]));
-
-        $screenshot = SpatieBrowsershot::url($url)
-            ->windowSize(1200, 630)
-            ->waitUntilNetworkIdle()
-            ->screenshot();
-
-        $filename = Str::slug(str_replace('/', '-', $mdPath)).'.png';
-        $filepath = 'images/ogimages/'.$filename;
-        $value = Storage::disk('prezet')->put($filepath, $screenshot);
-
-        if ($value) {
-            info('OgImage url: '.route('prezet.ogimage', $filename));
+            $slugs = [$slug];
         } else {
-            info('Failed to save screenshot');
+            $slugs = Document::all()->map(function ($doc) {
+                return $doc->slug;
+            })->toArray();
+        }
+
+        foreach ($slugs as $slug) {
+            $imageUrl = GenerateOgImage::handle($slug);
+            info('OgImage url: '.$imageUrl);
         }
 
         return self::SUCCESS;
