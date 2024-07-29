@@ -35,8 +35,6 @@ HTML;
     expect($result->getContent())->toEqual($expectedHtml);
 });
 
-
-
 it('parses markdown with images html', function () {
     $markdown = <<<'MD'
 ---

@@ -3,12 +3,9 @@
 namespace BenBjurstrom\Prezet\Commands;
 
 use BenBjurstrom\Prezet\Actions\GenerateOgImage;
-use BenBjurstrom\Prezet\Actions\GetMarkdown;
-use BenBjurstrom\Prezet\Actions\SetOgImage;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Spatie\Browsershot\Browsershot as SpatieBrowsershot;
 
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\text;
@@ -22,7 +19,7 @@ class OgimageCommand extends Command
     public function handle(): int
     {
         $mdPaths = [];
-        if(!$this->option('all')){
+        if (! $this->option('all')) {
             $mdPath = text(
                 label: 'Which markdown file would you like to generate an og:image for?',
                 default: 'welcome-to-prezet',
@@ -30,26 +27,27 @@ class OgimageCommand extends Command
             );
 
             $mdPaths = [$mdPath];
-        }else{
+        } else {
             $mdPaths = Storage::disk('prezet')->files('content');
-            $mdPaths = array_map(function($path){
+            $mdPaths = array_map(function ($path) {
                 return Str::before(Str::after($path, 'content/'), '.md');
             }, $mdPaths);
         }
 
-        foreach($mdPaths as $mdPath){
+        foreach ($mdPaths as $mdPath) {
             $imageUrl = GenerateOgImage::handle($mdPath);
-            info('OgImage url: ' . $imageUrl);
+            info('OgImage url: '.$imageUrl);
         }
 
         return self::SUCCESS;
     }
 
-    protected function validatePath($mdPath){
+    protected function validatePath($mdPath)
+    {
         $mdPath = Str::rtrim($mdPath, '.md');
 
         // verify the file exists
-        if(! Storage::disk('prezet')->exists('content/'.$mdPath.'.md')) {
+        if (! Storage::disk('prezet')->exists('content/'.$mdPath.'.md')) {
             throw new \Exception('File does not exist');
         }
 

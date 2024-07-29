@@ -3,7 +3,7 @@
 use BenBjurstrom\Prezet\Actions\SetFrontmatter;
 
 test('it replaces existing frontmatter in markdown', function () {
-    $markdown = <<<EOD
+    $markdown = <<<'EOD'
 ---
 title: Old Title
 date: 2023-01-01
@@ -17,10 +17,10 @@ EOD;
     $frontmatter = [
         'title' => 'New Title',
         'author' => 'John Doe',
-        'tags' => ['updated', 'test']
+        'tags' => ['updated', 'test'],
     ];
 
-    $expected = <<<EOD
+    $expected = <<<'EOD'
 ---
 title: New Title
 author: John Doe

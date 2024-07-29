@@ -21,7 +21,7 @@ class GenerateOgImage
         $filepath = 'images/ogimages/'.$filename;
         Storage::disk('prezet')->put($filepath, $screenshot);
 
-        $imageUrl = route('prezet.image', 'ogimages/'. $filename, false);
+        $imageUrl = route('prezet.image', 'ogimages/'.$filename, false);
         SetOgImage::handle($mdPath, $imageUrl);
 
         return $imageUrl;
