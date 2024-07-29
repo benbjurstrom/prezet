@@ -4,8 +4,7 @@ namespace BenBjurstrom\Prezet;
 
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
-use BenBjurstrom\Prezet\Commands\UpdateSitemapCommand;
-use BenBjurstrom\Prezet\Commands\ValidateFrontmatterCommand;
+use BenBjurstrom\Prezet\Commands\UpdateIndexCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -22,12 +21,16 @@ class PrezetServiceProvider extends PackageServiceProvider
             ->name('prezet')
             ->hasConfigFile()
             ->hasViews('prezet')
+            ->hasMigrations([
+                'create_prezet_documents_table',
+                'create_prezet_document_tags_table',
+                'create_prezet_tags_table',
+            ])
             ->hasRoute('prezet')
             ->hasCommands([
                 OgimageCommand::class,
                 InstallCommand::class,
-                UpdateSitemapCommand::class,
-                ValidateFrontmatterCommand::class,
+                UpdateIndexCommand::class,
             ]);
     }
 }

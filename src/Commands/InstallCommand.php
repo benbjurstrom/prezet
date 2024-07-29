@@ -17,6 +17,7 @@ class InstallCommand extends Command
     {
         // Add the prezet disk to the filesystems config
         $this->addStorageDisk();
+        $this->addDatabase();
         $this->addRoutes();
         $this->copyContentStubs();
         $this->publishVendorFiles();
@@ -108,6 +109,32 @@ class InstallCommand extends Command
             base_path('package.json'),
             json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL
         );
+    }
+
+    protected function addDatabase()
+    {
+        if (config('database.connections.prezet')) {
+            return false;
+        }
+
+        $files = new Filesystem;
+        $files->copy(__DIR__.'/../../stubs/prezet.sqlite', base_path('prezet.sqlite'));
+
+        $configFile = config_path('database.php');
+        $config = file_get_contents($configFile);
+
+        $diskConfig = "\n        'prezet' => [\n            'driver' => 'sqlite',\n            'database' => base_path('prezet.sqlite'),\n            'prefix' => '',\n            'foreign_key_constraints' => true,\n        ],";
+
+        $disksPosition = strpos($config, "'connections' => [");
+        if ($disksPosition !== false) {
+            $disksPosition += strlen("'connections' => [");
+            $newConfig = substr_replace($config, $diskConfig, $disksPosition, 0);
+            file_put_contents($configFile, $newConfig);
+
+            return true;
+        }
+
+        return false;
     }
 
     protected function addStorageDisk()

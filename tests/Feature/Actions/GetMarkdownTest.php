@@ -9,7 +9,7 @@ it('can get markdown content', function () {
     Storage::fake('prezet');
     Storage::disk('prezet')->put('content/post1.md', '# Post 1 Content');
 
-    $markdown = GetMarkdown::handle('post1');
+    $markdown = GetMarkdown::handle('content/post1.md');
 
     expect($markdown)->toBe('# Post 1 Content');
 });

@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet;
 
-use BenBjurstrom\Prezet\Actions\GetAllPosts;
 use BenBjurstrom\Prezet\Actions\GetFrontmatter;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
@@ -11,66 +10,29 @@ use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
 use BenBjurstrom\Prezet\Actions\SetSeo;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
-use Illuminate\Support\Collection;
-use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
-use League\CommonMark\Output\RenderedContentInterface;
 
 class Prezet
 {
-    public static function getAllPosts(): Collection
+    public static function getFrontmatter(string $filepath): FrontmatterData
     {
-        return GetAllPosts::handle();
+        return GetFrontmatter::handle($filepath);
     }
 
-    public static function getMarkdown(string $slug): string
+    public static function getMarkdown(string $filePath): string
     {
-        return GetMarkdown::handle($slug);
+        return GetMarkdown::handle($filePath);
     }
 
-    public static function setSeo(FrontmatterData $fm): void
+    public static function getContent(string $md): string
     {
-        SetSeo::handle($fm);
-    }
+        $content = ParseMarkdown::handle($md);
 
-    public static function getHtml(RenderedContentInterface $content): string
-    {
         return $content->getContent();
-    }
-
-    public static function getFrontmatter(
-        RenderedContentInterface $content,
-        string $slug
-    ): FrontmatterData {
-        if (! $content instanceof RenderedContentWithFrontMatter) {
-            abort(500, 'Invalid markdown file. No front matter found.');
-        }
-
-        $fm = $content->getFrontMatter();
-        $fm['slug'] = $slug;
-
-        $fmClass = config('prezet.data.frontmatter');
-
-        return $fmClass::fromArray($fm);
-    }
-
-    public static function parseMarkdown(string $md): RenderedContentInterface
-    {
-        return ParseMarkdown::handle($md);
-    }
-
-    public static function getSumamry(): array
-    {
-        return GetSummary::handle();
     }
 
     public static function getNav(): array
     {
         return GetSummary::handle();
-    }
-
-    public static function getFrontmatterFromFile(string $filePath): array
-    {
-        return GetFrontmatter::handle($filePath);
     }
 
     public static function getImage(string $path): string
@@ -81,5 +43,10 @@ class Prezet
     public static function getHeadings(string $html): array
     {
         return GetHeadings::handle($html);
+    }
+
+    public static function setSeo(FrontmatterData $fm): void
+    {
+        SetSeo::handle($fm);
     }
 }
