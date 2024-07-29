@@ -2,17 +2,19 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Support\Facades\Storage;
 
 class SetOgImage
 {
     public static function handle(string $slug, string $imgPath): void
     {
-        $md = GetMarkdown::handle($slug);
+        $doc = Document::where('slug', $slug)->firstOrFail();
+        $md = GetMarkdown::handle($doc->filepath);
         $content = ParseMarkdown::handle($md);
 
         $fm = $content->getFrontMatter();
-        $fm['ogimage'] = $imgPath;
+        $fm['image'] = $imgPath;
         $newMd = SetFrontmatter::update($md, $fm);
 
         $storage = Storage::disk('prezet');

@@ -9,7 +9,7 @@ it('sets the seo data', function () {
         'excerpt' => 'Test excerpt',
         'slug' => 'test-slug',
         'category' => 'Test Category',
-        'ogimage' => 'test-image.jpg',
+        'image' => 'test-image.jpg',
         'date' => 1715705878,
         'updatedAt' => 1715705878,
     ]);

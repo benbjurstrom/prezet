@@ -46,5 +46,5 @@ it('allows nullable fields to be null', function () {
     $frontmatter = new FrontmatterData($data);
 
     expect($frontmatter->category)->toBeNull();
-    expect($frontmatter->ogimage)->toBeNull();
+    expect($frontmatter->image)->toBeNull();
 });
