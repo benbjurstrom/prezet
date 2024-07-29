@@ -26,7 +26,6 @@ class PrezetServiceProvider extends PackageServiceProvider
                 'create_prezet_document_tags_table',
                 'create_prezet_tags_table',
             ])
-            ->hasRoute('prezet')
             ->hasCommands([
                 OgimageCommand::class,
                 InstallCommand::class,

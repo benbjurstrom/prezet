@@ -1,6 +1,8 @@
 <?php
 
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
+use BenBjurstrom\Prezet\Http\Controllers\ImageController;
+use Illuminate\Support\Facades\Route;
 
 it('parses markdown into html', function () {
     $markdown = <<<'MD'
@@ -36,6 +38,10 @@ HTML;
 });
 
 it('parses markdown with images html', function () {
+    Route::get('prezet/img/{path}', ImageController::class)
+        ->name('prezet.image')
+        ->where('path', '.*');
+
     $markdown = <<<'MD'
 ---
 title: 'Example Post'
