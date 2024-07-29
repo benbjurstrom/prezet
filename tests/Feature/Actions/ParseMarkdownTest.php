@@ -50,7 +50,7 @@ This is a paragraph with **bold** and *italic* text.
 ![Image Title](/path/to/image.jpg)
 MD;
 
-    $parseMarkdown = new ParseMarkdown();
+    $parseMarkdown = new ParseMarkdown;
 
     $expectedHtml = <<<'HTML'
 <h1>Heading 1</h1>
