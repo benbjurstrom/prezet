@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Support\Facades\Storage;
+use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 
 class SetOgImage
 {
@@ -13,6 +14,9 @@ class SetOgImage
         $md = GetMarkdown::handle($doc->filepath);
         $content = ParseMarkdown::handle($md);
 
+        if (! $content instanceof RenderedContentWithFrontMatter) {
+            abort(500, 'Invalid markdown file. No front matter found.');
+        }
         $fm = $content->getFrontMatter();
         $fm['image'] = $imgPath;
         $newMd = SetFrontmatter::update($md, $fm);
