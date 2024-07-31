@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet;
 
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
+use BenBjurstrom\Prezet\Commands\PurgeCacheCommand;
 use BenBjurstrom\Prezet\Commands\UpdateIndexCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -27,8 +28,9 @@ class PrezetServiceProvider extends PackageServiceProvider
                 'create_prezet_tags_table',
             ])
             ->hasCommands([
-                OgimageCommand::class,
                 InstallCommand::class,
+                OgimageCommand::class,
+                PurgeCacheCommand::class,
                 UpdateIndexCommand::class,
             ]);
     }
