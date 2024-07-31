@@ -13,7 +13,8 @@ class GetAllFrontmatter
      */
     public static function handle(): Collection
     {
-        $files = collect(Storage::disk('prezet')->allFiles('content'));
+        $files = collect(Storage::disk('prezet')
+            ->allFiles('content'));
 
         return $files
             ->filter(function ($filePath) {
