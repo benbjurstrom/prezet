@@ -15,8 +15,13 @@ class GetAllFrontmatter
     {
         $files = collect(Storage::disk('prezet')->allFiles('content'));
 
-        return $files->map(function ($filePath) {
-            return GetFrontmatter::handle($filePath);
-        })->sortByDesc('createdAt');
+        return $files
+            ->filter(function ($filePath) {
+                return pathinfo($filePath, PATHINFO_EXTENSION) === 'md';
+            })
+            ->map(function ($filePath) {
+                return GetFrontmatter::handle($filePath);
+            })
+            ->sortByDesc('createdAt');
     }
 }
