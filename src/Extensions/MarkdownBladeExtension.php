@@ -4,8 +4,6 @@ namespace BenBjurstrom\Prezet\Extensions;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\View;
 use Illuminate\View\Component;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentRenderedEvent;

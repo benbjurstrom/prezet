@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 
 it('can get frontmatter from a markdown file', function () {
     Storage::fake('prezet');
-    Storage::disk('prezet')->put('content/post1.md', '---
+    Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '---
 title: Post 1
 date: 2023-05-01
 excerpt: Post 1 Excerpt
@@ -20,7 +20,7 @@ excerpt: Post 1 Excerpt
 
 it('throws an exception if frontmatter keys are missing', function () {
     Storage::fake('prezet');
-    Storage::disk('prezet')->put('content/post1.md', '# Post 1 Content');
+    Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '# Post 1 Content');
 
     GetFrontmatter::handle('content/post1.md');
 })->expectException(FrontmatterMissingException::class);

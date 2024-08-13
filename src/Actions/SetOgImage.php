@@ -21,7 +21,7 @@ class SetOgImage
         $fm['image'] = $imgPath;
         $newMd = SetFrontmatter::update($md, $fm);
 
-        $storage = Storage::disk('prezet');
+        $storage = Storage::disk(config('prezet.filesystem.disk'));
         $path = 'content/'.$slug.'.md';
         $storage->put($path, $newMd);
     }

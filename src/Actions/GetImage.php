@@ -18,7 +18,7 @@ class GetImage
         $size = self::extractSize($path);
         $path = self::removeSize($path);
 
-        $imageStr = Storage::disk('prezet')->get('images/'.$path);
+        $imageStr = Storage::disk(config('prezet.filesystem.disk'))->get('images/'.$path);
         if (! $imageStr) {
             abort(404);
         }

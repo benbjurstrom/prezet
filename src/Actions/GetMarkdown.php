@@ -8,7 +8,7 @@ class GetMarkdown
 {
     public static function handle(string $filePath): string
     {
-        $storage = Storage::disk('prezet');
+        $storage = Storage::disk(config('prezet.filesystem.disk'));
         if (! $storage->exists($filePath)) {
             abort(404);
         }

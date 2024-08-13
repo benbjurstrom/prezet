@@ -8,7 +8,7 @@ class GetSummary
 {
     public static function handle(): array
     {
-        $md = Storage::disk('prezet')->get('SUMMARY.md');
+        $md = Storage::disk(config('prezet.filesystem.disk'))->get('SUMMARY.md');
 
         $lines = explode("\n", $md);
         $result = [];
