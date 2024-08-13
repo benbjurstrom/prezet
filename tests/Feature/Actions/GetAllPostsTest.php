@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Storage;
 
 it('can get all posts', function () {
     Storage::fake('prezet');
-    Storage::disk('prezet')->put('content/post1.md', '---
+    Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '---
 title: Post 1
 date: 2023-05-01
 excerpt: Post 1 Excerpt
 ---
 # Post 1 Content');
-    Storage::disk('prezet')->put('content/post2.md', '---
+    Storage::disk(config('prezet.filesystem.disk'))->put('content/post2.md', '---
 title: Post 2
 date: 2023-05-02
 excerpt: Post 2 Excerpt
@@ -28,7 +28,7 @@ excerpt: Post 2 Excerpt
 
 it('throws exception if frontmatter is missing', function () {
     Storage::fake('prezet');
-    Storage::disk('prezet')->put('content/post1.md', '# Post 1 Content');
+    Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '# Post 1 Content');
 
     GetAllFrontmatter::handle();
 })->throws(FrontmatterMissingException::class);

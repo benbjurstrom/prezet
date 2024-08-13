@@ -1,5 +1,5 @@
 <x-prezet::template>
-    {{-- Right Sidebar --}}
+    {{-- Left Sidebar --}}
     <x-slot name="left">
         <x-prezet::sidebar :nav="$nav" />
     </x-slot>

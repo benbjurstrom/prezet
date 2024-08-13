@@ -85,7 +85,7 @@
         <!-- Scripts -->
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.2/src/lite-yt-embed.min.js"
+            src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.3/src/lite-yt-embed.min.js"
         ></script>
         <script
             defer

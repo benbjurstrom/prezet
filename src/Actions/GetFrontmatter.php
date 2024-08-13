@@ -17,7 +17,7 @@ class GetFrontmatter
     public static function handle(string $filePath): FrontmatterData
     {
         $fmClass = config('prezet.data.frontmatter');
-        $storage = Storage::disk('prezet');
+        $storage = Storage::disk(config('prezet.filesystem.disk'));
 
         $md = $storage->get($filePath);
 

@@ -1,6 +1,7 @@
 @php
     /* @var \BenBjurstrom\Prezet\Data\FrontmatterData $fm */
 @endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

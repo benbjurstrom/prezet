@@ -22,7 +22,7 @@ class GetImageImagick
             $path = $matches[1].'.webp';
         }
 
-        $file = Storage::disk('prezet')->get('attachments/'.$path);
+        $file = Storage::disk(config('prezet.filesystem.disk'))->get('attachments/'.$path);
         if (! $file) {
             abort(404);
         }

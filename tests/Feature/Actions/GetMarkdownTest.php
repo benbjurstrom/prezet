@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 it('can get markdown content', function () {
     Storage::fake('prezet');
-    Storage::disk('prezet')->put('content/post1.md', '# Post 1 Content');
+    Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '# Post 1 Content');
 
     $markdown = GetMarkdown::handle('content/post1.md');
 
