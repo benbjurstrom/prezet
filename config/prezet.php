@@ -9,11 +9,6 @@ return [
     | This setting determines the filesystem disk used by Prezet to store and
     | retrieve markdown files and images. By default, it uses the 'prezet' disk.
     |
-    | You can change this setting to use a different disk, which is particularly
-    | useful when you need to store content in different locations based on the
-    | environment. For example, you might use local storage in development and
-    | an S3 bucket in production.
-    |
     */
 
     'filesystem' => [

@@ -1,0 +1,80 @@
+service: {SERVICE_NAME}
+
+provider:
+  name: aws
+  region: us-east-1
+  stage: 'prod'
+  apiGateway:
+    binaryMediaTypes:
+      - 'image/webp'
+  environment:
+    APP_ENV: production
+    APP_NAME: {SERVICE_NAME}
+    SESSION_DRIVER: array
+    CACHE_STORE: array
+    BREF_BINARY_RESPONSES: '1'
+    PREZET_FILESYSTEM_DISK: s3
+    AWS_BUCKET: !Ref PrezetBucket
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:*
+          Resource:
+            - !Sub '${PrezetBucket.Arn}'
+            - !Sub '${PrezetBucket.Arn}/*'
+
+resources:
+  Resources:
+    PrezetBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: {SERVICE_NAME}-prezet-storage
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!public/storage'
+    - '!resources/assets/**'
+    - '!storage/**'
+    - '!tests/**'
+
+functions:
+  web:
+    handler: public/index.php
+    runtime: php-83-fpm
+    timeout: 28
+    layers:
+      - ${bref-extra:gd-php-83}
+    events:
+      - httpApi: '*'
+
+  artisan:
+    handler: artisan
+    runtime: php-83-console
+    timeout: 720
+
+plugins:
+  - ./vendor/bref/bref
+  - ./vendor/bref/extra-php-extensions
+  - serverless-lift
+  - serverless-s3-sync
+
+constructs:
+  website:
+    domain: {DOMAIN_NAME}
+    certificate: arn:aws:acm:us-east-1:000000000000:certificate/00000000-0000-0000-0000-000000000000 # Replace with your certificate ARN
+    type: server-side-website
+    assets:
+      '/build/*': public/build
+      '/favicon.ico': public/favicon.ico
+      '/favicon.svg': public/favicon.svg
+      '/ogimage.png': public/ogimage.png
+      '/robots.txt': public/robots.txt
+      '/prezet_sitemap.xml': public/prezet_sitemap.xml
+
+custom:
+  s3Sync:
+    - bucketName: {SERVICE_NAME}-prezet-storage
+      localDir: storage/prezet
+      deleteRemoved: true
