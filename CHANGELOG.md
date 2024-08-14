@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.8.7](https://github.com/benbjurstrom/prezet/compare/v0.8.6...v0.8.7) - 2024-08-14
+
+### What's Changed
+
+* 39 add alert component by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/40
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.8.6...v0.8.7
+
 ## [v0.8.6](https://github.com/benbjurstrom/prezet/compare/v0.8.5...v0.8.6) - 2024-08-14
 
 ### What's Changed
