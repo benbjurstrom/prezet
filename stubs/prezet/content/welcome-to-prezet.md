@@ -20,16 +20,24 @@ Learn more about [Optimized Images](https://prezet.com/features/images) on preze
 
 ## Using Blade Components
 
-Prezet allows you to use Blade components directly in your markdown. Here's an example blade component that embeds a YouTube video:
+Prezet allows you to use Blade components directly in your markdown. Here's an example blade component for an alert:
+
+```html +parse
+<x-prezet::alert
+    type="warning"
+    title="Alert component"
+    body="This is a Laravel Blade component rendered from markdown."
+/>
+```
+
+And here is an example blade component that embeds a YouTube video:
 
 ```html +parse
 <x-prezet::youtube
     videoid="dt1ado9wJi8"
     title="Supercharge Markdown with Laravel"
     date="2023-12-15T00:00:00+08:00"
->
-    Login
-</x-prezet::youtube>
+/>
 ```
 
 See the full documentation for more on using [Blade Components](https://prezet.com/features/blade) in Prezet.
