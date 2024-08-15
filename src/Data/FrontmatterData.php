@@ -31,6 +31,9 @@ class FrontmatterData extends ValidatedDTO
     #[Rules(['nullable', 'string'])]
     public ?string $image;
 
+    #[Rules(['nullable', 'bool'])]
+    public ?bool $twitter;
+
     #[Rules(['bool'])]
     public bool $draft;
 
