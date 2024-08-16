@@ -18,7 +18,7 @@ class UpdateSitemap
         $sitemap = Sitemap::create();
 
         foreach ($docs as $doc) {
-            $sitemap->add(Url::create('/'.$doc->slug)
+            $sitemap->add(Url::create(route('prezet.show', $doc->slug))
                 ->setLastModificationDate($doc->updated_at)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                 ->setPriority(0.7)

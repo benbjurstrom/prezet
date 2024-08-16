@@ -3,8 +3,10 @@
 namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Tag;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
 class UpdateIndex
@@ -30,6 +32,10 @@ class UpdateIndex
                 self::setTags($d, $doc->tags);
             }
         });
+
+        Route::get('prezet/{slug}', ShowController::class)
+            ->name('prezet.show')
+            ->where('slug', '.*');
 
         UpdateSitemap::handle();
     }
