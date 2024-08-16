@@ -29,7 +29,7 @@ class SetFrontmatter
 
     private static function formatValue($value): string
     {
-        if ( is_int($value) && $value > 946713600) {
+        if (is_int($value) && $value > 946713600) {
             return (new Carbon($value))->toDateString();
         } elseif (is_array($value)) {
             return '['.implode(', ', array_map([self::class, 'formatValue'], $value)).']';
