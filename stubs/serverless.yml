@@ -10,6 +10,7 @@ provider:
   environment:
     APP_ENV: production
     APP_NAME: {SERVICE_NAME}
+    APP_URL: https://{DOMAIN_NAME}
     SESSION_DRIVER: array
     CACHE_STORE: array
     BREF_BINARY_RESPONSES: '1'
