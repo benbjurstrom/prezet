@@ -6,8 +6,8 @@ use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Tag;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 class UpdateIndex
 {
