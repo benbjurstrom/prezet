@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.8.8](https://github.com/benbjurstrom/prezet/compare/v0.8.7...v0.8.8) - 2024-08-21
+
+### What's Changed
+
+* 42 use webp for ogimage by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/43
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.8.7...v0.8.8
+
 ## [v0.8.7](https://github.com/benbjurstrom/prezet/compare/v0.8.6...v0.8.7) - 2024-08-14
 
 ### What's Changed
