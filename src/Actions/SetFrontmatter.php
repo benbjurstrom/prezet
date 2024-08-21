@@ -2,6 +2,8 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use Carbon\Carbon;
+
 class SetFrontmatter
 {
     public static function update(string $md, array $fm): string
@@ -27,7 +29,9 @@ class SetFrontmatter
 
     private static function formatValue($value): string
     {
-        if (is_array($value)) {
+        if (is_int($value) && $value > 946713600) {
+            return (new Carbon($value))->toDateString();
+        } elseif (is_array($value)) {
             return '['.implode(', ', array_map([self::class, 'formatValue'], $value)).']';
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
