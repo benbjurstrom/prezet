@@ -1,4 +1,8 @@
-@props(['type' => 'info', 'title' => null, 'body'])
+@props([
+    'type' => 'info',
+    'title' => null,
+    'body',
+])
 
 @php
     $color = match ($type) {
@@ -16,38 +20,29 @@
     ];
 
     // safelist for tailwind parser
-    $safelist = [
-        'bg-red-50',
-        'text-red-700',
-        'text-red-800',
-        'text-red-400',
-        'bg-green-50',
-        'text-green-700',
-        'text-green-800',
-        'text-green-400',
-        'bg-blue-50',
-        'text-blue-700',
-        'text-blue-800',
-        'text-blue-400',
-        'bg-yellow-50',
-        'text-yellow-700',
-        'text-yellow-800',
-        'text-yellow-400'
-    ];
+    $safelist = ['bg-red-50', 'text-red-700', 'text-red-800', 'text-red-400', 'bg-green-50', 'text-green-700', 'text-green-800', 'text-green-400', 'bg-blue-50', 'text-blue-700', 'text-blue-800', 'text-blue-400', 'bg-yellow-50', 'text-yellow-700', 'text-yellow-800', 'text-yellow-400'];
 @endphp
 
-<div class="rounded-lg bg-{{$color}}-50 p-4 not-prose">
+<div class="bg-{{ $color }}-50 not-prose rounded-lg p-4">
     <div class="flex">
         <div class="flex-shrink-0">
-            <svg class="h-5 w-5 text-{{$color}}-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <svg
+                class="text-{{ $color }}-400 h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+            >
                 {!! $icons[$type] !!}
             </svg>
         </div>
         <div class="ml-3">
             @isset($title)
-                <h3 class="text-sm font-medium text-{{$color}}-800 mb-2">{{ $title }}</h3>
+                <h3 class="text-{{ $color }}-800 mb-2 text-sm font-medium">
+                    {{ $title }}
+                </h3>
             @endisset
-            <div class="text-sm text-{{$color}}-700">
+
+            <div class="text-{{ $color }}-700 text-sm">
                 <p>{{ $body }}</p>
             </div>
         </div>
