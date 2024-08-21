@@ -2,9 +2,9 @@
     <ul role="list" class="space-y-9">
         @foreach ($nav as $section)
             <li>
-                <h2 class="font-display font-medium text-stone-900">
+                <p class="font-display font-medium text-stone-900">
                     {{ $section['title'] }}
-                </h2>
+                </p>
                 <ul
                     role="list"
                     class="mt-2 space-y-2 border-l-2 border-stone-100 lg:mt-4 lg:space-y-4 lg:border-stone-200"
