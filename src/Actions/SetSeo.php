@@ -12,6 +12,7 @@ class SetSeo
             ->withUrl()
             ->title($fm->title)
             ->description($fm->excerpt)
-            ->image($fm->image);
+            ->image($fm->image)
+            ->twitter(!empty($fm->twitter));
     }
 }
