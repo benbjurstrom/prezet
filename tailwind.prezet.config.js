@@ -9,6 +9,7 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './vendor/benbjurstrom/prezet/resources/views/**/*.blade.php', // Add this line to include Prezet views
     ],
     safelist: ['mr-2', 'scroll-mt-12'],
     theme: {
@@ -24,6 +25,5 @@ export default {
             },
         },
     },
-
     plugins: [forms, typography],
 }
