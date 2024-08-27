@@ -4,7 +4,6 @@ namespace BenBjurstrom\Prezet\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Config;
 
 class InstallCommand extends Command
 {
@@ -24,7 +23,7 @@ class InstallCommand extends Command
 
     public function handle(): int
     {
-        if (!$this->option('force') && !$this->confirm('This will modify your project files. Do you wish to continue?')) {
+        if (! $this->option('force') && ! $this->confirm('This will modify your project files. Do you wish to continue?')) {
             return self::FAILURE;
         }
 
@@ -38,9 +37,11 @@ class InstallCommand extends Command
             $this->installNodeDependencies();
 
             $this->info('Prezet has been successfully installed!');
+
             return self::SUCCESS;
         } catch (\Exception $e) {
-            $this->error('An error occurred during installation: ' . $e->getMessage());
+            $this->error('An error occurred during installation: '.$e->getMessage());
+
             return self::FAILURE;
         }
     }
@@ -49,7 +50,8 @@ class InstallCommand extends Command
     {
         $source = __DIR__.'/../../routes/prezet.php';
         $destination = base_path('routes/prezet.php');
-        if(!$this->files->exists($destination)){
+        if (! $this->files->exists($destination)) {
+            $this->info('Copying prezet routes');
             $this->files->copy($source, $destination);
         }
 
@@ -58,6 +60,8 @@ class InstallCommand extends Command
         $contents = $this->files->get(base_path('routes/web.php'));
         $includePos = strpos($contents, $include);
         if ($includePos !== false) {
+            $this->warn('Skipping adding prezet routes to web.php: already exists.');
+
             return;
         }
 
@@ -66,29 +70,39 @@ class InstallCommand extends Command
 
     protected function copyTailwindFiles(): void
     {
-        $files = new Filesystem;
-        $files->copy(__DIR__.'/../../tailwind.prezet.config.js', base_path('tailwind.prezet.config.js'));
-        $files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
-        $files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
-        $files->copy(__DIR__.'/../../stubs/vite.config.js', base_path('vite.config.js'));
+        $this->info('Copying tailwind.prezet.config.js, postcss.config.js, prezet.css, and vite.config.js');
+        $this->files->copy(__DIR__.'/../../tailwind.prezet.config.js', base_path('tailwind.prezet.config.js'));
+        $this->files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
+        $this->files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
+        $this->files->copy(__DIR__.'/../../stubs/vite.config.js', base_path('vite.config.js'));
 
-        $this->info('Copied tailwind.prezet.config.js, postcss.config.js, prezet.css, and vite.config.js');
         $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
     }
 
     protected function copyContentStubs(): void
     {
-        $files = new Filesystem;
-        $files->copyDirectory(__DIR__.'/../../stubs/prezet', storage_path('prezet'));
+        $sourceDir = __DIR__.'/../../stubs/prezet';
+        $destinationDir = storage_path('prezet');
+
+        if (! $this->files->isDirectory($sourceDir)) {
+            $this->warn('Skipping content stubs: source directory already exists.');
+
+            return;
+        }
+        $this->info('Copying content stubs');
+
+        $this->files->copyDirectory($sourceDir, $destinationDir);
     }
 
     protected function publishVendorFiles(): void
     {
+        $this->info('Publishing vendor files');
         $this->runCommands(['php artisan vendor:publish --provider="BenBjurstrom\Prezet\PrezetServiceProvider" --tag=prezet-views --tag=prezet-config']);
     }
 
     protected function installNodeDependencies(): void
     {
+        $this->info('Installing node dependencies');
         $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss';
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {
@@ -108,9 +122,11 @@ class InstallCommand extends Command
     protected function addDatabase(): void
     {
         if (config('database.connections.prezet')) {
+            $this->warn('Skipping database setup: the prezet database connection already exists.');
+
             return;
         }
-
+        $this->info('Adding prezet database');
         $this->files->copy(__DIR__.'/../../stubs/prezet.sqlite', base_path('prezet.sqlite'));
 
         $configFile = config_path('database.php');
@@ -129,8 +145,11 @@ class InstallCommand extends Command
     protected function addStorageDisk(): void
     {
         if (config('filesystems.disks.prezet')) {
+            $this->warn('Skipping storage disk setup: the prezet storage disk already exists.');
+
             return;
         }
+        $this->info('Adding prezet storage disk');
 
         $configFile = config_path('filesystems.php');
         $config = file_get_contents($configFile);
