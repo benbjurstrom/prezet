@@ -9,9 +9,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-Route::middleware('cache.headers:public;max_age=7200;etag')
-    // Cloudflare free plan: Minimum Edge Cache TTL 2 hours
-    ->withoutMiddleware([
+Route::withoutMiddleware([
         ShareErrorsFromSession::class,
         StartSession::class,
         ValidateCsrfToken::class,
