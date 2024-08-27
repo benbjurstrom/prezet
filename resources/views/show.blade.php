@@ -29,25 +29,23 @@
             class="hidden xl:sticky xl:top-[4.75rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.75rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6"
         >
             <nav aria-labelledby="on-this-page-title" class="w-56">
-                <h2
+                <p
                     id="on-this-page-title"
                     class="font-display text-sm font-medium text-stone-900"
                 >
                     On this page
-                </h2>
+                </p>
                 <ol role="list" class="mt-4 space-y-3 text-sm">
                     @foreach ($headings as $h2)
                         <li>
-                            <h3>
-                                <a
-                                    href="#{{ $h2['id'] }}"
-                                    :class="{'text-primary-700 hover:text-primary-700': activeHeading === '#{{ $h2['title'] }}'}"
-                                    x-on:click.prevent="scrollToHeading('{{ $h2['id'] }}')"
-                                    class="transition-colors"
-                                >
-                                    {{ $h2['title'] }}
-                                </a>
-                            </h3>
+                            <a
+                                href="#{{ $h2['id'] }}"
+                                :class="{'text-primary-500 hover:text-primary-500': activeHeading === '#{{ $h2['title'] }}'}"
+                                x-on:click.prevent="scrollToHeading('{{ $h2['id'] }}')"
+                                class="transition-colors"
+                            >
+                                {{ $h2['title'] }}
+                            </a>
 
                             @if ($h2['children'])
                                 <ol
