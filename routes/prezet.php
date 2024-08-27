@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 Route::withoutMiddleware([
-        ShareErrorsFromSession::class,
-        StartSession::class,
-        ValidateCsrfToken::class,
-    ])
+    ShareErrorsFromSession::class,
+    StartSession::class,
+    ValidateCsrfToken::class,
+])
     ->group(function () {
         Route::get('prezet/img/{path}', ImageController::class)
             ->name('prezet.image')
