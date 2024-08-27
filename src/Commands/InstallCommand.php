@@ -4,41 +4,64 @@ namespace BenBjurstrom\Prezet\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Config;
 
 class InstallCommand extends Command
 {
     use RunsCommands;
 
-    public $signature = 'prezet:install';
+    public $signature = 'prezet:install {--force : Force the operation without confirmation}';
 
     public $description = 'Installs the Prezet package';
 
+    protected $files;
+
+    public function __construct(Filesystem $files)
+    {
+        parent::__construct();
+        $this->files = $files;
+    }
+
     public function handle(): int
     {
-        // Add the prezet disk to the filesystems config
-        $this->addStorageDisk();
-        $this->addDatabase();
-        $this->addRoutes();
-        $this->copyContentStubs();
-        $this->publishVendorFiles();
-        $this->copyTailwindFiles();
-        $this->installNodeDependencies();
+        if (!$this->option('force') && !$this->confirm('This will modify your project files. Do you wish to continue?')) {
+            return self::FAILURE;
+        }
 
-        return self::SUCCESS;
+        try {
+            $this->addStorageDisk();
+            $this->addDatabase();
+            $this->addRoutes();
+            $this->copyContentStubs();
+            $this->publishVendorFiles();
+            $this->copyTailwindFiles();
+            $this->installNodeDependencies();
+
+            $this->info('Prezet has been successfully installed!');
+            return self::SUCCESS;
+        } catch (\Exception $e) {
+            $this->error('An error occurred during installation: ' . $e->getMessage());
+            return self::FAILURE;
+        }
     }
 
     protected function addRoutes(): void
     {
-        $files = new Filesystem;
-        $files->copy(__DIR__.'/../../routes/prezet.php', base_path('routes/prezet.php'));
+        $source = __DIR__.'/../../routes/prezet.php';
+        $destination = base_path('routes/prezet.php');
+        if(!$this->files->exists($destination)){
+            $this->files->copy($source, $destination);
+        }
 
-        $web = $files->get(base_path('routes/web.php'));
-        $includePos = strpos($web, "require __DIR__.'/prezet.php';");
+        $include = "require __DIR__.'/prezet.php';";
+        $web = base_path('routes/web.php');
+        $contents = $this->files->get(base_path('routes/web.php'));
+        $includePos = strpos($contents, $include);
         if ($includePos !== false) {
             return;
         }
 
-        $files->append(base_path('routes/web.php'), "\nrequire __DIR__.'/prezet.php';");
+        $this->files->append($web, "\nrequire __DIR__.'/prezet.php';");
     }
 
     protected function copyTailwindFiles(): void
@@ -82,14 +105,13 @@ class InstallCommand extends Command
         ]);
     }
 
-    protected function addDatabase(): bool
+    protected function addDatabase(): void
     {
         if (config('database.connections.prezet')) {
-            return false;
+            return;
         }
 
-        $files = new Filesystem;
-        $files->copy(__DIR__.'/../../stubs/prezet.sqlite', base_path('prezet.sqlite'));
+        $this->files->copy(__DIR__.'/../../stubs/prezet.sqlite', base_path('prezet.sqlite'));
 
         $configFile = config_path('database.php');
         $config = file_get_contents($configFile);
@@ -101,17 +123,13 @@ class InstallCommand extends Command
             $disksPosition += strlen("'connections' => [");
             $newConfig = substr_replace($config, $diskConfig, $disksPosition, 0);
             file_put_contents($configFile, $newConfig);
-
-            return true;
         }
-
-        return false;
     }
 
-    protected function addStorageDisk(): bool
+    protected function addStorageDisk(): void
     {
         if (config('filesystems.disks.prezet')) {
-            return false;
+            return;
         }
 
         $configFile = config_path('filesystems.php');
@@ -124,10 +142,6 @@ class InstallCommand extends Command
             $disksPosition += strlen("'disks' => [");
             $newConfig = substr_replace($config, $diskConfig, $disksPosition, 0);
             file_put_contents($configFile, $newConfig);
-
-            return true;
         }
-
-        return false;
     }
 }
