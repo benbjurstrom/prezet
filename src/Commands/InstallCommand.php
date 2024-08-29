@@ -4,121 +4,130 @@ namespace BenBjurstrom\Prezet\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use RuntimeException;
-use Symfony\Component\Process\Process;
 
 class InstallCommand extends Command
 {
-    public $signature = 'prezet:install';
+    use RunsCommands;
+
+    public $signature = 'prezet:install {--force : Force the operation without confirmation}';
 
     public $description = 'Installs the Prezet package';
 
-    public function handle(): int
-    {
-        // Add the prezet disk to the filesystems config
-        $this->addStorageDisk();
-        $this->addDatabase();
-        $this->addRoutes();
-        $this->copyContentStubs();
-        $this->publishVendorFiles();
-        $this->copyTailwindFiles();
-        $this->installNodeDependencies();
+    protected $files;
 
-        return self::SUCCESS;
+    public function __construct(Filesystem $files)
+    {
+        parent::__construct();
+        $this->files = $files;
     }
 
-    protected function addRoutes()
+    public function handle(): int
     {
-        $files = new Filesystem;
-        $files->copy(__DIR__.'/../../routes/prezet.php', base_path('routes/prezet.php'));
+        if (! $this->option('force') && ! $this->confirm('This will modify your project files. Do you wish to continue?')) {
+            return self::FAILURE;
+        }
 
-        $web = $files->get(base_path('routes/web.php'));
-        $includePos = strpos($web, "require __DIR__.'/prezet.php';");
+        try {
+            $this->addStorageDisk();
+            $this->addDatabase();
+            $this->addRoutes();
+            $this->copyContentStubs();
+            $this->publishVendorFiles();
+            $this->copyTailwindFiles();
+            $this->installNodeDependencies();
+
+            $this->info('Prezet has been successfully installed!');
+
+            return self::SUCCESS;
+        } catch (\Exception $e) {
+            $this->error('An error occurred during installation: '.$e->getMessage());
+
+            return self::FAILURE;
+        }
+    }
+
+    protected function addRoutes(): void
+    {
+        $source = __DIR__.'/../../routes/prezet.php';
+        $destination = base_path('routes/prezet.php');
+        if (! $this->files->exists($destination)) {
+            $this->info('Copying prezet routes');
+            $this->files->copy($source, $destination);
+        }
+
+        $include = "require __DIR__.'/prezet.php';";
+        $web = base_path('routes/web.php');
+        $contents = $this->files->get(base_path('routes/web.php'));
+        $includePos = strpos($contents, $include);
         if ($includePos !== false) {
+            $this->warn('Skipping adding prezet routes to web.php: already exists.');
+
             return;
         }
 
-        $files->append(base_path('routes/web.php'), "\nrequire __DIR__.'/prezet.php';");
+        $this->files->append($web, "\nrequire __DIR__.'/prezet.php';");
     }
 
-    protected function copyTailwindFiles()
+    protected function copyTailwindFiles(): void
     {
-        $files = new Filesystem;
-        $files->copy(__DIR__.'/../../tailwind.config.js', base_path('tailwind.config.js'));
-        $files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
-        $files->copy(__DIR__.'/../../stubs/app.css', resource_path('css/app.css'));
+        $this->info('Copying tailwind.prezet.config.js, postcss.config.js, prezet.css, and vite.config.js');
+        $this->files->copy(__DIR__.'/../../tailwind.prezet.config.js', base_path('tailwind.prezet.config.js'));
+        $this->files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
+        $this->files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
+        $this->files->copy(__DIR__.'/../../stubs/vite.config.js', base_path('vite.config.js'));
+
+        $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
     }
 
-    protected function copyContentStubs()
+    protected function copyContentStubs(): void
     {
-        $files = new Filesystem;
-        $files->copyDirectory(__DIR__.'/../../stubs/prezet', storage_path('prezet'));
+        $sourceDir = __DIR__.'/../../stubs/prezet';
+        $destinationDir = storage_path('prezet');
+
+        if (! $this->files->isDirectory($sourceDir)) {
+            $this->warn('Skipping content stubs: source directory already exists.');
+
+            return;
+        }
+        $this->info('Copying content stubs');
+
+        $this->files->copyDirectory($sourceDir, $destinationDir);
     }
 
-    protected function publishVendorFiles()
+    protected function publishVendorFiles(): void
     {
+        $this->info('Publishing vendor files');
         $this->runCommands(['php artisan vendor:publish --provider="BenBjurstrom\Prezet\PrezetServiceProvider" --tag=prezet-views --tag=prezet-config']);
     }
 
-    protected function installNodeDependencies()
+    protected function installNodeDependencies(): void
     {
-        $this->updateNodePackages(function ($packages) {
-            return [
-                '@tailwindcss/forms' => '^0.5.7',
-                '@tailwindcss/typography' => '^0.5.13',
-                'alpinejs' => '^3.4.2',
-                'autoprefixer' => '^10.4.19',
-                'postcss' => '^8.4.38',
-                'tailwindcss' => '^3.4.3',
-            ] + $packages;
-        });
+        $this->info('Installing node dependencies');
+        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss';
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {
-            $this->runCommands(['pnpm install', 'pnpm run build']);
+            $bin = 'pnpm';
         } elseif (file_exists(base_path('yarn.lock'))) {
-            $this->runCommands(['yarn install', 'yarn run build']);
+            $bin = 'yarn';
         } else {
-            $this->runCommands(['npm install', 'npm run build']);
-        }
-    }
-
-    /**
-     * Update the "package.json" file.
-     *
-     * @param  bool  $dev
-     * @return void
-     */
-    protected static function updateNodePackages(callable $callback, $dev = true)
-    {
-        if (! file_exists(base_path('package.json'))) {
-            return;
+            $bin = 'npm';
         }
 
-        $configurationKey = $dev ? 'devDependencies' : 'dependencies';
-
-        $packages = json_decode(file_get_contents(base_path('package.json')), true);
-
-        $packages[$configurationKey] = $callback(
-            array_key_exists($configurationKey, $packages) ? $packages[$configurationKey] : [],
-            $configurationKey
-        );
-
-        ksort($packages[$configurationKey]);
-
-        file_put_contents(
-            base_path('package.json'),
-            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL
-        );
+        $this->runCommands([
+            $bin.' install --save-dev '.$packages,
+            $bin.' run build',
+        ]);
     }
 
-    protected function addDatabase()
+    protected function addDatabase(): void
     {
         if (config('database.connections.prezet')) {
-            return false;
-        }
+            $this->warn('Skipping database setup: the prezet database connection already exists.');
 
-        $files = new Filesystem;
-        $files->copy(__DIR__.'/../../stubs/prezet.sqlite', base_path('prezet.sqlite'));
+            return;
+        }
+        $this->info('Adding prezet database');
+        $this->files->copy(__DIR__.'/../../stubs/prezet.sqlite', base_path('prezet.sqlite'));
 
         $configFile = config_path('database.php');
         $config = file_get_contents($configFile);
@@ -130,18 +139,17 @@ class InstallCommand extends Command
             $disksPosition += strlen("'connections' => [");
             $newConfig = substr_replace($config, $diskConfig, $disksPosition, 0);
             file_put_contents($configFile, $newConfig);
-
-            return true;
         }
-
-        return false;
     }
 
-    protected function addStorageDisk()
+    protected function addStorageDisk(): void
     {
         if (config('filesystems.disks.prezet')) {
-            return false;
+            $this->warn('Skipping storage disk setup: the prezet storage disk already exists.');
+
+            return;
         }
+        $this->info('Adding prezet storage disk');
 
         $configFile = config_path('filesystems.php');
         $config = file_get_contents($configFile);
@@ -153,33 +161,6 @@ class InstallCommand extends Command
             $disksPosition += strlen("'disks' => [");
             $newConfig = substr_replace($config, $diskConfig, $disksPosition, 0);
             file_put_contents($configFile, $newConfig);
-
-            return true;
         }
-
-        return false;
-    }
-
-    /**
-     * Run the given commands.
-     *
-     * @param  array  $commands
-     * @return void
-     */
-    protected function runCommands($commands)
-    {
-        $process = Process::fromShellCommandline(implode(' && ', $commands), null, null, null, null);
-
-        if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
-            try {
-                $process->setTty(true);
-            } catch (RuntimeException $e) {
-                $this->output->writeln('  <bg=yellow;fg=black> WARN </> '.$e->getMessage().PHP_EOL);
-            }
-        }
-
-        $process->run(function ($type, $line) {
-            $this->output->write('    '.$line);
-        });
     }
 }
