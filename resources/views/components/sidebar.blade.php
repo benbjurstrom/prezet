@@ -18,9 +18,7 @@
     <div
         class="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-gray-800"
     ></div>
-    <div
-        class="absolute bottom-0 right-0 top-28 hidden w-px bg-gray-800"
-    ></div>
+    <div class="absolute bottom-0 right-0 top-28 hidden w-px bg-gray-800"></div>
     <div
         class="sticky top-[4.75rem] -ml-0.5 flex h-[calc(100vh-4.75rem)] w-64 flex-col justify-between overflow-y-auto overflow-x-hidden pb-4 pl-0.5 pr-8 pt-16 xl:w-72 xl:pr-16"
     >

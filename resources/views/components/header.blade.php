@@ -23,9 +23,15 @@
             </svg>
         </button>
 
-        <a aria-label="Home" href="{{ route('prezet.index') }}" class="inline-block flex items-center space-x-2">
+        <a
+            aria-label="Home"
+            href="{{ route('prezet.index') }}"
+            class="inline-block flex items-center space-x-2"
+        >
             <x-prezet::logo />
-            <span class="text-2xl font-bold fill-gray-900">{{ strtoupper(config('app.name')) }}</span>
+            <span class="text-gray-900 text-2xl font-bold">
+                {{ strtoupper(config('app.name')) }}
+            </span>
         </a>
     </div>
     <div class="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
