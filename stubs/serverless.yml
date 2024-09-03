@@ -60,6 +60,7 @@ plugins:
   - ./vendor/bref/extra-php-extensions
   - serverless-lift
   - serverless-s3-sync
+  - serverless-api-gateway-throttling
 
 constructs:
   website:
@@ -75,6 +76,9 @@ constructs:
       '/prezet_sitemap.xml': public/prezet_sitemap.xml
 
 custom:
+  apiGatewayThrottling:
+    maxRequestsPerSecond: 20
+    maxConcurrentRequests: 10
   s3Sync:
     - bucketName: {SERVICE_NAME}-prezet-storage
       localDir: storage/prezet
