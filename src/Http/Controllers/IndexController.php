@@ -6,10 +6,11 @@ use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class IndexController
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         if (config('app.env') === 'local') {
             UpdateIndex::handle();
@@ -41,6 +42,8 @@ class IndexController
         return view('prezet::index', [
             'nav' => $nav,
             'articles' => $frontmatter,
+            'currentTag' => request()->query('tag'),
+            'currentCategory' => request()->query('category'),
         ]);
     }
 }

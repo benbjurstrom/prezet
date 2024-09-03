@@ -1,9 +1,9 @@
 @php
-    /* @var \BenBjurstrom\Prezet\Data\FrontmatterData $article */
-    $currentTag = request()->query('tag');
-    $currentCategory = request()->query('category');
+    /* @var array $nav */
+    /* @var array|null|string $currentTag */
+    /* @var array|null|string $currentCategory */
+    /* @var \Illuminate\Support\Collection<int,\BenBjurstrom\Prezet\Data\FrontmatterData> $articles */
 @endphp
-
 <x-prezet::template>
     @seo([
         'title' => 'Prezet: Markdown Blogging for Laravel',
