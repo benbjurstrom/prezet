@@ -8,7 +8,6 @@ use BenBjurstrom\Prezet\Actions\GetImage;
 use BenBjurstrom\Prezet\Actions\GetMarkdown;
 use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
-use BenBjurstrom\Prezet\Actions\SetSeo;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 
 class Prezet
@@ -30,6 +29,9 @@ class Prezet
         return $content->getContent();
     }
 
+    /**
+     * @return array<int|string, array<string, array<int, array<string, string>>|string>>
+     */
     public static function getNav(): array
     {
         return GetSummary::handle();
@@ -40,13 +42,11 @@ class Prezet
         return GetImage::handle($path);
     }
 
+    /**
+     * @return array<int, array<string, array<int, array<string, string>>|string>>
+     */
     public static function getHeadings(string $html): array
     {
         return GetHeadings::handle($html);
-    }
-
-    public static function setSeo(FrontmatterData $fm): void
-    {
-        SetSeo::handle($fm);
     }
 }

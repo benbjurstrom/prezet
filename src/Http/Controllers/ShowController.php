@@ -5,10 +5,11 @@ namespace BenBjurstrom\Prezet\Http\Controllers;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ShowController
 {
-    public function __invoke(Request $request, string $slug)
+    public function __invoke(Request $request, string $slug): View
     {
         $doc = Document::query()
             ->where('slug', $slug)
@@ -18,9 +19,6 @@ class ShowController
             ->firstOrFail();
 
         $nav = Prezet::getNav();
-        $fm = $doc->frontmatter;
-        Prezet::setSeo($fm);
-
         $md = Prezet::getMarkdown($doc->filepath);
         $fm = Prezet::getFrontmatter($doc->filepath);
         $html = Prezet::getContent($md);
