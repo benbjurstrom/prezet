@@ -2,6 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use GdImage;
 use Illuminate\Support\Facades\Storage;
 
 class GetImage
@@ -18,12 +19,16 @@ class GetImage
         $size = self::extractSize($path);
         $path = self::removeSize($path);
 
-        $imageStr = Storage::disk(config('prezet.filesystem.disk'))->get('images/'.$path);
+        $imageStr = Storage::disk(GetPrezetDisk::handle())->get('images/'.$path);
         if (! $imageStr) {
             abort(404);
         }
 
         $image = imagecreatefromstring($imageStr);
+
+        if (! $image) {
+            abort(500, 'failed to create image from string');
+        }
 
         if (isset($size)) {
             $image = self::resizeImage($image, $size);
@@ -48,10 +53,16 @@ class GetImage
     {
         $pattern = '/(.+)-(\d+)w\.(\w+)$/';
 
-        return preg_replace($pattern, '$1.$3', $path);
+        $result = preg_replace($pattern, '$1.$3', $path);
+
+        if (! $result) {
+            abort(404, 'Invalid image path');
+        }
+
+        return $result;
     }
 
-    private static function resizeImage($image, int $size)
+    private static function resizeImage(GdImage $image, int $size): GdImage
     {
         $originalWidth = imagesx($image);
         $originalHeight = imagesy($image);
@@ -64,7 +75,7 @@ class GetImage
         return $resizedImage;
     }
 
-    private static function outputImage($image, string $extension): string
+    private static function outputImage(GdImage $image, string $extension): string
     {
         ob_start();
         switch ($extension) {
@@ -80,6 +91,10 @@ class GetImage
         }
         $output = ob_get_clean();
         imagedestroy($image);
+
+        if (! $output) {
+            abort(500, 'failed to output image');
+        }
 
         return $output;
     }

@@ -36,6 +36,9 @@ class Tag extends Model
         return [];
     }
 
+    /**
+     * @return BelongsToMany<Document>
+     */
     public function documents(): BelongsToMany
     {
         return $this->belongsToMany(Document::class, 'document_tags');

@@ -6,9 +6,18 @@ use Illuminate\Support\Facades\Storage;
 
 class GetSummary
 {
+    /**
+     * @return array<int|string, array<string, array<int, array<string, string>>|string>>
+     *
+     * @throws \Exception
+     */
     public static function handle(): array
     {
-        $md = Storage::disk(config('prezet.filesystem.disk'))->get('SUMMARY.md');
+        $md = Storage::disk(GetPrezetDisk::handle())->get('SUMMARY.md');
+
+        if (! $md) {
+            return [];
+        }
 
         $lines = explode("\n", $md);
         $result = [];

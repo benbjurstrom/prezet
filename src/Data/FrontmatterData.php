@@ -25,6 +25,9 @@ class FrontmatterData extends ValidatedDTO
     #[Rules(['nullable', 'string'])]
     public ?string $category;
 
+    /**
+     * @var array<int, string> $tags
+     */
     #[Rules(['array'])]
     public array $tags;
 
@@ -44,6 +47,9 @@ class FrontmatterData extends ValidatedDTO
     //    #[Rules(['nullable', 'string'])]
     //    public ?string $author;
 
+    /**
+     * @return array<string, array<int, null>|false>
+     */
     protected function defaults(): array
     {
         return [
@@ -52,6 +58,9 @@ class FrontmatterData extends ValidatedDTO
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function mapData(): array
     {
         return [
@@ -59,6 +68,9 @@ class FrontmatterData extends ValidatedDTO
         ];
     }
 
+    /**
+     * @return array<string, string|CarbonCast>
+     */
     protected function casts(): array
     {
         return [

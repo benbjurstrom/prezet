@@ -4,11 +4,15 @@ namespace BenBjurstrom\Prezet\Actions;
 
 use DOMDocument;
 use DOMElement;
+use DOMNode;
 use DOMXPath;
 use Illuminate\Support\Str;
 
 class GetHeadings
 {
+    /**
+     * @return array<int, array<string, array<int, array<string, string>>|string>>
+     */
     public static function handle(string $html): array
     {
         $dom = new DOMDocument;
@@ -17,11 +21,18 @@ class GetHeadings
         return self::extractHeadings($dom);
     }
 
-    private static function extractHeadings(DOMDocument $dom)
+    /**
+     * @return array<int, array<string, array<int, array<string, string>>|string>>
+     */
+    private static function extractHeadings(DOMDocument $dom): array
     {
         $xpath = new DOMXPath($dom);
         $h2Elements = $xpath->query('//h2');
         $result = [];
+
+        if (! $h2Elements) {
+            return $result;
+        }
 
         foreach ($h2Elements as $h2Element) {
             $children = self::extractChildHeadings($h2Element, 'h3');
@@ -36,7 +47,10 @@ class GetHeadings
         return $result;
     }
 
-    private static function extractChildHeadings($parentElement, $childTagName)
+    /**
+     * @return array<int, array<string, string>>
+     */
+    private static function extractChildHeadings(DOMNode $parentElement, string $childTagName): array
     {
         $nextSibling = $parentElement->nextSibling;
         $children = [];

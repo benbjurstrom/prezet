@@ -3,10 +3,11 @@
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
 use BenBjurstrom\Prezet\Models\Document;
+use Illuminate\View\View;
 
 class OgimageController
 {
-    public function __invoke(string $slug)
+    public function __invoke(string $slug): View
     {
         $doc = Document::query()
             ->where('slug', $slug)

@@ -13,7 +13,7 @@ class InstallCommand extends Command
 
     public $description = 'Installs the Prezet package';
 
-    protected $files;
+    protected Filesystem $files;
 
     public function __construct(Filesystem $files)
     {
@@ -131,6 +131,11 @@ class InstallCommand extends Command
 
         $configFile = config_path('database.php');
         $config = file_get_contents($configFile);
+        if (! $config) {
+            $this->error('Failed to read database config file: '.$configFile);
+
+            return;
+        }
 
         $diskConfig = "\n        'prezet' => [\n            'driver' => 'sqlite',\n            'database' => base_path('prezet.sqlite'),\n            'prefix' => '',\n            'foreign_key_constraints' => true,\n        ],";
 
@@ -153,6 +158,11 @@ class InstallCommand extends Command
 
         $configFile = config_path('filesystems.php');
         $config = file_get_contents($configFile);
+        if (! $config) {
+            $this->error('Failed to read filesystem config file: '.$configFile);
+
+            return;
+        }
 
         $diskConfig = "\n        'prezet' => [\n            'driver' => 'local',\n            'root' => storage_path('prezet'),\n            'throw' => false,\n        ],";
 

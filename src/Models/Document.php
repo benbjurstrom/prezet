@@ -41,15 +41,27 @@ class Document extends Model
         ];
     }
 
+    /**
+     * @return BelongsToMany<Tag>
+     */
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'document_tags');
     }
 
+    /**
+     * @return Attribute<string, never>
+     */
     protected function filepath(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => 'content/'.$attributes['slug'].'.md',
+            get: function (mixed $value, mixed $attributes): string {
+                if(is_array($attributes) && isset($attributes['slug'])) {
+                    return 'content/'.$attributes['slug'].'.md';
+                }
+
+                return '';
+            }
         );
     }
 }

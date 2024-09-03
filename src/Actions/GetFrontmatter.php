@@ -3,23 +3,31 @@
 namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Data\FrontmatterData;
-use BenBjurstrom\Prezet\Exceptions\FrontmatterException;
+use BenBjurstrom\Prezet\Exceptions\FileNotFoundException;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
+use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
+use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
 use Illuminate\Support\Facades\Storage;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 
 class GetFrontmatter
 {
     /**
-     * @throws FrontmatterMissingException
-     * @throws FrontmatterException
+     * @throws FileNotFoundException | FrontmatterMissingException|MissingConfigurationException|InvalidConfigurationException
      */
     public static function handle(string $filePath): FrontmatterData
     {
         $fmClass = config('prezet.data.frontmatter');
-        $storage = Storage::disk(config('prezet.filesystem.disk'));
+        if (! is_string($fmClass) || ! class_exists($fmClass)) {
+            throw new InvalidConfigurationException('prezet.data.frontmatter', $fmClass, 'is not a valid class');
+        }
+
+        $storage = Storage::disk(GetPrezetDisk::handle());
 
         $md = $storage->get($filePath);
+        if (! $md) {
+            throw new FileNotFoundException($filePath);
+        }
 
         $ext = new FrontMatterExtension;
         $parser = $ext->getFrontMatterParser();

@@ -33,6 +33,9 @@ class YoutubeData extends ValidatedDTO
     #[Rules(['nullable', 'string'])]
     public ?string $duration;
 
+    /**
+     * @return array<string, string>
+     */
     protected function defaults(): array
     {
         return [
@@ -43,6 +46,9 @@ class YoutubeData extends ValidatedDTO
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function mapData(): array
     {
         return [
@@ -52,6 +58,9 @@ class YoutubeData extends ValidatedDTO
         ];
     }
 
+    /**
+     * @return array<string, string|CarbonCast>
+     */
     protected function casts(): array
     {
         return [

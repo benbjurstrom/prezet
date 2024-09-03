@@ -6,6 +6,9 @@ use Carbon\Carbon;
 
 class SetFrontmatter
 {
+    /**
+     * @param  array<string, string>  $fm
+     */
     public static function update(string $md, array $fm): string
     {
         // Remove existing frontmatter if present
@@ -16,6 +19,9 @@ class SetFrontmatter
         return self::addFrontmatter($fm).$cleanMarkdown;
     }
 
+    /**
+     * @param  array<string, string>  $fm
+     */
     private static function addFrontmatter(array $fm): string
     {
         $yaml = "---\n";
@@ -27,7 +33,7 @@ class SetFrontmatter
         return $yaml;
     }
 
-    private static function formatValue($value): string
+    private static function formatValue(mixed $value): string
     {
         if (is_int($value) && $value > 946713600) {
             return (new Carbon($value))->toDateString();
@@ -36,7 +42,7 @@ class SetFrontmatter
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
         } elseif (is_null($value)) {
-            return 'null';
+            return '';
         } elseif (is_string($value) && (strpos($value, ':') !== false || strpos($value, '#') !== false)) {
             return '"'.str_replace('"', '\\"', $value).'"';
         }
