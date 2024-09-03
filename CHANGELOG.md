@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.10.0](https://github.com/benbjurstrom/prezet/compare/v0.9.0...v0.10.0) - 2024-09-03
+
+### What's Changed
+
+* 48 add colors to tailwind config by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/49
+* 50 remove seo action by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/51
+* 52 add serverless api gateway throttling to bref by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/53
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.9.0...v0.10.0
+
 ## [v0.9.0](https://github.com/benbjurstrom/prezet/compare/v0.8.8...v0.9.0) - 2024-08-29
 
 ### What's Changed
