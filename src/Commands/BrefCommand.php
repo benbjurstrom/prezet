@@ -16,7 +16,7 @@ class BrefCommand extends Command
 
     protected $description = 'Configures your application for use with Bref';
 
-    public function handle()
+    public function handle(): void
     {
         $domain = text(
             label: 'Please enter the domain name for your application',
@@ -44,7 +44,7 @@ class BrefCommand extends Command
         // For example, saving it to a configuration file or database
     }
 
-    protected function copyServerlessStub($service, $domain)
+    protected function copyServerlessStub(string $service, string $domain): void
     {
         $files = new Filesystem;
         $template = $files->get(__DIR__.'/../../stubs/serverless.yml');
@@ -53,15 +53,15 @@ class BrefCommand extends Command
         $files->put(base_path('serverless.yml'), $content);
     }
 
-    protected function installComposerPackages()
+    protected function installComposerPackages(): void
     {
         // TODO: what if composer is not in the path?
         $this->runCommands(['composer require league/flysystem-aws-s3-v3 league/flysystem-read-only bref/bref bref/extra-php-extensions bref/laravel-bridge']);
     }
 
-    protected function installNodeDependencies()
+    protected function installNodeDependencies(): void
     {
-        $packages = 'serverless-lift serverless-s3-sync';
+        $packages = 'serverless-lift serverless-s3-sync serverless-api-gateway-throttling';
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {
             $bin = 'pnpm';
