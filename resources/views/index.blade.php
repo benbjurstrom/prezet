@@ -25,7 +25,7 @@
                     </p>
                     <div class="flex">
                         <h1
-                            class="font-display mt-2 text-4xl font-bold tracking-tight text-stone-900"
+                            class="font-display mt-2 text-4xl font-bold tracking-tight text-gray-900"
                         >
                             Articles
                         </h1>
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div
-            class="space-y-4 divide-stone-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-stone-100"
+            class="space-y-4 divide-gray-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-gray-100"
         >
             @foreach ($articles as $article)
                 <article
@@ -115,20 +115,20 @@
 
                                     <h2
                                         id="episode-5-title"
-                                        class="mt-2 text-lg font-bold text-stone-900"
+                                        class="mt-2 text-lg font-bold text-gray-900"
                                     >
                                         {{ $article->title }}
                                     </h2>
                                     <div class="flex items-center space-x-2">
                                         <time
                                             datetime="{{ $article->createdAt->toIso8601String() }}"
-                                            class="order-first font-mono text-sm leading-7 text-stone-500"
+                                            class="order-first font-mono text-sm leading-7 text-gray-500"
                                         >
                                             {{ $article->createdAt->format('F j, Y') }}
                                         </time>
                                     </div>
                                     <p
-                                        class="mt-1 text-base leading-7 text-stone-700"
+                                        class="mt-1 text-base leading-7 text-gray-700"
                                     >
                                         {{ $article->excerpt }}
                                     </p>
@@ -170,7 +170,7 @@
                         </div>
                     </div>
                 </article>
-                <div class="lg:border-t lg:border-stone-100"></div>
+                <div class="lg:border-t lg:border-gray-100"></div>
             @endforeach
         </div>
     </section>
