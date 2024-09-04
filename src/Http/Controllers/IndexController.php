@@ -35,7 +35,7 @@ class IndexController
             ->get();
         $nav = Prezet::getNav();
 
-        $frontmatter = $docs->map(function ($doc) {
+        $frontmatter = $docs->map(function (Document $doc) {
             return $doc->frontmatter;
         });
 
