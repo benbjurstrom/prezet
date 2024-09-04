@@ -1,6 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: "#^Parameter \\#1 \\$view of method Illuminate\\\\View\\\\Factory\\:\\:make\\(\\) expects string, Closure\\|Illuminate\\\\Contracts\\\\Support\\\\Htmlable\\|Illuminate\\\\Contracts\\\\View\\\\View\\|string given\\.$#"
-			count: 1
-			path: src/Extensions/MarkdownBladeExtension.php
