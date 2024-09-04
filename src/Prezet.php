@@ -9,6 +9,7 @@ use BenBjurstrom\Prezet\Actions\GetMarkdown;
 use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
+use Illuminate\Support\Collection;
 
 class Prezet
 {
@@ -30,9 +31,9 @@ class Prezet
     }
 
     /**
-     * @return array<int|string, array<string, array<int, array<string, string>>|string>>
+     * @return Collection<int, array{title: string, links: array<int, array<string, string>>}>
      */
-    public static function getNav(): array
+    public static function getNav(): Collection
     {
         return GetSummary::handle();
     }

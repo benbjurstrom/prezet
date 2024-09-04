@@ -10,6 +10,7 @@ class GenerateOgImage
 {
     public static function handle(string $mdPath): string
     {
+
         $url = route('prezet.ogimage', ['slug' => $mdPath]);
 
         $screenshot = SpatieBrowsershot::url($url)
@@ -20,7 +21,7 @@ class GenerateOgImage
 
         $filename = Str::slug(str_replace('/', '-', $mdPath)).'.png';
         $filepath = 'images/ogimages/'.$filename;
-        Storage::disk(config('prezet.filesystem.disk'))->put($filepath, $screenshot);
+        Storage::disk(GetPrezetDisk::handle())->put($filepath, $screenshot);
 
         $imageUrl = route('prezet.image', 'ogimages/'.$filename, false);
         SetOgImage::handle($mdPath, $imageUrl);

@@ -46,9 +46,9 @@ class MarkdownBladeExtension implements ExtensionInterface, NodeRendererInterfac
     {
         $component = new class($string) extends Component
         {
-            protected $template;
+            protected string $template;
 
-            public function __construct($template)
+            public function __construct(string $template)
             {
                 $this->template = $template;
             }
@@ -64,7 +64,7 @@ class MarkdownBladeExtension implements ExtensionInterface, NodeRendererInterfac
             ->make($component->resolveView());
     }
 
-    public function onDocumentRenderedEvent()
+    public function onDocumentRenderedEvent(): void
     {
         static::$allowBladeForNextDocument = false;
     }

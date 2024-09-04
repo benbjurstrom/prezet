@@ -13,7 +13,7 @@ class GetAllFrontmatter
      */
     public static function handle(): Collection
     {
-        $files = collect(Storage::disk(config('prezet.filesystem.disk'))
+        $files = collect(Storage::disk(GetPrezetDisk::handle())
             ->allFiles('content'));
 
         return $files

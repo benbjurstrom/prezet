@@ -36,6 +36,10 @@ class IndexController
         $nav = Prezet::getNav();
 
         $frontmatter = $docs->map(function ($doc) {
+            if (! $doc instanceof Document) {
+                throw new \Exception('Invalid document');
+            }
+
             return $doc->frontmatter;
         });
 

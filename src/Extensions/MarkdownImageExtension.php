@@ -2,6 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Extensions;
 
+use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
 use Illuminate\Support\Str;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
@@ -47,6 +48,9 @@ class MarkdownImageExtension implements ExtensionInterface
     {
         $srcset = [];
         $allowedSizes = config('prezet.image.widths');
+        if (! is_array($allowedSizes)) {
+            throw new InvalidConfigurationException('prezet.image.widths', $allowedSizes, 'is not a valid array');
+        }
 
         foreach ($allowedSizes as $size) {
             $srcset[] = $this->generateImageUrl($url, $size).' '.$size.'w';

@@ -40,6 +40,9 @@ class UpdateIndex
         UpdateSitemap::handle();
     }
 
+    /**
+     * @param  array<int, string>  $tags
+     */
     protected static function setTags(Document $d, array $tags): void
     {
         foreach ($tags as $tag) {

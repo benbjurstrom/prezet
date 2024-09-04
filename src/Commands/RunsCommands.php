@@ -10,10 +10,9 @@ trait RunsCommands
     /**
      * Run the given commands.
      *
-     * @param  array  $commands
-     * @return void
+     * @param  array<int, string>  $commands
      */
-    protected function runCommands($commands)
+    protected function runCommands(array $commands): void
     {
         $process = Process::fromShellCommandline(implode(' && ', $commands), null, null, null, null);
 

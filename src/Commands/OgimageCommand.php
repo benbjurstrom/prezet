@@ -24,17 +24,17 @@ class OgimageCommand extends Command
                 required: true,
             );
 
-            $slugs = [$slug];
+            $slugs = collect([$slug]);
         } else {
             $slugs = Document::all()->map(function ($doc) {
                 return $doc->slug;
-            })->toArray();
+            });
         }
 
-        foreach ($slugs as $slug) {
+        $slugs->each(function ($slug) {
             $imageUrl = GenerateOgImage::handle($slug);
             info('OgImage url: '.$imageUrl);
-        }
+        });
 
         return self::SUCCESS;
     }
