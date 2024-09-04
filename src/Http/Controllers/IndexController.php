@@ -6,7 +6,6 @@ use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class IndexController
