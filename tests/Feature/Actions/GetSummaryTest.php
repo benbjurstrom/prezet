@@ -14,7 +14,6 @@ it('can parse the SUMMARY.md file', function () {
 -  [SEO](content/seo)
 
 ## 🎨 Customize
-
 -   [Routes](content/customize/routes)
 -   [Front Matter](content/customize/frontmatter)
 -   [Blade Views](content/customize/blade-views)
@@ -23,7 +22,7 @@ EOT);
 
     $result = GetSummary::handle();
 
-    expect($result)->toEqual([
+    expect($result)->toEqual(collect([
         [
             'title' => '🚀 Features',
             'links' => [
@@ -42,5 +41,5 @@ EOT);
                 ['title' => 'Controllers', 'slug' => 'customize/controllers'],
             ],
         ],
-    ]);
+    ]));
 });

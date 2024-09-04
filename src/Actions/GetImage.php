@@ -10,32 +10,43 @@ class GetImage
 {
     public static function handle(string $path): string
     {
+        self::validateFileExtension($path);
+
+        $size = self::extractSize($path);
+        $path = self::removeSize($path);
+
+        $image = self::loadImage($path);
+
+        if (isset($size)) {
+            $image = self::resizeImage($image, $size);
+        }
+
+        return self::outputImage($image, pathinfo($path, PATHINFO_EXTENSION));
+    }
+
+    protected static function validateFileExtension(string $path): void
+    {
         $allowedExtensions = ['png', 'jpg', 'webp'];
         $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
         if (! in_array($extension, $allowedExtensions)) {
             abort(404, 'Invalid file extension');
         }
+    }
 
-        $size = self::extractSize($path);
-        $path = self::removeSize($path);
-
+    protected static function loadImage(string $path): GdImage
+    {
         $imageStr = Storage::disk(GetPrezetDisk::handle())->get('images/'.$path);
         if (! $imageStr) {
             abort(404);
         }
 
         $image = imagecreatefromstring($imageStr);
-
         if (! $image) {
-            abort(500, 'failed to create image from string');
+            abort(500, 'Failed to create image from string');
         }
 
-        if (isset($size)) {
-            $image = self::resizeImage($image, $size);
-        }
-
-        return self::outputImage($image, $extension);
+        return $image;
     }
 
     private static function extractSize(string $path): ?int
