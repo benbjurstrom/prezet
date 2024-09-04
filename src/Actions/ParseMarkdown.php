@@ -41,6 +41,7 @@ class ParseMarkdown
 
     /**
      * @return array<int, ExtensionInterface>
+     *
      * @throws InvalidConfigurationException
      */
     protected static function getExtensions(): array

@@ -2,6 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
 use GdImage;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,6 +41,10 @@ class GetImage
     private static function extractSize(string $path): ?int
     {
         $allowedWidths = config('prezet.image.widths');
+        if (! is_array($allowedWidths)) {
+            throw new InvalidConfigurationException('prezet.image.widths', $allowedWidths, 'is not an array');
+        }
+
         $pattern = '/(.+)-(\d+)w\.(?:png|jpg|webp)$/';
 
         if (preg_match($pattern, $path, $matches) && in_array((int) $matches[2], $allowedWidths)) {

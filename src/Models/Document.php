@@ -56,7 +56,7 @@ class Document extends Model
     {
         return Attribute::make(
             get: function (mixed $value, mixed $attributes): string {
-                if(is_array($attributes) && isset($attributes['slug'])) {
+                if (is_array($attributes) && isset($attributes['slug'])) {
                     return 'content/'.$attributes['slug'].'.md';
                 }
 

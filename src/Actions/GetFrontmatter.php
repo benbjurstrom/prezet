@@ -33,7 +33,7 @@ class GetFrontmatter
         $parser = $ext->getFrontMatterParser();
         $fm = $parser->parse($md)->getFrontMatter();
 
-        if (! $fm) {
+        if (! $fm || ! is_array($fm)) {
             throw new FrontmatterMissingException($filePath);
         }
 

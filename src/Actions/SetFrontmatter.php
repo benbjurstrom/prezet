@@ -7,7 +7,7 @@ use Carbon\Carbon;
 class SetFrontmatter
 {
     /**
-     * @param  array<string, string>  $fm
+     * @param  array<string, mixed>  $fm
      */
     public static function update(string $md, array $fm): string
     {
@@ -20,7 +20,7 @@ class SetFrontmatter
     }
 
     /**
-     * @param  array<string, string>  $fm
+     * @param  array<string, mixed>  $fm
      */
     private static function addFrontmatter(array $fm): string
     {
@@ -33,7 +33,7 @@ class SetFrontmatter
         return $yaml;
     }
 
-    private static function formatValue(mixed $value): string
+    private static function formatValue(mixed $value): mixed
     {
         if (is_int($value) && $value > 946713600) {
             return (new Carbon($value))->toDateString();
