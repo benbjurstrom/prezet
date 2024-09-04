@@ -32,12 +32,15 @@ class IndexController
             });
         }
 
-        /* @var Collection<int, Document> $docs */
         $docs = $query->orderBy('date', 'desc')
             ->get();
         $nav = Prezet::getNav();
 
-        $frontmatter = $docs->map(function (Document $doc) {
+        $frontmatter = $docs->map(function ($doc) {
+            if (! $doc instanceof Document) {
+                throw new \Exception('Invalid document');
+            }
+
             return $doc->frontmatter;
         });
 
