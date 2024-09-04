@@ -2,7 +2,9 @@
 
 namespace BenBjurstrom\Prezet\Extensions;
 
-use Illuminate\Support\Facades\Blade;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\View\Component;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentRenderedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -32,10 +34,39 @@ class MarkdownBladeExtension implements ExtensionInterface, NodeRendererInterfac
 
         // Look for our magic word
         if (in_array('+parse', $info)) {
-            return Blade::render($node->getLiteral());
+            $view = $this->getView($node->getLiteral());
+
+            return $view->render();
         }
 
         return null;
+    }
+
+    public function getView(string $string): \Illuminate\Contracts\View\View
+    {
+        $component = new class($string) extends Component
+        {
+            protected string $template;
+
+            public function __construct(string $template)
+            {
+                $this->template = $template;
+            }
+
+            public function render()
+            {
+                return $this->template;
+            }
+        };
+
+        $view = $component->resolveView();
+        if (! is_string($view)) {
+            throw new \Exception('Could not resolve view');
+        }
+
+        return Container::getInstance()
+            ->make(ViewFactory::class)
+            ->make($view);
     }
 
     public function onDocumentRenderedEvent(): void
