@@ -59,9 +59,14 @@ class MarkdownBladeExtension implements ExtensionInterface, NodeRendererInterfac
             }
         };
 
+        $view = $component->resolveView();
+        if (! is_string($view)) {
+            throw new \Exception('Could not resolve view');
+        }
+
         return Container::getInstance()
             ->make(ViewFactory::class)
-            ->make($component->resolveView());
+            ->make($view);
     }
 
     public function onDocumentRenderedEvent(): void
