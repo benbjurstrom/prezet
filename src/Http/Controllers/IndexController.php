@@ -35,7 +35,7 @@ class IndexController
         $docs = $query->orderBy('date', 'desc')
             ->paginate(4);
 
-        if(!method_exists($docs, 'map')) {
+        if (! method_exists($docs, 'map')) {
             throw new \Exception('Invalid document');
         }
 
