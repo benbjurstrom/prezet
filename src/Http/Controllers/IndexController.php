@@ -32,7 +32,7 @@ class IndexController
         }
 
         $docs = $query->orderBy('date', 'desc')
-            ->get();
+            ->paginate(4);
         $nav = Prezet::getNav();
 
         $frontmatter = $docs->map(function ($doc) {
@@ -46,6 +46,7 @@ class IndexController
         return view('prezet::index', [
             'nav' => $nav,
             'articles' => $frontmatter,
+            'paginator' => $docs,
             'currentTag' => request()->query('tag'),
             'currentCategory' => request()->query('category'),
         ]);

@@ -1,8 +1,15 @@
-## 🚀 Introduction
+## 🎉 Getting Started
 
--   [Welcome to Prezet](welcome-to-prezet)
--   [Advanced Prezet Features](advanced-prezet-features)
+- [Installation](content/installation)
+- [Configuration](content/configuration)
+- [Sqlite Index](content/index)
 
-## 🎨 Customization
+## 😎 Features
 
--   [Customizing Prezet](customization/customizing-prezet)
+-  [Markdown Powered](content/features/markdown)
+-  [Blade Components](content/features/blade)
+-  [Optimized Images](content/features/images)
+-  [Typed Frontmatter](content/features/frontmatter)
+-  [SEO Tags](content/features/seo)
+-  [Ogimage Generation](content/features/ogimage)
+-  [Sitemap Generation](content/features/sitemap)
