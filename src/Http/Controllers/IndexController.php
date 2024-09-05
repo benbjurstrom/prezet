@@ -31,9 +31,13 @@ class IndexController
             });
         }
 
+        $nav = Prezet::getNav();
         $docs = $query->orderBy('date', 'desc')
             ->paginate(4);
-        $nav = Prezet::getNav();
+
+        if(!method_exists($docs, 'map')) {
+            throw new \Exception('Invalid document');
+        }
 
         $frontmatter = $docs->map(function ($doc) {
             if (! $doc instanceof Document) {
