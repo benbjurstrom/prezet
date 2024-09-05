@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.11.0](https://github.com/benbjurstrom/prezet/compare/v0.10.0...v0.11.0) - 2024-09-05
+
+### What's Changed
+
+* 54 increase phpstan coverage by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/55
+* 56 index headings by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/57
+* 58 restyle index page by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/59
+* 58 restyle index page by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/60
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.10.0...v0.11.0
+
 ## [v0.10.0](https://github.com/benbjurstrom/prezet/compare/v0.9.0...v0.10.0) - 2024-09-03
 
 ### What's Changed
