@@ -23,7 +23,7 @@
         class="sticky top-[4.75rem] -ml-0.5 flex h-[calc(100vh-4.75rem)] w-64 flex-col justify-between overflow-y-auto overflow-x-hidden pb-4 pl-0.5 pr-8 pt-16 xl:w-72 xl:pr-16"
     >
         <x-prezet::nav :nav="$nav" />
-        <div class="text-xs text-gray-400 mt-16">
+        <div class="mt-16 text-xs text-gray-400">
             <a target="_blank" href="https://prezet.com">Powered by Prezet</a>
         </div>
     </div>

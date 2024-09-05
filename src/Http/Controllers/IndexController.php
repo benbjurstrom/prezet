@@ -31,9 +31,13 @@ class IndexController
             });
         }
 
-        $docs = $query->orderBy('date', 'desc')
-            ->get();
         $nav = Prezet::getNav();
+        $docs = $query->orderBy('date', 'desc')
+            ->paginate(4);
+
+        if (! method_exists($docs, 'map')) {
+            throw new \Exception('Invalid document');
+        }
 
         $frontmatter = $docs->map(function ($doc) {
             if (! $doc instanceof Document) {
@@ -46,6 +50,7 @@ class IndexController
         return view('prezet::index', [
             'nav' => $nav,
             'articles' => $frontmatter,
+            'paginator' => $docs,
             'currentTag' => request()->query('tag'),
             'currentCategory' => request()->query('category'),
         ]);

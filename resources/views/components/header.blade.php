@@ -29,7 +29,7 @@
             class="inline-block flex items-center space-x-2"
         >
             <x-prezet::logo />
-            <span class="text-gray-900 text-2xl font-bold">
+            <span class="text-2xl font-bold text-gray-900">
                 {{ strtoupper(config('app.name')) }}
             </span>
         </a>
