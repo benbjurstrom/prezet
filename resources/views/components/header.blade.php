@@ -34,7 +34,8 @@
             </span>
         </a>
     </div>
-    <div class="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
+    <div class="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow items-center">
+        <x-prezet::search />
         <a
             class="group"
             aria-label="GitHub"
