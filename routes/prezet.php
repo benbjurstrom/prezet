@@ -3,6 +3,7 @@
 use BenBjurstrom\Prezet\Http\Controllers\ImageController;
 use BenBjurstrom\Prezet\Http\Controllers\IndexController;
 use BenBjurstrom\Prezet\Http\Controllers\OgimageController;
+use BenBjurstrom\Prezet\Http\Controllers\SearchController;
 use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Session\Middleware\StartSession;
@@ -28,6 +29,7 @@ Route::withoutMiddleware([
 
         Route::get('prezet/{slug}', ShowController::class)
             ->name('prezet.show')
-            ->where('slug', '.*');
-        // https://laravel.com/docs/11.x/routing#parameters-encoded-forward-slashes
+            ->where('slug', '.*'); // https://laravel.com/docs/11.x/routing#parameters-encoded-forward-slashes
+
+        Route::get('prezet/search', SearchController::class)->name('prezet.search');
     });
