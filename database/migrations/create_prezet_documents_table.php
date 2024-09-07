@@ -21,4 +21,9 @@ return new class extends Migration
             $table->timestamp('updated_at');
         });
     }
+
+    public function down(): void
+    {
+        Schema::connection('prezet')->dropIfExists('documents');
+    }
 };
