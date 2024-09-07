@@ -32,7 +32,6 @@ class SearchController
                 return HeadingData::fromModel($heading);
             });
 
-        dd($results);
 
         return response()->json($results);
     }

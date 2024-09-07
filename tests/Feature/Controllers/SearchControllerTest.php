@@ -24,12 +24,14 @@ class SearchControllerTest extends TestCase
         ]));
 
         $response->assertStatus(200)
-            ->assertJsonCount(2)
-            ->assertJsonStructure([
-                '*' => ['slug', 'title', 'excerpt', 'category', 'tags', 'image', 'draft', 'createdAt', 'updatedAt']
-            ])
-            ->assertJsonFragment(['title' => 'Introduction to Laravel'])
-            ->assertJsonFragment(['title' => 'Laravel Best Practices']);
+            ->assertJsonCount(1)
+            ->assertJsonFragment([
+                "level" => 1,
+                "documentId" => 1,
+                "section" => "Introduction to Laravel",
+                "text" => "Introduction to Laravel",
+                "slug" => "intro-to-laravel",
+          ]);
     }
 
     public function test_search_returns_empty_results_for_non_matching_query(): void
@@ -52,17 +54,39 @@ class SearchControllerTest extends TestCase
 
     private function seedTestData(): void
     {
-        $document = Document::factory()->create([
-            'slug' => 'test-slug',
-            'category' => 'Test Category',
-        ]);
+        $documents = [
+            [
+                'slug' => 'intro-to-laravel',
+                'category' => 'Web Development',
+                'draft' => false,
+                'frontmatter' => [
+                    'slug' => 'intro-to-laravel',
+                    'title' => 'Introduction to Laravel',
+                    'excerpt' => 'Learn the basics of Laravel framework',
+                    'tags' => ['PHP', 'Laravel', 'Framework'],
+                    'image' => null,
+                    'date' => now()->subDays(10)->toIso8601String(),
+                    'updatedAt' => now()->subDays(10)->toIso8601String(),
+                ],
+            ],
+        ];
 
+        foreach ($documents as $doc) {
+            $document = Document::create([
+                'slug' => $doc['slug'],
+                'category' => $doc['category'],
+                'draft' => $doc['draft'],
+                'frontmatter' => json_encode($doc['frontmatter']),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
-        Heading::create([
-            'document_id' => $document->id,
-            'text' => 'Introduction to Laravel',
-            'level' => 1,
-            'section' => 0,
-        ]);
+            Heading::create([
+                'document_id' => $document->id,
+                'text' => $doc['frontmatter']['title'],
+                'level' => 1,
+                'section' => $doc['frontmatter']['title'],
+            ]);
+        }
     }
 }

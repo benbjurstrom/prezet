@@ -25,6 +25,9 @@ class HeadingData extends ValidatedDTO
     #[Rules(['required', 'string'])]
     public string $slug;
 
+    #[Rules(['required', 'integer'])]
+    public int $documentId;
+
     /**
      * @return array<string, array<int, null>|false>
      */
@@ -40,6 +43,7 @@ class HeadingData extends ValidatedDTO
     {
         return [
             'document.slug' => 'slug',
+            'document_id' => 'documentId',
         ];
     }
 
