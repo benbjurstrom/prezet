@@ -17,4 +17,9 @@ return new class extends Migration
                 ->unique();
         });
     }
+
+    public function down(): void
+    {
+        Schema::connection('prezet')->dropIfExists('tags');
+    }
 };

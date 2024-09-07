@@ -21,4 +21,9 @@ return new class extends Migration
                 ->constrained('tags');
         });
     }
+
+    public function down(): void
+    {
+        Schema::connection('prezet')->dropIfExists('document_tags');
+    }
 };

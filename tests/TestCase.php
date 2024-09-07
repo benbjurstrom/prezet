@@ -4,6 +4,8 @@ namespace BenBjurstrom\Prezet\Tests;
 
 use ArchTech\SEO\SEOServiceProvider;
 use BenBjurstrom\Prezet\PrezetServiceProvider;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -39,5 +41,24 @@ class TestCase extends Orchestra
         ]);
 
         config()->set('database.default', 'prezet');
+
+        Route::group([], function () {
+            require __DIR__.'/../routes/prezet.php';
+        });
+
+        $migrations = __DIR__.'/../database/migrations';
+        Artisan::call('migrate:rollback', [
+            '--path' => $migrations,
+            '--database' => 'prezet',
+            '--realpath' => true,
+            '--no-interaction' => true,
+        ]);
+
+        Artisan::call('migrate', [
+            '--path' => $migrations,
+            '--database' => 'prezet',
+            '--realpath' => true,
+            '--no-interaction' => true,
+        ]);
     }
 }

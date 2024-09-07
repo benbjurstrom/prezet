@@ -22,5 +22,8 @@ return new class extends Migration
         });
     }
 
-    // ... down method ...
+    public function down(): void
+    {
+        Schema::connection('prezet')->dropIfExists('headings');
+    }
 };

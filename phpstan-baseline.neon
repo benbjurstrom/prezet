@@ -1,6 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\:\\:pluck\\(\\)\\.$#"
-			count: 1
-			path: src/Http/Controllers/IndexController.php
