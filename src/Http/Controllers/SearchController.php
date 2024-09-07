@@ -3,6 +3,7 @@
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
 use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Data\HeadingData;
 use BenBjurstrom\Prezet\Models\Heading;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,10 +29,8 @@ class SearchController
             ->limit(5)
             ->get()
             ->map(function ($heading) {
-                return $heading->document;
+                return HeadingData::fromModel($heading);
             });
-
-        dd($results);
 
         return response()->json($results);
     }

@@ -16,8 +16,32 @@ class DocumentData extends ValidatedDTO
     #[Rules(['required', 'string'])]
     public string $slug;
 
-    #[Rules(['required', 'array'])]
-    public FrontmatterData $frontmatter;
+    #[Rules(['nullable', 'string'])]
+    public ?string $title;
+
+    #[Rules(['required', 'string'])]
+    public string $excerpt;
+
+    #[Rules(['nullable', 'string'])]
+    public ?string $category;
+
+    #[Rules(['nullable', 'string'])]
+    public ?string $image;
+
+    #[Rules(['bool'])]
+    public bool $draft;
+
+    /**
+     * @var array<int, string> $tags
+     */
+    #[Rules(['array'])]
+    public array $tags;
+
+//    #[Rules(['required', 'array'])]
+//    public FrontmatterData $frontmatter;
+
+    #[Rules(['required'])]
+    public Carbon $publishedAt;
 
     #[Rules(['required'])]
     public Carbon $createdAt;
@@ -39,10 +63,18 @@ class DocumentData extends ValidatedDTO
     protected function mapData(): array
     {
         return [
+            'frontmatter.title' => 'title',
+            'frontmatter.excerpt' => 'excerpt',
+            'frontmatter.category' => 'category',
+            'frontmatter.tags' => 'tags',
+            'frontmatter.image' => 'image',
+            'frontmatter.draft' => 'draft',
+            'frontmatter.date' => 'publishedAt',
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
         ];
     }
+
 
     /**
      * @return array<string, CarbonCast|DTOCast>
@@ -50,7 +82,7 @@ class DocumentData extends ValidatedDTO
     protected function casts(): array
     {
         return [
-            'frontmatter' => new DTOCast(FrontmatterData::class),
+            'publishedAt' => new CarbonCast,
             'createdAt' => new CarbonCast,
             'updatedAt' => new CarbonCast,
         ];
