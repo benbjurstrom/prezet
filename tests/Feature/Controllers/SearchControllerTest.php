@@ -11,15 +11,10 @@ use Illuminate\Support\Facades\Route;
 
 class SearchControllerTest extends TestCase
 {
-
-    use RefreshDatabase;
-
     public function setUp(): void
     {
         parent::setUp();
         $this->seedTestData();
-
-        Route::get('prezet/search', SearchController::class)->name('prezet.search');
     }
 
     public function test_search_returns_expected_results(): void
@@ -27,7 +22,6 @@ class SearchControllerTest extends TestCase
         $response = $this->getJson(route('prezet.search', [
             'q' => 'Laravel'
         ]));
-
 
         $response->assertStatus(200)
             ->assertJsonCount(2)

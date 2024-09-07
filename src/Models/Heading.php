@@ -29,7 +29,6 @@ class Heading extends Model
     {
         return [
             'level' => 'integer',
-            'section' => 'integer',
         ];
     }
 

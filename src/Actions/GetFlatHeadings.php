@@ -33,18 +33,18 @@ class GetFlatHeadings
             return $headings;
         }
 
-        $currentSection = 0;
+        $currentSection = '';
         foreach ($headingElements as $headingElement) {
             if (! $headingElement instanceof DOMElement) {
                 continue;
             }
 
+            $headingText = self::cleanHeadingText($headingElement->textContent);
+
             $headingLevel = (int) substr(strtolower($headingElement->tagName), 1);
             if ($headingLevel === 2) {
-                $currentSection++;
+                $currentSection = $headingText;
             }
-
-            $headingText = self::cleanHeadingText($headingElement->textContent);
 
             $headings[] = [
                 'text' => $headingText,
