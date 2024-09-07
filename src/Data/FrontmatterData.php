@@ -14,9 +14,6 @@ class FrontmatterData extends ValidatedDTO
     use EmptyRules;
 
     #[Rules(['required', 'string'])]
-    public string $slug;
-
-    #[Rules(['required', 'string'])]
     public string $title;
 
     #[Rules(['required', 'string'])]
@@ -38,10 +35,7 @@ class FrontmatterData extends ValidatedDTO
     public bool $draft;
 
     #[Rules(['required'])]
-    public Carbon $createdAt;
-
-    #[Rules(['required'])]
-    public Carbon $updatedAt;
+    public Carbon $date;
 
     //    Good override example
     //    #[Rules(['nullable', 'string'])]
@@ -64,7 +58,8 @@ class FrontmatterData extends ValidatedDTO
     protected function mapData(): array
     {
         return [
-            'date' => 'createdAt',
+            'description' => 'excerpt',
+            'createdAt' => 'date',
         ];
     }
 
@@ -74,8 +69,7 @@ class FrontmatterData extends ValidatedDTO
     protected function casts(): array
     {
         return [
-            'createdAt' => new CarbonCast,
-            'updatedAt' => new CarbonCast,
+            'date' => new CarbonCast,
         ];
     }
 
@@ -84,6 +78,6 @@ class FrontmatterData extends ValidatedDTO
      */
     protected function failedValidation(): void
     {
-        throw new FrontmatterException($this->validator->errors(), $this->data['slug'] ?? false);
+        throw new FrontmatterException($this->validator->errors(), $this->data['title'] ?? false);
     }
 }
