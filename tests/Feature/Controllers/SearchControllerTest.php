@@ -52,58 +52,17 @@ class SearchControllerTest extends TestCase
 
     private function seedTestData(): void
     {
-        $documents = [
-            [
-                'slug' => 'intro-to-laravel',
-                'category' => 'Web Development',
-                'draft' => false,
-                'frontmatter' => [
-                    'title' => 'Introduction to Laravel',
-                    'excerpt' => 'Learn the basics of Laravel framework',
-                    'tags' => ['PHP', 'Laravel', 'Framework'],
-                    'image' => null,
-                ],
-            ],
-            [
-                'slug' => 'laravel-best-practices',
-                'category' => 'Web Development',
-                'draft' => false,
-                'frontmatter' => [
-                    'title' => 'Laravel Best Practices',
-                    'excerpt' => 'Discover best practices for Laravel development',
-                    'tags' => ['PHP', 'Laravel', 'Best Practices'],
-                    'image' => null,
-                ],
-            ],
-            [
-                'slug' => 'vue-js-basics',
-                'category' => 'Frontend',
-                'draft' => false,
-                'frontmatter' => [
-                    'title' => 'Vue.js Basics',
-                    'excerpt' => 'Learn the fundamentals of Vue.js',
-                    'tags' => ['JavaScript', 'Vue.js', 'Frontend'],
-                    'image' => null,
-                ],
-            ],
-        ];
+        $document = Document::factory()->create([
+            'slug' => 'test-slug',
+            'category' => 'Test Category',
+        ]);
 
-        foreach ($documents as $doc) {
-            $document = Document::create([
-                'slug' => $doc['slug'],
-                'category' => $doc['category'],
-                'draft' => $doc['draft'],
-                'frontmatter' => json_encode($doc['frontmatter']),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
 
-            Heading::create([
-                'document_id' => $document->id,
-                'text' => $doc['frontmatter']['title'],
-                'level' => 1,
-                'section' => 0,
-            ]);
-        }
+        Heading::create([
+            'document_id' => $document->id,
+            'text' => 'Introduction to Laravel',
+            'level' => 1,
+            'section' => 0,
+        ]);
     }
 }
