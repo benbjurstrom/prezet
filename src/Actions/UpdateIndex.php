@@ -15,25 +15,8 @@ class UpdateIndex
 {
     public static function handle(): void
     {
-        try {
-            Artisan::call('migrate:rollback', [
-                '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
-                '--database' => 'prezet',
-                '--realpath' => true,
-                '--no-interaction' => true,
-            ]);
-        } catch (QueryException $e) {
-            // either file does not exist or
-            // migrations table does not exist
-        }
 
-        Artisan::call('migrate', [
-            '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
-            '--database' => 'prezet',
-            '--realpath' => true,
-            '--no-interaction' => true,
-        ]);
-
+        self::runMigrations();
         $docs = GetAllFrontmatter::handle();
         $docs->each(function (FrontmatterData $doc) {
             $d = Document::create([
@@ -89,5 +72,27 @@ class UpdateIndex
 
             $d->tags()->attach($t->id);
         }
+    }
+
+    protected static function runMigrations(): void
+    {
+        try{
+            Artisan::call('migrate:rollback', [
+                '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
+                '--database' => 'prezet',
+                '--realpath' => true,
+                '--no-interaction' => true,
+            ]);
+        }catch (QueryException $e){
+            // either file does not exist or
+            // migrations table does not exist
+        }
+
+        Artisan::call('migrate', [
+            '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
+            '--database' => 'prezet',
+            '--realpath' => true,
+            '--no-interaction' => true,
+        ]);
     }
 }
