@@ -43,10 +43,10 @@ class TestCase extends Orchestra
         config()->set('database.default', 'prezet');
 
         Route::group([], function () {
-            require __DIR__ . '/../routes/prezet.php';
+            require __DIR__.'/../routes/prezet.php';
         });
 
-        $migrations = __DIR__ . '/../database/migrations';
+        $migrations = __DIR__.'/../database/migrations';
         Artisan::call('migrate:rollback', [
             '--path' => $migrations,
             '--database' => 'prezet',

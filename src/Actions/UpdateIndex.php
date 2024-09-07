@@ -15,14 +15,14 @@ class UpdateIndex
 {
     public static function handle(): void
     {
-        try{
+        try {
             Artisan::call('migrate:rollback', [
                 '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
                 '--database' => 'prezet',
                 '--realpath' => true,
                 '--no-interaction' => true,
             ]);
-        }catch (QueryException $e){
+        } catch (QueryException $e) {
             // either file does not exist or
             // migrations table does not exist
         }

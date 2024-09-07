@@ -1,7 +1,6 @@
 <?php
 
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
-use BenBjurstrom\Prezet\Http\Controllers\ImageController;
 
 it('parses markdown into html', function () {
     $markdown = <<<'MD'
