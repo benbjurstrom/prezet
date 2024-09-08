@@ -15,7 +15,7 @@ class GetHeadings
      */
     public static function handle(string $html): array
     {
-        $html = '<?xml encoding="UTF-8">' . $html;
+        $html = '<?xml encoding="UTF-8">'.$html;
         $dom = new DOMDocument;
         @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
