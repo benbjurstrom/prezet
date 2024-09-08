@@ -9,7 +9,7 @@ it('gets the headings html', function () {
 <p>This is another paragraph</p>
 <h3>Heading 2</h3>
 <p>This is yet another paragraph</p>
-<h2>Heading 3</h2>
+<h2>Heäding 3</h2>
 HTML;
 
     $expected = [
@@ -24,8 +24,8 @@ HTML;
             ],
         ],
         [
-            'id' => 'content-heading-3',
-            'title' => 'Heading 3',
+            'id' => 'content-heäding-3',
+            'title' => 'Heäding 3',
             'children' => [],
         ],
     ];
