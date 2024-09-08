@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.12.0](https://github.com/benbjurstrom/prezet/compare/v0.11.0...v0.12.0) - 2024-09-08
+
+### What's Changed
+
+* 64 run migrations on index by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/65
+* 66 utf 8 encoding issue by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/68
+* 64 run migrations on index by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/69
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.11.0...v0.12.0
+
 ## [v0.11.0](https://github.com/benbjurstrom/prezet/compare/v0.10.0...v0.11.0) - 2024-09-05
 
 ### What's Changed
