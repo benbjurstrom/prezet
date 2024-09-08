@@ -15,6 +15,8 @@ class GetHeadings
      */
     public static function handle(string $html): array
     {
+        $html = '<?xml encoding="UTF-8">' . $html;
+
         $dom = new DOMDocument;
         @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -37,8 +39,10 @@ class GetHeadings
         foreach ($h2Elements as $h2Element) {
             $children = self::extractChildHeadings($h2Element, 'h3');
 
+            $slug = self::customSlug($h2Element->textContent);
+
             $result[] = [
-                'id' => 'content-'.Str::slug($h2Element->textContent),
+                'id' => 'content-'.$slug,
                 'title' => trim($h2Element->textContent, '#'),
                 'children' => $children,
             ];
@@ -58,8 +62,11 @@ class GetHeadings
         while ($nextSibling) {
             if ($nextSibling instanceof DOMElement) {
                 if (strtolower($nextSibling->tagName) == $childTagName) {
+
+                    $slug = self::customSlug($nextSibling->textContent);
+
                     $children[] = [
-                        'id' => 'content-'.Str::slug($nextSibling->textContent),
+                        'id' => 'content-'.$slug,
                         'title' => trim($nextSibling->textContent, '#'),
                     ];
                 } elseif (strtolower($nextSibling->tagName) == 'h2') {
@@ -70,5 +77,20 @@ class GetHeadings
         }
 
         return $children;
+    }
+
+    private static function customSlug(string $text): string
+    {
+        // Convert the text to lowercase
+        $text = mb_strtolower($text);
+
+        // Replace spaces and other non-alphanumeric characters (except for umlauts)
+        $text = preg_replace('/[^a-z0-9äöüßÄÖÜ\s-]/u', '', $text); // Allows umlauts and ß
+
+        // Replace spaces with hyphens
+        $text = preg_replace('/\s+/', '-', $text);
+
+        // Trim any trailing hyphens
+        return trim($text, '-');
     }
 }
