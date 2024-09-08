@@ -75,7 +75,7 @@ class UpdateIndex
 
     protected static function runMigrations(): void
     {
-        if (!Schema::connection('prezet')->hasTable('migrations')) {
+        if (! Schema::connection('prezet')->hasTable('migrations')) {
             Schema::connection('prezet')->create('migrations', function ($table) {
                 $table->increments('id');
                 $table->string('migration');
