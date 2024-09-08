@@ -15,6 +15,7 @@ class GetHeadings
      */
     public static function handle(string $html): array
     {
+        $html = '<?xml encoding="UTF-8">'.$html;
         $dom = new DOMDocument;
         @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -38,7 +39,7 @@ class GetHeadings
             $children = self::extractChildHeadings($h2Element, 'h3');
 
             $result[] = [
-                'id' => 'content-'.Str::slug($h2Element->textContent),
+                'id' => 'content-'.Str::slug($h2Element->textContent, language: null),
                 'title' => trim($h2Element->textContent, '#'),
                 'children' => $children,
             ];
@@ -59,7 +60,7 @@ class GetHeadings
             if ($nextSibling instanceof DOMElement) {
                 if (strtolower($nextSibling->tagName) == $childTagName) {
                     $children[] = [
-                        'id' => 'content-'.Str::slug($nextSibling->textContent),
+                        'id' => 'content-'.Str::slug($nextSibling->textContent, language: null),
                         'title' => trim($nextSibling->textContent, '#'),
                     ];
                 } elseif (strtolower($nextSibling->tagName) == 'h2') {
