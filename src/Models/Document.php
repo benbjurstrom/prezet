@@ -37,7 +37,7 @@ class Document extends Model
     protected function casts(): array
     {
         return [
-            'draft' => 'boolean'
+            'draft' => 'boolean',
         ];
     }
 
@@ -47,13 +47,14 @@ class Document extends Model
     protected function frontmatter(): Attribute
     {
         return Attribute::make(
-            get: function(mixed $value) {
-                if(!is_string($value)) {
+            get: function (mixed $value) {
+                if (! is_string($value)) {
                     throw new TypeError('Frontmatter passed to Attribute::make must be a string');
                 }
+
                 return FrontmatterData::fromJson($value);
             },
-            set: fn(FrontmatterData $value) => $value->toJson()
+            set: fn (FrontmatterData $value) => $value->toJson()
         );
     }
 
