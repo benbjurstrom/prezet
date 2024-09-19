@@ -57,7 +57,6 @@ class Document extends Model
                 if (! is_string($fmClass)) {
                     throw new TypeError('Front matter class set in prezet.data.frontmatter must be a string');
                 }
-                
 
                 return $fmClass::fromJson($value);
             },
