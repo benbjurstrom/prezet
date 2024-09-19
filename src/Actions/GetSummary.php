@@ -14,7 +14,7 @@ class GetSummary
      */
     public static function handle(?string $filepath): Collection
     {
-        if(! $filepath) {
+        if (! $filepath) {
             $filepath = 'SUMMARY.md';
         }
 
