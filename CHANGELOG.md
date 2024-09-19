@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.14.0](https://github.com/benbjurstrom/prezet/compare/v0.13.0...v0.14.0) - 2024-09-19
+
+### What's Changed
+
+* 71 remove unnecessary type check  by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/75
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.13.0...v0.14.0
+
 ## [v0.13.0](https://github.com/benbjurstrom/prezet/compare/v0.12.0...v0.13.0) - 2024-09-19
 
 ### What's Changed
