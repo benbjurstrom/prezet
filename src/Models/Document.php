@@ -58,10 +58,6 @@ class Document extends Model
                     throw new TypeError('Front matter class set in prezet.data.frontmatter must be a string');
                 }
 
-                if (! is_subclass_of($fmClass, FrontmatterData::class)) {
-                    throw new TypeError('Front matter class set in prezet.data.frontmatter must extend '.FrontmatterData::class);
-                }
-
                 return $fmClass::fromJson($value);
             },
             set: fn (FrontmatterData $value) => $value->toJson()
