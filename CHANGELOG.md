@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.13.0](https://github.com/benbjurstrom/prezet/compare/v0.12.0...v0.13.0) - 2024-09-19
+
+### What's Changed
+
+* 71 Laravel 10 compatibility by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/72
+* 70 add optional filename parameter to getnav by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/73
+* 71 Use config front matter by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/74
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.12.0...v0.13.0
+
 ## [v0.12.0](https://github.com/benbjurstrom/prezet/compare/v0.11.0...v0.12.0) - 2024-09-08
 
 ### What's Changed
