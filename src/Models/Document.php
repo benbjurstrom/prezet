@@ -49,10 +49,20 @@ class Document extends Model
         return Attribute::make(
             get: function (mixed $value) {
                 if (! is_string($value)) {
-                    throw new TypeError('Frontmatter passed to Attribute::make must be a string');
+                    throw new TypeError('Front matter passed to Attribute::make must be a string');
                 }
 
-                return FrontmatterData::fromJson($value);
+                $fmClass = config('prezet.data.frontmatter', FrontmatterData::class);
+
+                if (! is_string($fmClass)) {
+                    throw new TypeError('Front matter class set in prezet.data.frontmatter must be a string');
+                }
+
+                if (! is_subclass_of($fmClass, FrontmatterData::class)) {
+                    throw new TypeError('Front matter class set in prezet.data.frontmatter must extend '.FrontmatterData::class);
+                }
+
+                return $fmClass::fromJson($value);
             },
             set: fn (FrontmatterData $value) => $value->toJson()
         );
