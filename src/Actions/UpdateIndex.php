@@ -22,7 +22,7 @@ class UpdateIndex
                 'slug' => $doc->slug,
                 'category' => $doc->category,
                 'draft' => $doc->draft,
-                'frontmatter' => $doc->toJson(),
+                'frontmatter' => $doc,
                 'created_at' => $doc->createdAt,
                 'updated_at' => $doc->updatedAt,
             ]);

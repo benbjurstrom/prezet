@@ -1,5 +1,5 @@
 @php
-    $ytData = new \BenBjurstrom\Prezet\Data\YoutubeData($attributes->all());
+    $ytData = new \BenBjurstrom\Prezet\Data\YoutubeData($attributes->getAttributes());
 @endphp
 
 <div class="aspect-video" {{ $attributes }}>
