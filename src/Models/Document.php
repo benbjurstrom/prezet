@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use TypeError;
 
 /**
  * @property string $slug
@@ -36,9 +37,24 @@ class Document extends Model
     protected function casts(): array
     {
         return [
-            'draft' => 'boolean',
-            'frontmatter' => FrontmatterData::class,
+            'draft' => 'boolean'
         ];
+    }
+
+    /**
+     * @return Attribute<string, never>
+     */
+    protected function frontmatter(): Attribute
+    {
+        return Attribute::make(
+            get: function(mixed $value) {
+                if(!is_string($value)) {
+                    throw new TypeError('Frontmatter passed to Attribute::make must be a string');
+                }
+                return FrontmatterData::fromJson($value);
+            },
+            set: fn(FrontmatterData $value) => $value->toJson()
+        );
     }
 
     /**
