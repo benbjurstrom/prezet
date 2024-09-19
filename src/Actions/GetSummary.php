@@ -12,9 +12,13 @@ class GetSummary
      *
      * @throws \Exception
      */
-    public static function handle(): Collection
+    public static function handle(?string $filepath): Collection
     {
-        $md = Storage::disk(GetPrezetDisk::handle())->get('SUMMARY.md');
+        if(! $filepath) {
+            $filepath = 'SUMMARY.md';
+        }
+
+        $md = Storage::disk(GetPrezetDisk::handle())->get($filepath);
 
         if (! $md) {
             return collect([]);
