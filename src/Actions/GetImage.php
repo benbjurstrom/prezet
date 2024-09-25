@@ -10,7 +10,8 @@ class GetImage
 {
     public static function handle(string $path): string
     {
-        self::validateFileExtension($path);
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        self::validateFileExtension($extension);
 
         $size = self::extractSize($path);
         $path = self::removeSize($path);
@@ -21,7 +22,7 @@ class GetImage
             $image = self::resizeImage($image, $size);
         }
 
-        return self::outputImage($image, pathinfo($path, PATHINFO_EXTENSION));
+        return self::outputImage($image, $extension);
     }
 
     protected static function validateFileExtension(string $extension): void
