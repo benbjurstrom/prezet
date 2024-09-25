@@ -24,10 +24,9 @@ class GetImage
         return self::outputImage($image, pathinfo($path, PATHINFO_EXTENSION));
     }
 
-    protected static function validateFileExtension(string $path): void
+    protected static function validateFileExtension(string $extension): void
     {
-        $allowedExtensions = ['png', 'jpg', 'webp'];
-        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $allowedExtensions = ['png', 'jpg', 'jpeg', 'webp'];
 
         if (! in_array($extension, $allowedExtensions)) {
             abort(404, 'Invalid file extension');
@@ -99,6 +98,7 @@ class GetImage
                 imagepng($image);
                 break;
             case 'jpg':
+            case 'jpeg':
                 imagejpeg($image);
                 break;
             case 'webp':
