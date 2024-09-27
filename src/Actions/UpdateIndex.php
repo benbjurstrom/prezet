@@ -8,6 +8,7 @@ use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
@@ -15,6 +16,11 @@ class UpdateIndex
 {
     public static function handle(): void
     {
+        $lock = Cache::lock('prezet-update-index', 10);
+        if (! $lock->get()) {
+            return;
+        }
+
         self::runMigrations();
         $docs = GetAllFrontmatter::handle();
         $docs->each(function (FrontmatterData $doc) {
@@ -56,6 +62,8 @@ class UpdateIndex
             ->where('slug', '.*');
 
         UpdateSitemap::handle();
+
+        $lock->release();
     }
 
     /**
