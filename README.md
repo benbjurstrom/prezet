@@ -4,7 +4,7 @@
 
 # Prezet: Markdown Blogging for Laravel
 
-Transform your markdown files into SEO-friendly blogs, articles, and documentation with Prezet. Including built in automatic image optimization, dynamic tables of contents, validated front matter DTOs, and integrated Blade components.
+Go from markdown files to SEO-friendly blogs, articles, and documentation in seconds!
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -48,7 +48,7 @@ composer require benbjurstrom/prezet
 
 #### Run the package installer:
 
-_⚠️ NOTE: Before running the installer on an existing application it is recommended to switch to a clean branch. As part of the install process Prezet configures your application with Tailwind CSS. Any existing Tailwind configuration will be overwritten._
+_⚠️ NOTE: Before running the installer on an existing application it is recommended to switch to a clean branch so you can see the changes Prezet made during the installation process._
 
 ```bash
 php artisan prezet:install
