@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.15.0](https://github.com/benbjurstrom/prezet/compare/v0.14.0...v0.15.0) - 2024-09-27
+
+### What's Changed
+
+* 🐛 Fix #76: file extension handling by @fuzzyfox in https://github.com/benbjurstrom/prezet/pull/77
+* 78 fix database malformed error by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/79
+
+### New Contributors
+
+* @fuzzyfox made their first contribution in https://github.com/benbjurstrom/prezet/pull/77
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.14.0...v0.15.0
+
 ## [v0.14.0](https://github.com/benbjurstrom/prezet/compare/v0.13.0...v0.14.0) - 2024-09-19
 
 ### What's Changed
