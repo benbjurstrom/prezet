@@ -10,7 +10,8 @@ class GetImage
 {
     public static function handle(string $path): string
     {
-        self::validateFileExtension($path);
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        self::validateFileExtension($extension);
 
         $size = self::extractSize($path);
         $path = self::removeSize($path);
@@ -21,13 +22,12 @@ class GetImage
             $image = self::resizeImage($image, $size);
         }
 
-        return self::outputImage($image, pathinfo($path, PATHINFO_EXTENSION));
+        return self::outputImage($image, $extension);
     }
 
-    protected static function validateFileExtension(string $path): void
+    protected static function validateFileExtension(string $extension): void
     {
-        $allowedExtensions = ['png', 'jpg', 'webp'];
-        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $allowedExtensions = ['png', 'jpg', 'jpeg', 'webp'];
 
         if (! in_array($extension, $allowedExtensions)) {
             abort(404, 'Invalid file extension');
@@ -99,6 +99,7 @@ class GetImage
                 imagepng($image);
                 break;
             case 'jpg':
+            case 'jpeg':
                 imagejpeg($image);
                 break;
             case 'webp':
