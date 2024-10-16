@@ -264,20 +264,21 @@
                     class="flex w-full items-center rounded-lg bg-zinc-100 px-3 dark:bg-zinc-700/75"
                 >
                     <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        data-slot="icon"
-                        class="hi-outline hi-command-line inline-block size-6 opacity-50"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
-                        />
-                    </svg>
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    data-slot="icon"
+                    stroke-width="1.5"
+                    class="hi-mini hi-magnifying-glass inline-block size-6 opacity-50"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+
+
                     <input
                         x-ref="elFilter"
                         x-model="filterTerm"
@@ -291,7 +292,7 @@
                         x-on:keydown.page-down.prevent.stop="navigateResults('last')"
                         type="text"
                         class="w-full border-none bg-transparent py-3 text-sm placeholder:text-zinc-500 focus:outline-none focus:ring-0 dark:placeholder:text-zinc-400"
-                        placeholder="Search commands.."
+                        placeholder="Search..."
                         tabindex="0"
                         role="combobox"
                         aria-expanded="true"
