@@ -288,7 +288,6 @@ options: [],
                         aria-expanded="true"
                         aria-autocomplete="list"
                     />
-
                     <svg
                         x-show="loading"
                         class="inline-block size-6 animate-spin opacity-50"
