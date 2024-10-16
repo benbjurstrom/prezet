@@ -1,9 +1,10 @@
 @php
-/* @var string $body */
-/* @var array $nav */
-/* @var array $headings */
-/* @var \BenBjurstrom\Prezet\Data\FrontmatterData $frontmatter */
+    /* @var string $body */
+    /* @var array $nav */
+    /* @var array $headings */
+    /* @var \BenBjurstrom\Prezet\Data\FrontmatterData $frontmatter */
 @endphp
+
 <x-prezet::template>
     @seo([
         'title' => $frontmatter->title,

@@ -2,8 +2,6 @@
 <!-- An Alpine.js and Tailwind CSS component by https://pinemix.com -->
 <!-- Alpine.js focus plugin is required, for more info http://pinemix.com/docs/getting-started -->
 
-
-
 <div
     x-data="{
   // Customize Command Palette
@@ -185,14 +183,14 @@ options: [],
         x-ref="elToggleButton"
         x-on:click="openCommandPalette()"
         type="button"
-        class="group inline-flex min-w-64 items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm/6 font-medium text-zinc-800 hover:border-zinc-300 hover:text-zinc-900 hover:shadow-sm focus:ring-zinc-300/25 active:border-zinc-200 active:shadow-none dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-200 dark:focus:ring-zinc-600/50 dark:active:border-zinc-700"
+        class="group inline-flex items-center justify-center gap-2 rounded-lg border-zinc-200 bg-white p-1.5 text-sm/6 font-medium text-zinc-800 hover:border-zinc-300 hover:text-zinc-900 hover:shadow-sm focus:ring-zinc-300/25 active:border-zinc-200 active:shadow-none dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300 dark:hover:border-zinc-600 dark:hover:text-zinc-200 dark:focus:ring-zinc-600/50 dark:active:border-zinc-700 lg:min-w-64 lg:border lg:px-3"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
             data-slot="icon"
-            class="hi-mini hi-magnifying-glass inline-block size-5 opacity-60 group-hover:text-zinc-600 group-hover:opacity-100 dark:group-hover:text-zinc-400"
+            class="hi-mini hi-magnifying-glass inline-block size-6 opacity-60 group-hover:text-zinc-600 group-hover:opacity-100 dark:group-hover:text-zinc-400 lg:size-5"
         >
             <path
                 fill-rule="evenodd"
@@ -200,13 +198,17 @@ options: [],
                 clip-rule="evenodd"
             />
         </svg>
-        <span class="grow text-start opacity-60 group-hover:opacity-100">
-    Search..
-  </span>
-        <span class="flex-none text-xs font-semibold opacity-75">
-    <span x-text="modifierKey" class="opacity-75"></span>
-    <span>K</span>
-  </span>
+        <span
+            class="hidden grow text-start opacity-60 group-hover:opacity-100 lg:block"
+        >
+            Search..
+        </span>
+        <span
+            class="hidden flex-none text-xs font-semibold opacity-75 lg:block"
+        >
+            <span x-text="modifierKey" class="opacity-75"></span>
+            <span>K</span>
+        </span>
     </button>
     <!-- END Toggle Button -->
 
@@ -215,10 +217,10 @@ options: [],
         x-cloak
         x-show="open"
         x-trap.inert.noscroll="open"
-        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter="transition duration-300 ease-out"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave="transition duration-200 ease-in"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
         x-bind:aria-hidden="!open"
@@ -232,18 +234,20 @@ options: [],
         <div
             x-cloak
             x-show="open"
-            x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0 -translate-y-32"
-            x-transition:enter-end="opacity-100 translate-y-0"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100 translate-y-0"
-            x-transition:leave-end="opacity-0 translate-y-32"
+            x-transition:enter="transition duration-300 ease-out"
+            x-transition:enter-start="-translate-y-32 opacity-0"
+            x-transition:enter-end="translate-y-0 opacity-100"
+            x-transition:leave="transition duration-150 ease-in"
+            x-transition:leave-start="translate-y-0 opacity-100"
+            x-transition:leave-end="translate-y-32 opacity-0"
             x-on:click.outside="closeCommandPalette()"
             class="mx-auto flex w-full max-w-lg flex-col rounded-xl shadow-xl will-change-auto dark:text-zinc-100 dark:shadow-black/25"
             role="document"
         >
             <!-- Search Input -->
-            <div class="relative rounded-t-lg bg-white px-2 pt-2 dark:bg-zinc-800">
+            <div
+                class="relative rounded-t-lg bg-white px-2 pt-2 dark:bg-zinc-800"
+            >
                 <div
                     class="flex w-full items-center rounded-lg bg-zinc-100 px-3 dark:bg-zinc-700/75"
                 >
@@ -261,7 +265,6 @@ options: [],
                             clip-rule="evenodd"
                         />
                     </svg>
-
 
                     <input
                         x-ref="elFilter"
@@ -300,19 +303,24 @@ options: [],
                         x-on:click="onOptionSelected()"
                         x-on:mouseenter="setHighlighted(option.id, 'mouse')"
                         x-bind:class="{
-          'text-white bg-zinc-600 dark:text-white dark:bg-zinc-600': isHighlighted(option.id),
-          'text-zinc-600 dark:text-zinc-300': ! isHighlighted(option.id),
-        }"
+                            'text-white bg-zinc-600 dark:text-white dark:bg-zinc-600': isHighlighted(
+                                option.id,
+                            ),
+                            'text-zinc-600 dark:text-zinc-300': ! isHighlighted(option.id),
+                        }"
                         x-bind:data-selected="isHighlighted(option.id)"
                         x-bind:data-id="option.id"
                         x-bind:data-label="option.text"
                         x-bind:aria-selected="isHighlighted(option.id)"
-                        class="group flex flex-col cursor-pointer rounded-lg px-3 py-3 text-sm"
+                        class="group flex cursor-pointer flex-col rounded-lg px-3 py-3 text-sm"
                         role="option"
                         tabindex="-1"
                     >
                         <div class="flex grow items-center">
-                            <div x-text="option.text" class="font-medium"></div>
+                            <div
+                                x-text="option.text"
+                                class="font-medium"
+                            ></div>
                         </div>
                         <div class="flex-none text-xs font-semibold opacity-75">
                             <span x-text="option.slug"></span>
