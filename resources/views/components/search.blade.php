@@ -266,7 +266,7 @@ options: [],
                     <input
                         x-ref="elFilter"
                         x-model="filterTerm"
-                        x-on:input.debounce.50ms="filter($event)"
+                        x-on:input.debounce.300ms="filter($event)"
                         x-on:keydown.enter.prevent.stop="onOptionSelected()"
                         x-on:keydown.up.prevent.stop="navigateResults('previous')"
                         x-on:keydown.down.prevent.stop="navigateResults('next')"
