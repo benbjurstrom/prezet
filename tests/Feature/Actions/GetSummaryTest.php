@@ -4,6 +4,7 @@ use BenBjurstrom\Prezet\Actions\GetSummary;
 use Illuminate\Support\Facades\Storage;
 
 it('can parse the SUMMARY.md file', function () {
+    $filename = 'SUMMARY.md';
     Storage::fake('prezet');
     Storage::disk(config('prezet.filesystem.disk'))->put('SUMMARY.md', <<<'EOT'
 ## 🚀 Features
@@ -20,7 +21,7 @@ it('can parse the SUMMARY.md file', function () {
 -   [Controllers](content/customize/controllers)
 EOT);
 
-    $result = GetSummary::handle();
+    $result = GetSummary::handle($filename);
 
     expect($result)->toEqual(collect([
         [

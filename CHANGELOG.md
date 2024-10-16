@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.15.0](https://github.com/benbjurstrom/prezet/compare/v0.14.0...v0.15.0) - 2024-09-27
+
+### What's Changed
+
+* 🐛 Fix #76: file extension handling by @fuzzyfox in https://github.com/benbjurstrom/prezet/pull/77
+* 78 fix database malformed error by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/79
+
+### New Contributors
+
+* @fuzzyfox made their first contribution in https://github.com/benbjurstrom/prezet/pull/77
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.14.0...v0.15.0
+
+## [v0.14.0](https://github.com/benbjurstrom/prezet/compare/v0.13.0...v0.14.0) - 2024-09-19
+
+### What's Changed
+
+* 71 remove unnecessary type check  by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/75
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.13.0...v0.14.0
+
+## [v0.13.0](https://github.com/benbjurstrom/prezet/compare/v0.12.0...v0.13.0) - 2024-09-19
+
+### What's Changed
+
+* 71 Laravel 10 compatibility by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/72
+* 70 add optional filename parameter to getnav by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/73
+* 71 Use config front matter by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/74
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.12.0...v0.13.0
+
+## [v0.12.0](https://github.com/benbjurstrom/prezet/compare/v0.11.0...v0.12.0) - 2024-09-08
+
+### What's Changed
+
+* 64 run migrations on index by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/65
+* 66 utf 8 encoding issue by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/68
+* 64 run migrations on index by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/69
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.11.0...v0.12.0
+
 ## [v0.11.0](https://github.com/benbjurstrom/prezet/compare/v0.10.0...v0.11.0) - 2024-09-05
 
 ### What's Changed

@@ -7,14 +7,19 @@ use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 class UpdateIndex
 {
     public static function handle(): void
     {
+        $lock = Cache::lock('prezet-update-index', 10);
+        if (! $lock->get()) {
+            return;
+        }
 
         self::runMigrations();
         $docs = GetAllFrontmatter::handle();
@@ -23,7 +28,7 @@ class UpdateIndex
                 'slug' => $doc->slug,
                 'category' => $doc->category,
                 'draft' => $doc->draft,
-                'frontmatter' => $doc->toJson(),
+                'frontmatter' => $doc,
                 'created_at' => $doc->createdAt,
                 'updated_at' => $doc->updatedAt,
             ]);
@@ -57,6 +62,8 @@ class UpdateIndex
             ->where('slug', '.*');
 
         UpdateSitemap::handle();
+
+        $lock->release();
     }
 
     /**
@@ -76,19 +83,15 @@ class UpdateIndex
 
     protected static function runMigrations(): void
     {
-        try {
-            Artisan::call('migrate:rollback', [
-                '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
-                '--database' => 'prezet',
-                '--realpath' => true,
-                '--no-interaction' => true,
-            ]);
-        } catch (QueryException $e) {
-            // either file does not exist or
-            // migrations table does not exist
+        if (! Schema::connection('prezet')->hasTable('migrations')) {
+            Schema::connection('prezet')->create('migrations', function ($table) {
+                $table->increments('id');
+                $table->string('migration');
+                $table->integer('batch');
+            });
         }
 
-        Artisan::call('migrate', [
+        Artisan::call('migrate:fresh', [
             '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
             '--database' => 'prezet',
             '--realpath' => true,

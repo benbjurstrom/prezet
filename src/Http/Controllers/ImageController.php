@@ -13,7 +13,11 @@ class ImageController
         $file = GetImage::handle($path);
 
         return response($file, 200, [
-            'Content-Type' => 'image/webp',
+            'Content-Type' => match (pathinfo($path, PATHINFO_EXTENSION)) {
+                'jpg', 'jpeg' => 'image/jpeg',
+                'png' => 'image/png',
+                default => 'image/webp'
+            },
             'Cache-Control' => 'public, max-age=31536000',
         ]);
     }

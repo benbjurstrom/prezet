@@ -19,7 +19,7 @@ class GenerateOgImage
             ->setScreenshotType('webp', 85)
             ->screenshot();
 
-        $filename = Str::slug(str_replace('/', '-', $mdPath)).'.png';
+        $filename = Str::slug(str_replace('/', '-', $mdPath)).'.webp';
         $filepath = 'images/ogimages/'.$filename;
         Storage::disk(GetPrezetDisk::handle())->put($filepath, $screenshot);
 

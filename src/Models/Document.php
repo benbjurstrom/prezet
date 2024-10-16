@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use TypeError;
 
 /**
  * @property string $slug
@@ -44,8 +45,30 @@ class Document extends Model
     {
         return [
             'draft' => 'boolean',
-            'frontmatter' => FrontmatterData::class,
         ];
+    }
+
+    /**
+     * @return Attribute<string, never>
+     */
+    protected function frontmatter(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value) {
+                if (! is_string($value)) {
+                    throw new TypeError('Front matter passed to Attribute::make must be a string');
+                }
+
+                $fmClass = config('prezet.data.frontmatter', FrontmatterData::class);
+
+                if (! is_string($fmClass)) {
+                    throw new TypeError('Front matter class set in prezet.data.frontmatter must be a string');
+                }
+
+                return $fmClass::fromJson($value);
+            },
+            set: fn (FrontmatterData $value) => $value->toJson()
+        );
     }
 
     /**
