@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Data;
 
-use Carbon\Carbon;
 use WendellAdriel\ValidatedDTO\Attributes\Rules;
 use WendellAdriel\ValidatedDTO\Casting\CarbonCast;
 use WendellAdriel\ValidatedDTO\Casting\DTOCast;

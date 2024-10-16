@@ -3,12 +3,9 @@
 namespace BenBjurstrom\Prezet\Tests\Feature\Controllers;
 
 use BenBjurstrom\Prezet\Data\FrontmatterData;
-use BenBjurstrom\Prezet\Http\Controllers\SearchController;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use BenBjurstrom\Prezet\Tests\TestCase;
-use Illuminate\Support\Facades\Route;
 
 class SearchControllerTest extends TestCase
 {
@@ -21,24 +18,24 @@ class SearchControllerTest extends TestCase
     public function test_search_returns_expected_results(): void
     {
         $response = $this->getJson(route('prezet.search', [
-            'q' => 'Laravel'
+            'q' => 'Laravel',
         ]));
 
         $response->assertStatus(200)
             ->assertJsonCount(1)
             ->assertJsonFragment([
-                "level" => 1,
-                "documentId" => 1,
-                "section" => "Introduction to Laravel",
-                "text" => "Introduction to Laravel",
-                "slug" => "intro-to-laravel",
-          ]);
+                'level' => 1,
+                'documentId' => 1,
+                'section' => 'Introduction to Laravel',
+                'text' => 'Introduction to Laravel',
+                'slug' => 'intro-to-laravel',
+            ]);
     }
 
     public function test_search_returns_empty_results_for_non_matching_query(): void
     {
         $response = $this->getJson(route('prezet.search', [
-            'q' => 'NonExistentTerm'
+            'q' => 'NonExistentTerm',
         ]));
 
         $response->assertStatus(200)

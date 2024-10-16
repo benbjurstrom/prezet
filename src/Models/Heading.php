@@ -2,9 +2,9 @@
 
 namespace BenBjurstrom\Prezet\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 
 /**
@@ -48,13 +48,14 @@ class Heading extends Model
     {
         return $this->belongsTo(Document::class);
     }
+
     protected function url(): Attribute
     {
         $fragment = Str::slug($this->text);
         $fragment = $this->section ? "#content-{$fragment}" : '';
 
         return new Attribute(
-            get: fn () => route('prezet.show', $this->document->slug, false) . $fragment
+            get: fn () => route('prezet.show', $this->document->slug, false).$fragment
         );
     }
 }
