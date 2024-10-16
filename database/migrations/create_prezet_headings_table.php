@@ -18,7 +18,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('text');
             $table->unsignedTinyInteger('level');
-            $table->unsignedInteger('section');
+            $table->string('section');
         });
     }
 

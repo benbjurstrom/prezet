@@ -64,6 +64,7 @@ class FrontmatterData extends ValidatedDTO
     protected function mapData(): array
     {
         return [
+            'description' => 'excerpt',
             'date' => 'createdAt',
         ];
     }

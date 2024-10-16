@@ -39,7 +39,7 @@ class UpdateIndex
             array_unshift($headings, [
                 'text' => $doc->title,
                 'level' => 1,
-                'section' => 0,
+                'section' => '',
             ]);
 
             // Insert headings into the database

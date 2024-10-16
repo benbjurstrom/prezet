@@ -9,3 +9,6 @@ parameters:
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
+    excludePaths:
+        - database/**/*
+        - tests/**/*
