@@ -5,8 +5,6 @@ namespace BenBjurstrom\Prezet\Models;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use TypeError;
@@ -22,11 +20,6 @@ use TypeError;
  * */
 class Document extends Model
 {
-    /**
-     * @template TFactory of Factory
-     */
-    use HasFactory;
-
     /**
      * The connection name for the model.
      *

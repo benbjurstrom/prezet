@@ -25,7 +25,7 @@ class Heading extends Model
     /**
      * The accessors to append to the model's array form.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $appends = ['url'];
 
@@ -49,13 +49,16 @@ class Heading extends Model
         return $this->belongsTo(Document::class);
     }
 
+    /**
+     * @return Attribute<string, never>
+     */
     protected function url(): Attribute
     {
         $fragment = Str::slug($this->text);
         $fragment = $this->section ? "#content-{$fragment}" : '';
 
         return new Attribute(
-            get: fn () => route('prezet.show', $this->document->slug, false).$fragment
+            get: fn () => route('prezet.show', $this->document?->slug, false).$fragment
         );
     }
 }
