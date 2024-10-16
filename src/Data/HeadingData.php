@@ -14,9 +14,12 @@ class HeadingData extends ValidatedDTO
     use EmptyRules;
 
     #[Rules(['required', 'integer'])]
+    public int $id;
+
+    #[Rules(['required', 'integer'])]
     public int $level;
 
-    #[Rules(['required', 'string'])]
+    #[Rules(['string'])]
     public string $section;
 
     #[Rules(['required', 'string'])]
@@ -24,6 +27,9 @@ class HeadingData extends ValidatedDTO
 
     #[Rules(['required', 'string'])]
     public string $slug;
+
+    #[Rules(['required', 'string'])]
+    public string $url;
 
     #[Rules(['required', 'integer'])]
     public int $documentId;

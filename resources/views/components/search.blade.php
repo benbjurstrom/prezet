@@ -1,6 +1,9 @@
 <!-- Command Palette -->
 <!-- An Alpine.js and Tailwind CSS component by https://pinemix.com -->
 <!-- Alpine.js focus plugin is required, for more info http://pinemix.com/docs/getting-started -->
+
+
+
 <div
     x-data="{
   // Customize Command Palette
@@ -8,49 +11,31 @@
   resetOnOpen: true,
   closeOnSelection: true,
 
+  async performSearch(query) {
+      try {
+          const response = await fetch(`/prezet/search?q=${encodeURIComponent(query)}`, {
+              headers: {
+                  'Content-Type': 'application/json'
+                }
+          });
+          if (!response.ok) throw new Error('Search failed');
+          return await response.json();
+      } catch (error) {
+          console.error('Search error:', error);
+          this.filterResults = [];
+      }
+  },
+
+
   // Add your custom functionality or navigation when an option is selected
   optionSelected() {
-    // console.log(this.highlightedOption);
+    console.log(this.highlightedOption);
+    window.location = this.highlightedOption.url;
   },
 
   // Available options (id and label are required)
-  options: [
-    {
-      id: 1,
-      label: 'New file',
-      command: 'new-file',
-      icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-document-plus inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z\'/></svg>',
-      shortcut: 'N',
-    },
-    {
-      id: 2,
-      label: 'New folder',
-      command: 'new-folder',
-      icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-folder-plus inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z\'/></svg>',
-      shortcut: 'F',
-    },
-    {
-      id: 3,
-      label: 'New project',
-      command: 'new-project',
-      icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-squares-plus inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z\'/></svg>',
-      shortcut: 'P',
-    },
-    {
-      id: 4,
-      label: 'Archive project',
-      command: 'archive-project',
-      icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-archive-box inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z\'/></svg>',
-      shortcut: 'A',
-    },
-    {
-      id: 5,
-      label: 'Format code',
-      command: 'format-code',
-      icon: '<svg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke-width=\'1.5\' stroke=\'currentColor\' data-slot=\'icon\' class=\'hi-outline hi-code-bracket-square inline-block size-6\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' d=\'M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z\'/></svg>',
-      shortcut: 'Y',
-    },
-  ],
+options: [],
+
 
   // Helper variables
   modifierKey: '',
@@ -106,13 +91,12 @@
   },
 
   // Filter functionality
-  filter() {
+  async filter() {
     if (this.filterTerm === '') {
       this.filterResults = this.options;
     } else {
-      this.filterResults = this.options.filter((option) => {
-        return option.label.toLowerCase().includes(this.filterTerm.toLowerCase());
-      });
+      this.filterResults = await this.performSearch(this.filterTerm);
+      this.options = this.filterResults;
     }
 
     // Refresh highlighted array index (the results have been updated)
@@ -264,19 +248,19 @@
                     class="flex w-full items-center rounded-lg bg-zinc-100 px-3 dark:bg-zinc-700/75"
                 >
                     <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    data-slot="icon"
-                    stroke-width="1.5"
-                    class="hi-mini hi-magnifying-glass inline-block size-6 opacity-50"
-                >
-                    <path
-                        fill-rule="evenodd"
-                        d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
-                        clip-rule="evenodd"
-                    />
-                </svg>
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        data-slot="icon"
+                        stroke-width="1.5"
+                        class="hi-mini hi-magnifying-glass inline-block size-6 opacity-50"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
 
 
                     <input
@@ -321,19 +305,17 @@
         }"
                         x-bind:data-selected="isHighlighted(option.id)"
                         x-bind:data-id="option.id"
-                        x-bind:data-label="option.label"
+                        x-bind:data-label="option.text"
                         x-bind:aria-selected="isHighlighted(option.id)"
                         class="group flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 text-sm"
                         role="option"
                         tabindex="-1"
                     >
                         <div class="flex grow items-center gap-3 py-2">
-                            <div x-html="option.icon" class="size-6 opacity-60"></div>
-                            <div x-text="option.label" class="font-medium"></div>
+                            <div x-text="option.text" class="font-medium"></div>
                         </div>
                         <div class="flex-none text-xs font-semibold opacity-75">
-                            <span x-text="modifierKey" class="opacity-75"></span> +
-                            <span x-text="option.shortcut"></span>
+                            <span x-text="option.slug"></span>
                         </div>
                     </li>
                 </template>
@@ -363,7 +345,7 @@
                             d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
                     </svg>
-                    <p>No commands found</p>
+                    <p>No search results</p>
                 </div>
             </div>
             <!-- END No Results Feedback -->
