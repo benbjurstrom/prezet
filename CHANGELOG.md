@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.16.0](https://github.com/benbjurstrom/prezet/compare/v0.15.0...v0.16.0) - 2024-10-16
+
+### What's Changed
+
+* 61 add search by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/83
+* 63 move prezet folder to root by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/84
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.15.0...v0.16.0
+
 ## [v0.15.0](https://github.com/benbjurstrom/prezet/compare/v0.14.0...v0.15.0) - 2024-09-27
 
 ### What's Changed
