@@ -35,7 +35,7 @@ class TestCase extends Orchestra
 
         config()->set('database.connections.prezet', [
             'driver' => 'sqlite',
-            'database' => __DIR__.'/../stubs/prezet.sqlite',
+            'database' => __DIR__.'/../stubs/prezet/prezet.sqlite',
             'prefix' => '',
             'foreign_key_constraints' => true,
         ]);
