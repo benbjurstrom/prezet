@@ -307,11 +307,11 @@ options: [],
                         x-bind:data-id="option.id"
                         x-bind:data-label="option.text"
                         x-bind:aria-selected="isHighlighted(option.id)"
-                        class="group flex cursor-pointer items-center justify-between gap-3 rounded-lg px-3 text-sm"
+                        class="group flex flex-col cursor-pointer rounded-lg px-3 py-3 text-sm"
                         role="option"
                         tabindex="-1"
                     >
-                        <div class="flex grow items-center gap-3 py-2">
+                        <div class="flex grow items-center">
                             <div x-text="option.text" class="font-medium"></div>
                         </div>
                         <div class="flex-none text-xs font-semibold opacity-75">
