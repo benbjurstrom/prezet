@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.17.0](https://github.com/benbjurstrom/prezet/compare/v0.16.0...v0.17.0) - 2024-10-16
+
+### What's Changed
+
+* 85 add loading indicator to search by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/86
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.16.0...v0.17.0
+
 ## [v0.16.0](https://github.com/benbjurstrom/prezet/compare/v0.15.0...v0.16.0) - 2024-10-16
 
 ### What's Changed
