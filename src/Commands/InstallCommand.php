@@ -82,7 +82,7 @@ class InstallCommand extends Command
     protected function copyContentStubs(): void
     {
         $sourceDir = __DIR__.'/../../stubs/prezet';
-        $destinationDir = storage_path('prezet');
+        $destinationDir = base_path('prezet');
 
         if (! $this->files->isDirectory($sourceDir)) {
             $this->warn('Skipping content stubs: source directory already exists.');
@@ -127,8 +127,6 @@ class InstallCommand extends Command
             return;
         }
         $this->info('Adding prezet database');
-        $this->files->copy(__DIR__.'/../../stubs/prezet.sqlite', base_path('prezet.sqlite'));
-
         $configFile = config_path('database.php');
         $config = file_get_contents($configFile);
         if (! $config) {
@@ -137,7 +135,7 @@ class InstallCommand extends Command
             return;
         }
 
-        $diskConfig = "\n        'prezet' => [\n            'driver' => 'sqlite',\n            'database' => base_path('prezet.sqlite'),\n            'prefix' => '',\n            'foreign_key_constraints' => true,\n        ],";
+        $diskConfig = "\n        'prezet' => [\n            'driver' => 'sqlite',\n            'database' => base_path('prezet/prezet.sqlite'),\n            'prefix' => '',\n            'foreign_key_constraints' => true,\n        ],";
 
         $disksPosition = strpos($config, "'connections' => [");
         if ($disksPosition !== false) {
@@ -164,7 +162,7 @@ class InstallCommand extends Command
             return;
         }
 
-        $diskConfig = "\n        'prezet' => [\n            'driver' => 'local',\n            'root' => storage_path('prezet'),\n            'throw' => false,\n        ],";
+        $diskConfig = "\n        'prezet' => [\n            'driver' => 'local',\n            'root' => base_path('prezet'),\n            'throw' => false,\n        ],";
 
         $disksPosition = strpos($config, "'disks' => [");
         if ($disksPosition !== false) {
