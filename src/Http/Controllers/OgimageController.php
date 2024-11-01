@@ -16,7 +16,7 @@ class OgimageController
             })
             ->firstOrFail();
 
-        return view('prezet::ogmage', [
+        return view('prezet::ogimage', [
             'fm' => $doc->frontmatter,
         ]);
     }
