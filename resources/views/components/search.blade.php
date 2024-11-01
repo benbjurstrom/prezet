@@ -13,7 +13,7 @@
     async performSearch(query) {
         this.loading = true;
         try {
-            const response = await fetch(`/prezet/search?q=${encodeURIComponent(query)}`, {
+            const response = await fetch(`{{route('prezet.search')}}?q=${encodeURIComponent(query)}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
