@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.18.0](https://github.com/benbjurstrom/prezet/compare/v0.17.0...v0.18.0) - 2024-11-04
+
+### What's Changed
+
+* #88 remove hardcoded route by @djped in https://github.com/benbjurstrom/prezet/pull/89
+* fix: allow images to start with http/https by @timkley in https://github.com/benbjurstrom/prezet/pull/92
+* chore: fix filename of OgImageController by @timkley in https://github.com/benbjurstrom/prezet/pull/90
+* add-x-cloak by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/94
+
+### New Contributors
+
+* @djped made their first contribution in https://github.com/benbjurstrom/prezet/pull/89
+* @timkley made their first contribution in https://github.com/benbjurstrom/prezet/pull/92
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.17.0...v0.18.0
+
 ## [v0.17.0](https://github.com/benbjurstrom/prezet/compare/v0.16.0...v0.17.0) - 2024-10-16
 
 ### What's Changed
