@@ -96,6 +96,7 @@ class UpdateIndex
             '--database' => 'prezet',
             '--realpath' => true,
             '--no-interaction' => true,
+            '--force' => true,
         ]);
     }
 }
