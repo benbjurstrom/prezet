@@ -23,7 +23,7 @@
                                     : current,
                         )
 
-                        this.activeHeading = topHeading.target.textContent
+                        this.activeHeading = topHeading.target.querySelector('a').id;
                     }
                 },
                 { rootMargin: '0px 0px -75% 0px', threshold: 1 },
