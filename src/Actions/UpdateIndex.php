@@ -57,7 +57,7 @@ class UpdateIndex
             }
         });
 
-        UpdateSitemap::handle();
+        //UpdateSitemap::handle();
 
         $lock->release();
     }
