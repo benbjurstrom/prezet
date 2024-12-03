@@ -24,7 +24,7 @@ class UpdateIndex
         self::runMigrations();
         $docs = GetAllFrontmatter::handle();
         $docs->each(function (FrontmatterData $doc) {
-            $d = Document::create([
+            $document = Document::create([
                 'slug' => $doc->slug,
                 'category' => $doc->category,
                 'draft' => $doc->draft,
@@ -33,7 +33,7 @@ class UpdateIndex
                 'updated_at' => $doc->updatedAt,
             ]);
 
-            $md = GetMarkdown::handle($d->filepath);
+            $md = GetMarkdown::handle($document->filepath);
             $html = ParseMarkdown::handle($md);
             $headings = GetFlatHeadings::handle($html);
             array_unshift($headings, [
@@ -45,7 +45,7 @@ class UpdateIndex
             // Insert headings into the database
             foreach ($headings as $heading) {
                 Heading::create([
-                    'document_id' => $d->id,
+                    'document_id' => $document->id,
                     'text' => $heading['text'],
                     'level' => $heading['level'],
                     'section' => $heading['section'],
@@ -53,13 +53,9 @@ class UpdateIndex
             }
 
             if ($doc->tags) {
-                self::setTags($d, $doc->tags);
+                self::setTags($document, $doc->tags);
             }
         });
-
-        Route::get('prezet/{slug}', ShowController::class)
-            ->name('prezet.show')
-            ->where('slug', '.*');
 
         UpdateSitemap::handle();
 
@@ -83,12 +79,16 @@ class UpdateIndex
 
     protected static function runMigrations(): void
     {
-        if (! Schema::connection('prezet')->hasTable('migrations')) {
-            Schema::connection('prezet')->create('migrations', function ($table) {
-                $table->increments('id');
-                $table->string('migration');
-                $table->integer('batch');
-            });
+        $config = config('database.connections.prezet');
+
+        if ($config['driver'] === 'sqlite' && ! file_exists($config['database'])) {
+            touch($config['database']);
+        }
+
+        foreach (['migrations', 'document_tag', 'tags', 'headings', 'documents'] as $table) {
+            if (Schema::connection('prezet')->hasTable($table)) {
+                Schema::connection('prezet')->drop($table);
+            }
         }
 
         Artisan::call('migrate:fresh', [
