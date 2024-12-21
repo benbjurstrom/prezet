@@ -84,9 +84,9 @@ return [
     |
     | Configure how image tags are handled when converting from markdown.
     |
-    | 'path' specifies the route for serving images.
     | 'widths' defines the various widths for responsive images.
     | 'sizes' indicates the sizes attribute for responsive images.
+    | 'zoomable' determines if images are zoomable.
     */
 
     'image' => [
@@ -96,5 +96,7 @@ return [
         ],
 
         'sizes' => '92vw, (max-width: 1024px) 92vw, 768px',
+
+        'zoomable' => true,
     ],
 ];
