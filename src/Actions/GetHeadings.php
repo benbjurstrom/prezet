@@ -39,7 +39,7 @@ class GetHeadings
             $children = self::extractChildHeadings($h2Element, 'h3');
 
             $result[] = [
-                'id' => 'content-'.Str::slug($h2Element->textContent, language: null),
+                'id' => static::getIdPrefix().Str::slug($h2Element->textContent, language: null),
                 'title' => trim($h2Element->textContent, '#'),
                 'children' => $children,
             ];
@@ -60,7 +60,7 @@ class GetHeadings
             if ($nextSibling instanceof DOMElement) {
                 if (strtolower($nextSibling->tagName) == $childTagName) {
                     $children[] = [
-                        'id' => 'content-'.Str::slug($nextSibling->textContent, language: null),
+                        'id' => static::getIdPrefix().Str::slug($nextSibling->textContent, language: null),
                         'title' => trim($nextSibling->textContent, '#'),
                     ];
                 } elseif (strtolower($nextSibling->tagName) == 'h2') {
@@ -71,5 +71,19 @@ class GetHeadings
         }
 
         return $children;
+    }
+
+    /**
+     * @return string
+     */
+    protected static function getIdPrefix(): string
+    {
+        $prefix = trim(config('prezet.id_prefix'));
+
+        if ($prefix && !str_ends_with($prefix, '-')) {
+            $prefix .= '-';
+        }
+
+        return $prefix;
     }
 }
