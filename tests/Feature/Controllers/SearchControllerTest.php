@@ -9,7 +9,7 @@ use BenBjurstrom\Prezet\Tests\TestCase;
 
 class SearchControllerTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->seedTestData();
