@@ -2,6 +2,13 @@
     <img src="https://prezet.com/ogimage.png" width="600" alt="PREZET">
 </div>
 
+<p align="center">
+<a href="https://packagist.org/packages/benbjurstrom/prezet"><img src="https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square" alt="Latest Version on Packagist"></a>
+<a href="https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square" alt="GitHub Tests Action Status"></a>
+<a href="https://github.com/benbjurstrom/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square" alt="GitHub Code Style Action Status"></a>
+</p>
+
+
 # Prezet: Markdown Blogging for Laravel
 
 Go from markdown files to SEO-friendly blogs, articles, and documentation in seconds!
