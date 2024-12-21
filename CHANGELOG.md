@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.19.0](https://github.com/benbjurstrom/prezet/compare/v0.18.0...v0.19.0) - 2024-12-21
+
+### What's Changed
+
+* 102 add zoomable images by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/103
+* 101 ignore drafts in search by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/104
+* Fixes #97 - issues with special characters such as ' in headings by @djped in https://github.com/benbjurstrom/prezet/pull/98
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.18.0...v0.19.0
+
 ## [v0.18.0](https://github.com/benbjurstrom/prezet/compare/v0.17.0...v0.18.0) - 2024-11-04
 
 ### What's Changed
