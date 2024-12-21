@@ -28,6 +28,7 @@ class SearchController
 
         $results = Heading::where('text', 'LIKE', "%{$query}%")
             ->with('document')
+            ->whereRelation('document', 'draft', false)
             ->limit(5)
             ->get()
             ->map(function ($heading) {

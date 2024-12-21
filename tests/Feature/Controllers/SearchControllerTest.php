@@ -50,6 +50,25 @@ class SearchControllerTest extends TestCase
             ->assertJsonValidationErrors(['q']);
     }
 
+    public function test_search_excludes_draft_documents(): void
+    {
+        $response = $this->getJson(route('prezet.search', [
+            'q' => 'Introduction to Laravel',
+        ]));
+
+        $response->assertStatus(200)
+            ->assertJsonCount(1);
+
+        Document::where('slug', 'intro-to-laravel')->update(['draft' => true]);
+
+        $response = $this->getJson(route('prezet.search', [
+            'q' => 'Introduction to Laravel',
+        ]));
+
+        $response->assertStatus(200)
+            ->assertJsonCount(0);
+    }
+
     private function seedTestData(): void
     {
         $documents = [
