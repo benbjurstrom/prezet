@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Process;
 
 class InstallCommand extends Command
 {
@@ -36,6 +37,8 @@ class InstallCommand extends Command
             $this->copyTailwindFiles();
             $this->installNodeDependencies();
 
+            // run in separate process so config changes above are applied
+            Process::run('php artisan prezet:index');
             $this->info('Prezet has been successfully installed!');
 
             return self::SUCCESS;
@@ -103,7 +106,7 @@ class InstallCommand extends Command
     protected function installNodeDependencies(): void
     {
         $this->info('Installing node dependencies');
-        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss';
+        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss vite-plugin-watch-and-run';
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {
             $bin = 'pnpm';

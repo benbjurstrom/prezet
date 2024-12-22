@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
-use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
@@ -12,10 +11,6 @@ class IndexController
 {
     public function __invoke(Request $request): View
     {
-        if (config('app.env') === 'local') {
-            UpdateIndex::handle();
-        }
-
         $category = $request->input('category');
         $tag = $request->input('tag');
 
