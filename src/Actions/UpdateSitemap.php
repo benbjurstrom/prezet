@@ -22,7 +22,8 @@ class UpdateSitemap
                 throw new \Exception('Invalid document');
             }
 
-            $sitemap->add(Url::create(route('prezet.show', $doc->slug))
+            $sitemapUrl = config('prezet.sitemap.origin');
+            $sitemap->add(Url::create($sitemapUrl.route('prezet.show', $doc->slug, false))
                 ->setLastModificationDate($doc->updated_at)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                 ->setPriority(0.7)
