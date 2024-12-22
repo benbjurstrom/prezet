@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.20.0](https://github.com/benbjurstrom/prezet/compare/v0.19.0...v0.20.0) - 2024-12-22
+
+### What's Changed
+
+* 106 watch for file changes with vite by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/107
+* 105 use custom sitemap generator by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/108
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.19.0...v0.20.0
+
 ## [v0.19.0](https://github.com/benbjurstrom/prezet/compare/v0.18.0...v0.19.0) - 2024-12-21
 
 ### What's Changed
