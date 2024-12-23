@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.20.1](https://github.com/benbjurstrom/prezet/compare/v0.20.0...v0.20.1) - 2024-12-23
+
+### What's Changed
+
+* 109 update zoomable by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/110
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.20.0...v0.20.1
+
 ## [v0.20.0](https://github.com/benbjurstrom/prezet/compare/v0.19.0...v0.20.0) - 2024-12-22
 
 ### What's Changed
