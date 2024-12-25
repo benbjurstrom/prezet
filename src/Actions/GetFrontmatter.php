@@ -26,7 +26,7 @@ class GetFrontmatter
 
         $frontmatter = self::parseFrontmatter($content, $filePath);
         $frontmatter = self::addSlugToFrontmatter($frontmatter, $filePath);
-        $frontmatter = self::addLastModifiedToFrontmatter($frontmatter, $filePath, $storage);
+        $frontmatter = self::addLastModifiedToFrontmatter($frontmatter);
         $frontmatter = self::normalizeDateInFrontmatter($frontmatter);
 
         $fmClass = self::getFrontMatterClass();
@@ -48,6 +48,9 @@ class GetFrontmatter
         return $fmClass;
     }
 
+    /**
+     * @throws \BenBjurstrom\Prezet\Exceptions\FileNotFoundException
+     */
     protected static function getFileContent(string $filePath, Filesystem $storage): string
     {
         $content = $storage->get($filePath);
@@ -65,7 +68,7 @@ class GetFrontmatter
      */
     protected static function parseFrontmatter(string $content, string $filePath): array
     {
-        $ext = new FrontMatterExtension;
+        $ext = new FrontMatterExtension();
         $parser = $ext->getFrontMatterParser();
         $frontmatter = $parser->parse($content)->getFrontMatter();
 
@@ -92,13 +95,11 @@ class GetFrontmatter
     /**
      * @param  array<string, mixed>  $frontmatter
      * @return array<string, mixed>
-     *
-     * @throws FrontmatterMissingException
      */
-    protected static function addLastModifiedToFrontmatter(array $frontmatter, string $filePath, Filesystem $storage): array
+    protected static function addLastModifiedToFrontmatter(array $frontmatter): array
     {
-        $lastModified = $storage->lastModified($filePath);
-        $frontmatter['updatedAt'] = $lastModified;
+        $frontmatter['updatedAt'] = ! empty($frontmatter['updatedAt']) ? $frontmatter['updatedAt'] :
+            data_get($frontmatter, 'createdAt', 'date');
 
         return $frontmatter;
     }
