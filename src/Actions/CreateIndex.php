@@ -73,6 +73,7 @@ class CreateIndex
             '--database' => 'prezet',
             '--realpath' => true,
             '--no-interaction' => true,
+            '--force' => true,
         ]);
 
         if ($result !== 0) {
