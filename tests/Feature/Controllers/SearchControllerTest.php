@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Tests\Feature\Controllers;
 
-use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Tests\TestCase;
