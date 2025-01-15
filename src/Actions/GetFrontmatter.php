@@ -7,6 +7,7 @@ use BenBjurstrom\Prezet\Exceptions\FileNotFoundException;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
 use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
+use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
@@ -24,14 +25,33 @@ class GetFrontmatter
         $storage = Storage::disk(GetPrezetDisk::handle());
         $content = self::getFileContent($filePath, $storage);
 
+        $hash = md5($content);
+        $slug = self::getSlug($filePath);
+        $doc = Document::query()->where([
+            'hash' => $hash,
+            'slug' => $slug,
+        ])->first();
+        if ($doc) {
+            return $doc->frontmatter;
+        }
+
         $frontmatter = self::parseFrontmatter($content, $filePath);
-        $frontmatter = self::addSlugToFrontmatter($frontmatter, $filePath);
+        $frontmatter = self::addSlugToFrontmatter($frontmatter, $slug);
+        $frontmatter = self::addHashToFrontmatter($frontmatter, $hash);
         $frontmatter = self::addLastModifiedToFrontmatter($frontmatter, $filePath, $storage);
         $frontmatter = self::normalizeDateInFrontmatter($frontmatter);
 
         $fmClass = self::getFrontMatterClass();
 
         return $fmClass::fromArray($frontmatter);
+    }
+
+    protected static function getSlug(string $filePath): string
+    {
+        $relativePath = trim(str_replace('content', '', $filePath), '/');
+        $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
+
+        return trim($slug, './');
     }
 
     /**
@@ -80,11 +100,20 @@ class GetFrontmatter
      * @param  array<string, mixed>  $frontmatter
      * @return array<string, mixed>
      */
-    protected static function addSlugToFrontmatter(array $frontmatter, string $filePath): array
+    protected static function addSlugToFrontmatter(array $frontmatter, string $slug): array
     {
-        $relativePath = trim(str_replace('content', '', $filePath), '/');
-        $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
-        $frontmatter['slug'] = trim($slug, './');
+        $frontmatter['slug'] = $slug;
+
+        return $frontmatter;
+    }
+
+    /**
+     * @param  array<string, mixed>  $frontmatter
+     * @return array<string, mixed>
+     */
+    protected static function addHashToFrontmatter(array $frontmatter, string $hash): array
+    {
+        $frontmatter['hash'] = $hash;
 
         return $frontmatter;
     }

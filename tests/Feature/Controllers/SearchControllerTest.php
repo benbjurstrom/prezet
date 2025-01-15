@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Tests\Feature\Controllers;
 
-use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Tests\TestCase;
@@ -76,15 +75,16 @@ class SearchControllerTest extends TestCase
                 'slug' => 'intro-to-laravel',
                 'category' => 'Web Development',
                 'draft' => false,
-                'frontmatter' => FrontmatterData::fromArray([
+                'frontmatter' => [
                     'slug' => 'intro-to-laravel',
                     'title' => 'Introduction to Laravel',
                     'excerpt' => 'Learn the basics of Laravel framework',
                     'tags' => ['PHP', 'Laravel', 'Framework'],
+                    'hash' => md5('Introduction to Laravel'),
                     'image' => null,
                     'date' => now()->subDays(10)->toIso8601String(),
                     'updatedAt' => now()->subDays(10)->toIso8601String(),
-                ]),
+                ],
             ],
         ];
 
@@ -100,9 +100,10 @@ class SearchControllerTest extends TestCase
 
             Heading::create([
                 'document_id' => $document->id,
-                'text' => $doc['frontmatter']->title,
+                'text' => $doc['frontmatter'][
+                    'title'],
                 'level' => 1,
-                'section' => $doc['frontmatter']->title,
+                'section' => $doc['frontmatter']['title'],
             ]);
         }
     }
