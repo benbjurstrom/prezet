@@ -68,7 +68,7 @@ class CreateIndex
             });
         }
 
-        $result = Artisan::call('migrate:fresh', [
+        $result = Artisan::call('migrate', [
             '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
             '--database' => 'prezet',
             '--realpath' => true,
