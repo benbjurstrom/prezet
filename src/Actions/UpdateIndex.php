@@ -48,7 +48,7 @@ class UpdateIndex
     {
         Document::whereNotIn('slug', $currentSlugs)->each(function (Document $document) {
             // This will automatically delete related headings due to cascade
-            $document->tags()->detach(); //TODO: Does this remove tags that are still in use by other documents?
+            $document->tags()->detach(); // TODO: Does this remove tags that are still in use by other documents?
             $document->delete();
         });
     }
