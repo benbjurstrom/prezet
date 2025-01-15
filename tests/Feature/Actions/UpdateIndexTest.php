@@ -135,7 +135,7 @@ test('removes deleted documents and their relationships', function () {
         ->and(Tag::where('name', 'tag2')->exists())->toBeFalse();
 });
 
-//test('updates document when hash changes', function () {
+// test('updates document when hash changes', function () {
 //    // Create initial document
 //    Document::create([
 //        'slug' => 'test-doc',
@@ -164,4 +164,4 @@ test('removes deleted documents and their relationships', function () {
 //        ->and(Document::first())
 //        ->hash->toBe('new-hash')
 //        ->slug->toBe('test-doc');
-//});
+// });
