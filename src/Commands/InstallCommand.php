@@ -38,7 +38,7 @@ class InstallCommand extends Command
             $this->installNodeDependencies();
 
             // run in separate process so config changes above are applied
-            Process::run('php artisan prezet:index');
+            Process::run('php artisan prezet:index --force');
             $this->info('Prezet has been successfully installed!');
 
             return self::SUCCESS;

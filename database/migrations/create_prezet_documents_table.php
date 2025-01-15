@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::connection('prezet')->create('documents', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique();
-            $table->string('category')->nullable();
-            $table->boolean('draft');
+            $table->string('slug')->index()->unique();
+            $table->string('category')->index()->nullable();
+            $table->boolean('draft')->index();
             $table->jsonb('frontmatter');
+            $table->char('hash', length: 32)->index()->nullable();
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
+
+            $table->index('slug', 'hash');
         });
     }
 

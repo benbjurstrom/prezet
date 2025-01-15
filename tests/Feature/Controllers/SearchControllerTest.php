@@ -81,6 +81,7 @@ class SearchControllerTest extends TestCase
                     'title' => 'Introduction to Laravel',
                     'excerpt' => 'Learn the basics of Laravel framework',
                     'tags' => ['PHP', 'Laravel', 'Framework'],
+                    'hash' => md5('Introduction to Laravel'),
                     'image' => null,
                     'date' => now()->subDays(10)->toIso8601String(),
                     'updatedAt' => now()->subDays(10)->toIso8601String(),

@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet\Tests;
 
 use ArchTech\SEO\SEOServiceProvider;
 use BenBjurstrom\Prezet\PrezetServiceProvider;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -33,9 +34,11 @@ class TestCase extends Orchestra
             'throw' => true,
         ]);
 
+        $dbPath = __DIR__.'/../stubs/prezet.sqlite';
+        touch($dbPath);
         config()->set('database.connections.prezet', [
             'driver' => 'sqlite',
-            'database' => __DIR__.'/../stubs/prezet/prezet.sqlite',
+            'database' => $dbPath,
             'prefix' => '',
             'foreign_key_constraints' => true,
         ]);
@@ -47,12 +50,16 @@ class TestCase extends Orchestra
         });
 
         $migrations = __DIR__.'/../database/migrations';
-        Artisan::call('migrate:rollback', [
-            '--path' => $migrations,
-            '--database' => 'prezet',
-            '--realpath' => true,
-            '--no-interaction' => true,
-        ]);
+        try{
+            Artisan::call('migrate:rollback', [
+                '--path' => $migrations,
+                '--database' => 'prezet',
+                '--realpath' => true,
+                '--no-interaction' => true,
+            ]);
+        }catch (QueryException $e){
+            echo $e->getMessage();
+        }
 
         Artisan::call('migrate', [
             '--path' => $migrations,

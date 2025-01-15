@@ -7,12 +7,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use TypeError;
 
 /**
  * @property string $slug
  * @property string $filepath
  * @property string|null $category
+ * @property string $hash
  * @property bool $draft
  * @property FrontmatterData $frontmatter
  * @property Carbon $created_at
@@ -71,6 +73,15 @@ class Document extends Model
     {
         return $this->belongsToMany(Tag::class, 'document_tags');
     }
+
+    /**
+     * @return HasMany<Heading>
+     */
+    public function headings(): HasMany
+    {
+        return $this->hasMany(Heading::class);
+    }
+
 
     /**
      * @return Attribute<string, never>
