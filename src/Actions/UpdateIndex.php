@@ -17,7 +17,7 @@ class UpdateIndex
     {
         self::ensureDatabaseExists();
 
-        $docs = GetAllFrontmatter::handle();
+        $docs = app(GetAllFrontmatter::class)->handle();
 
         // Get all current slugs from filesystem
         $currentSlugs = $docs->pluck('slug')->toArray();
