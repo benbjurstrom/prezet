@@ -94,7 +94,7 @@ class SearchControllerTest extends TestCase
                 'slug' => $doc['slug'],
                 'category' => $doc['category'],
                 'draft' => $doc['draft'],
-                'frontmatter' => $doc['frontmatter'],
+                'frontmatter' => $doc['frontmatter']->toArray(),
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
