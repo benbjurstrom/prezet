@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->index()->unique();
             $table->string('category')->index()->nullable();
-            $table->boolean('draft')->index();
+            $table->boolean('draft')->default(false)->index();
             $table->jsonb('frontmatter');
             $table->char('hash', length: 32)->index()->nullable();
             $table->timestamp('created_at');
