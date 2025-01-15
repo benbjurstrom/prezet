@@ -35,7 +35,7 @@ class MarkdownImageExtension implements ExtensionInterface
                 // Generate the srcset attribute
                 $srcset = $this->generateSrcset($originalUrl);
                 $node->data->set('attributes', [
-                    'x-zoomable' => config('prezet.image.zoomable'),
+                    'x-zoomable' => config('prezet.image.zoomable', true),
                     'srcset' => $srcset,
                     'sizes' => config('prezet.image.sizes'),
                     'loading' => 'lazy',
