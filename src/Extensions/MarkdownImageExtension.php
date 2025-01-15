@@ -35,14 +35,14 @@ class MarkdownImageExtension implements ExtensionInterface
                 // Generate the srcset attribute
                 $srcset = $this->generateSrcset($originalUrl);
                 $node->data->set('attributes', [
-                    'x-zoomable' => config('prezet.image.zoomable'),
+                    'x-zoomable' => config('prezet.image.zoomable', true),
                     'srcset' => $srcset,
                     'sizes' => config('prezet.image.sizes'),
                     'loading' => 'lazy',
                     'decoding' => 'async',
                     'fetchpriority' => 'auto',
                 ]);
-                // If the viewport is less than 1024px, the image will take up 92% of the viewport width. Otherwise, the image will be 768px wide.
+                // If the viewport is less than 1024px, the image will take up 92% of the viewport width. Otherwise the image will be 768px wide.
                 // https://coderpad.io/blog/development/the-definitive-guide-to-responsive-images-on-the-web/#:~:text=Adding%20the%20sizes%20attribute
             }
         }
