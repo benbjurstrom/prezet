@@ -76,7 +76,7 @@ class SearchControllerTest extends TestCase
                 'slug' => 'intro-to-laravel',
                 'category' => 'Web Development',
                 'draft' => false,
-                'frontmatter' => FrontmatterData::fromArray([
+                'frontmatter' => [
                     'slug' => 'intro-to-laravel',
                     'title' => 'Introduction to Laravel',
                     'excerpt' => 'Learn the basics of Laravel framework',
@@ -85,7 +85,7 @@ class SearchControllerTest extends TestCase
                     'image' => null,
                     'date' => now()->subDays(10)->toIso8601String(),
                     'updatedAt' => now()->subDays(10)->toIso8601String(),
-                ]),
+                ],
             ],
         ];
 
@@ -94,16 +94,17 @@ class SearchControllerTest extends TestCase
                 'slug' => $doc['slug'],
                 'category' => $doc['category'],
                 'draft' => $doc['draft'],
-                'frontmatter' => $doc['frontmatter']->toArray(),
+                'frontmatter' => $doc['frontmatter'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
             Heading::create([
                 'document_id' => $document->id,
-                'text' => $doc['frontmatter']->title,
+                'text' => $doc['frontmatter'][
+                    'title'],
                 'level' => 1,
-                'section' => $doc['frontmatter']->title,
+                'section' => $doc['frontmatter']['title'],
             ]);
         }
     }
