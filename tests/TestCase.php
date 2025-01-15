@@ -50,14 +50,14 @@ class TestCase extends Orchestra
         });
 
         $migrations = __DIR__.'/../database/migrations';
-        try{
+        try {
             Artisan::call('migrate:rollback', [
                 '--path' => $migrations,
                 '--database' => 'prezet',
                 '--realpath' => true,
                 '--no-interaction' => true,
             ]);
-        }catch (QueryException $e){
+        } catch (QueryException $e) {
             echo $e->getMessage();
         }
 

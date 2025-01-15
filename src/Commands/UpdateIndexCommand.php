@@ -28,12 +28,15 @@ class UpdateIndexCommand extends Command
             $this->info('Index updated successfully.');
         } catch (FrontmatterMissingException $e) {
             $this->error($e->getMessage());
+
             return self::FAILURE;
         } catch (FrontmatterException $e) {
             $this->error($e->getMessage());
+
             return self::FAILURE;
         } catch (\Exception $e) {
-            $this->error('An error occurred: ' . $e->getMessage());
+            $this->error('An error occurred: '.$e->getMessage());
+
             return self::FAILURE;
         }
 

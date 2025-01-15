@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use TypeError;
 
 /**
  * @property string $slug
@@ -40,30 +39,8 @@ class Document extends Model
     {
         return [
             'draft' => 'boolean',
+            'frontmatter' => FrontmatterData::class,
         ];
-    }
-
-    /**
-     * @return Attribute<string, never>
-     */
-    protected function frontmatter(): Attribute
-    {
-        return Attribute::make(
-            get: function (mixed $value) {
-                if (! is_string($value)) {
-                    throw new TypeError('Front matter passed to Attribute::make must be a string');
-                }
-
-                $fmClass = config('prezet.data.frontmatter', FrontmatterData::class);
-
-                if (! is_string($fmClass)) {
-                    throw new TypeError('Front matter class set in prezet.data.frontmatter must be a string');
-                }
-
-                return $fmClass::fromJson($value);
-            },
-            set: fn (FrontmatterData $value) => $value->toJson()
-        );
     }
 
     /**
@@ -81,7 +58,6 @@ class Document extends Model
     {
         return $this->hasMany(Heading::class);
     }
-
 
     /**
      * @return Attribute<string, never>

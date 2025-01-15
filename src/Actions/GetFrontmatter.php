@@ -31,7 +31,7 @@ class GetFrontmatter
             'hash' => $hash,
             'slug' => $slug,
         ])->first();
-        if($doc) {
+        if ($doc) {
             return $doc->frontmatter;
         }
 
@@ -50,6 +50,7 @@ class GetFrontmatter
     {
         $relativePath = trim(str_replace('content', '', $filePath), '/');
         $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
+
         return trim($slug, './');
     }
 

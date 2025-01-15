@@ -7,12 +7,16 @@ use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 class UpdateIndex
 {
     public static function handle(): void
     {
+        self::ensureDatabaseExists();
+
         $docs = GetAllFrontmatter::handle();
 
         // Get all current slugs from filesystem
@@ -26,6 +30,8 @@ class UpdateIndex
             self::upsertDocument($doc);
         });
 
+        self::cleanupOrphanedTags();
+
         Route::get('prezet/{slug}', ShowController::class)
             ->name('prezet.show')
             ->where('slug', '.*');
@@ -35,7 +41,8 @@ class UpdateIndex
 
     /**
      * Remove documents that no longer exist in the filesystem
-     * @param array<int, string> $currentSlugs
+     *
+     * @param  array<int, string>  $currentSlugs
      */
     protected static function removeDeletedDocuments(array $currentSlugs): void
     {
@@ -59,7 +66,7 @@ class UpdateIndex
         }
 
         // Find document by slug to update, or create new one
-        $document = Document::where('slug', $doc->slug)->first() ?? new Document();
+        $document = Document::where('slug', $doc->slug)->first() ?? new Document;
 
         self::updateDocumentAttributes($document, $doc);
         self::updateHeadings($document);
@@ -126,6 +133,33 @@ class UpdateIndex
             );
 
             $document->tags()->attach($t->id);
+        }
+    }
+
+    /**
+     * Remove tags that aren't associated with any documents
+     */
+    protected static function cleanupOrphanedTags(): void
+    {
+        Tag::whereDoesntHave('documents')->delete();
+    }
+
+    private static function ensureDatabaseExists(): void
+    {
+        $dbPath = Config::string('database.connections.prezet.database');
+
+        if (! file_exists($dbPath)) {
+            throw new \RuntimeException(
+                "Prezet database not found at $dbPath.\n".
+                "Please run 'php artisan prezet:index --force' to create the database."
+            );
+        }
+
+        if (! Schema::connection('prezet')->hasTable('documents')) {
+            throw new \RuntimeException(
+                "Prezet database exists but is missing the 'documents' table.\n".
+                "Please run 'php artisan prezet:index --force' to create the database."
+            );
         }
     }
 }
