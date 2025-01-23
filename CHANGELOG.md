@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.21.0](https://github.com/benbjurstrom/prezet/compare/v0.20.1...v0.21.0) - 2025-01-23
+
+### What's Changed
+
+* 116 add force flag to prezet index command by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/118
+* 120 remove fresh from index creation by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/121
+* 122 add force flag to migration by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/123
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.20.1...v0.21.0
+
 ## [v0.20.1](https://github.com/benbjurstrom/prezet/compare/v0.20.0...v0.20.1) - 2024-12-23
 
 ### What's Changed
