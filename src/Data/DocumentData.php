@@ -37,8 +37,8 @@ class DocumentData extends ValidatedDTO
     #[Rules(['array'])]
     public array $tags;
 
-//    #[Rules(['required', 'array'])]
-//    public FrontmatterData $frontmatter;
+    //    #[Rules(['required', 'array'])]
+    //    public FrontmatterData $frontmatter;
 
     #[Rules(['required'])]
     public Carbon $publishedAt;
@@ -74,7 +74,6 @@ class DocumentData extends ValidatedDTO
             'updated_at' => 'updatedAt',
         ];
     }
-
 
     /**
      * @return array<string, CarbonCast|DTOCast>
