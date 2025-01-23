@@ -23,7 +23,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * */
 class Document extends Model
 {
-
     /**
      * @template TFactory of Factory
      */
