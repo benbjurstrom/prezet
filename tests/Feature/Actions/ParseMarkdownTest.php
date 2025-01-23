@@ -1,8 +1,6 @@
 <?php
 
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
-use BenBjurstrom\Prezet\Http\Controllers\ImageController;
-use Illuminate\Support\Facades\Route;
 
 it('parses markdown into html', function () {
     $markdown = <<<'MD'
@@ -38,10 +36,6 @@ HTML;
 });
 
 it('parses markdown with images html', function () {
-    Route::get('prezet/img/{path}', ImageController::class)
-        ->name('prezet.image')
-        ->where('path', '.*');
-
     $markdown = <<<'MD'
 ---
 title: 'Example Post'
@@ -61,7 +55,7 @@ MD;
     $expectedHtml = <<<'HTML'
 <h1>Heading 1</h1>
 <p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
-<p><img srcset="/prezet/img/image-480w.jpg 480w, /prezet/img/image-640w.jpg 640w, /prezet/img/image-768w.jpg 768w, /prezet/img/image-960w.jpg 960w, /prezet/img/image-1536w.jpg 1536w" sizes="92vw, (max-width: 1024px) 92vw, 768px" src="/prezet/img//path/to/image.jpg" alt="Image Title" /></p>
+<p><img x-zoomable srcset="/prezet/img/image-480w.jpg 480w, /prezet/img/image-640w.jpg 640w, /prezet/img/image-768w.jpg 768w, /prezet/img/image-960w.jpg 960w, /prezet/img/image-1536w.jpg 1536w" sizes="92vw, (max-width: 1024px) 92vw, 768px" loading="lazy" decoding="async" fetchpriority="auto" src="/prezet/img//path/to/image.jpg" alt="Image Title" /></p>
 
 HTML;
 

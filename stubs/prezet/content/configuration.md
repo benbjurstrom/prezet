@@ -38,7 +38,7 @@ return [
 
         'config' => [
             'heading_permalink' => [
-                'html_class' => 'mr-2 scroll-mt-12',
+                'html_class' => 'prezet-heading',
                 'id_prefix' => 'content',
                 'apply_id_to_heading' => false,
                 'heading_class' => '',
@@ -114,7 +114,7 @@ The configuration also includes options for the HeadingPermalinkExtension:
 ```php
 'config' => [
     'heading_permalink' => [
-        'html_class' => 'mr-2 scroll-mt-12',
+        'html_class' => 'prezet-heading',
         'id_prefix' => 'content',
         'apply_id_to_heading' => false,
         'heading_class' => '',

@@ -1,6 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\:\\:pluck\\(\\)\\.$#"
+			message: "#^Parameter \\#1 \\$currentSlugs of static method BenBjurstrom\\\\Prezet\\\\Actions\\\\UpdateIndex\\:\\:removeDeletedDocuments\\(\\) expects array\\<int, string\\>, array given\\.$#"
 			count: 1
-			path: src/Http/Controllers/IndexController.php
+			path: src/Actions/UpdateIndex.php

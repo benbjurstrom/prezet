@@ -34,6 +34,9 @@ class FrontmatterData extends ValidatedDTO
     #[Rules(['bool'])]
     public bool $draft;
 
+    #[Rules(['required', 'string'])]
+    public string $hash;
+
     #[Rules(['required'])]
     public Carbon $date;
 

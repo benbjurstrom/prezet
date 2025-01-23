@@ -7,52 +7,30 @@ use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 class UpdateIndex
 {
     public static function handle(): void
     {
-        DB::connection('prezet')->table('document_tags')->truncate();
-        DB::connection('prezet')->table('documents')->truncate();
-        DB::connection('prezet')->table('tags')->truncate();
-        DB::connection('prezet')->table('headings')->truncate();
+        self::ensureDatabaseExists();
 
-        $docs = GetAllFrontmatter::handle();
+        $docs = app(GetAllFrontmatter::class)->handle();
+
+        // Get all current slugs from filesystem
+        $currentSlugs = $docs->pluck('slug')->toArray();
+
+        // Remove documents that no longer exist in the filesystem
+        self::removeDeletedDocuments($currentSlugs);
+
+        // Update or create documents
         $docs->each(function (FrontmatterData $doc) {
-            $d = Document::create([
-                'slug' => $doc->slug,
-                'category' => $doc->category,
-                'draft' => $doc->draft,
-                'frontmatter' => $doc->toJson(),
-                'created_at' => $doc->createdAt,
-                'updated_at' => $doc->updatedAt,
-            ]);
-
-            $md = GetMarkdown::handle($d->filepath);
-            $html = ParseMarkdown::handle($md);
-            $headings = GetFlatHeadings::handle($html);
-            array_unshift($headings, [
-                'text' => $doc->title,
-                'level' => 1,
-                'section' => 0,
-            ]);
-
-            // Insert headings into the database
-            foreach ($headings as $heading) {
-                Heading::create([
-                    'document_id' => $d->id,
-                    'text' => $heading['text'],
-                    'level' => $heading['level'],
-                    'section' => $heading['section'],
-                ]);
-            }
-
-            if ($doc->tags) {
-                self::setTags($d, $doc->tags);
-            }
+            self::upsertDocument($doc);
         });
+
+        self::cleanupOrphanedTags();
 
         Route::get('prezet/{slug}', ShowController::class)
             ->name('prezet.show')
@@ -62,17 +40,126 @@ class UpdateIndex
     }
 
     /**
+     * Remove documents that no longer exist in the filesystem
+     *
+     * @param  array<int, string>  $currentSlugs
+     */
+    protected static function removeDeletedDocuments(array $currentSlugs): void
+    {
+        Document::whereNotIn('slug', $currentSlugs)->each(function (Document $document) {
+            // This will automatically delete related headings due to cascade
+            $document->tags()->detach(); // TODO: Does this remove tags that are still in use by other documents?
+            $document->delete();
+        });
+    }
+
+    protected static function upsertDocument(FrontmatterData $doc): void
+    {
+        // Check if document exists with same slug and hash
+        $existingDoc = Document::where('slug', $doc->slug)
+            ->where('hash', $doc->hash)
+            ->first();
+
+        // If document exists with same hash, no need to update
+        if ($existingDoc) {
+            return;
+        }
+
+        // Find document by slug to update, or create new one
+        $document = Document::where('slug', $doc->slug)->first() ?? new Document;
+
+        self::updateDocumentAttributes($document, $doc);
+        self::updateHeadings($document);
+
+        if ($doc->tags) {
+            self::setTags($document, $doc->tags);
+        }
+    }
+
+    protected static function updateDocumentAttributes(Document $document, FrontmatterData $doc): void
+    {
+        $document->fill([
+            'slug' => $doc->slug,
+            'category' => $doc->category,
+            'draft' => $doc->draft,
+            'hash' => $doc->hash,
+            'frontmatter' => $doc,
+            'created_at' => $doc->createdAt,
+            'updated_at' => $doc->updatedAt,
+        ]);
+
+        $document->save();
+    }
+
+    protected static function updateHeadings(Document $document): void
+    {
+        // Delete existing headings
+        $document->headings()->delete();
+
+        $md = GetMarkdown::handle($document->filepath);
+        $html = ParseMarkdown::handle($md);
+        $headings = GetFlatHeadings::handle($html);
+        $title = $document->frontmatter->title;
+
+        // Add title as first heading
+        array_unshift($headings, [
+            'text' => $title,
+            'level' => 1,
+            'section' => '',
+        ]);
+
+        // Insert new headings
+        foreach ($headings as $heading) {
+            Heading::create([
+                'document_id' => $document->id,
+                'text' => $heading['text'],
+                'level' => $heading['level'],
+                'section' => $heading['section'],
+            ]);
+        }
+    }
+
+    /**
      * @param  array<int, string>  $tags
      */
-    protected static function setTags(Document $d, array $tags): void
+    protected static function setTags(Document $document, array $tags): void
     {
-        foreach ($tags as $tag) {
-            $t = Tag::where('name', strtolower($tag))->first();
-            if (! $t) {
-                $t = Tag::create(['name' => strtolower($tag)]);
-            }
+        // Detach existing tags
+        $document->tags()->detach();
 
-            $d->tags()->attach($t->id);
+        foreach ($tags as $tag) {
+            $t = Tag::firstOrCreate(
+                ['name' => strtolower($tag)]
+            );
+
+            $document->tags()->attach($t->id);
+        }
+    }
+
+    /**
+     * Remove tags that aren't associated with any documents
+     */
+    protected static function cleanupOrphanedTags(): void
+    {
+        Tag::whereDoesntHave('documents')->delete();
+    }
+
+    private static function ensureDatabaseExists(): void
+    {
+        $dbPath = Config::string('database.connections.prezet.database');
+
+        if (! file_exists($dbPath)) {
+            throw new \RuntimeException(
+                "Prezet database not found at $dbPath.\n".
+                "Please run 'php artisan prezet:index --force' to create the database."
+            );
+        }
+
+        if (! Schema::connection('prezet')->hasTable('documents')) {
+            throw new \RuntimeException(
+                "Prezet database exists but is missing the 'documents' table.\n".
+                "Please run 'php artisan prezet:index --force' to create the database."
+            );
         }
     }
 }

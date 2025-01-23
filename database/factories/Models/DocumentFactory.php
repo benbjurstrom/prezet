@@ -3,7 +3,6 @@
 namespace Database\Factories\BenBjurstrom\Prezet\Models;
 
 use BenBjurstrom\Prezet\Models\Document;
-use DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -16,7 +15,7 @@ class DocumentFactory extends Factory
      */
     public function definition(): array
     {
-        $createdAt = Carbon::now()->subDays(rand(1,100));
+        $createdAt = Carbon::now()->subDays(rand(1, 100));
 
         return [
             'slug' => $this->faker->unique()->slug,

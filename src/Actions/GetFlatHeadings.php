@@ -14,7 +14,7 @@ class GetFlatHeadings
     public static function handle(string $html): array
     {
         $dom = new DOMDocument;
-        $html = '<div>'.$html.'</div>'; // Wrapper to handle h2 as first element
+        $html = '<?xml encoding="UTF-8"><div>'.$html.'</div>'; // Wrapper to handle h2 as first element
         @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         return self::extractHeadings($dom);
@@ -33,18 +33,18 @@ class GetFlatHeadings
             return $headings;
         }
 
-        $currentSection = 0;
+        $currentSection = '';
         foreach ($headingElements as $headingElement) {
             if (! $headingElement instanceof DOMElement) {
                 continue;
             }
 
+            $headingText = self::cleanHeadingText($headingElement->textContent);
+
             $headingLevel = (int) substr(strtolower($headingElement->tagName), 1);
             if ($headingLevel === 2) {
-                $currentSection++;
+                $currentSection = $headingText;
             }
-
-            $headingText = self::cleanHeadingText($headingElement->textContent);
 
             $headings[] = [
                 'text' => $headingText,

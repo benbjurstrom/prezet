@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property string $slug
  * @property string $filepath
  * @property string|null $category
+ * @property string $hash
  * @property bool $draft
  * @property FrontmatterData $frontmatter
  * @property Carbon $created_at
@@ -55,6 +57,14 @@ class Document extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'document_tags');
+    }
+
+    /**
+     * @return HasMany<Heading>
+     */
+    public function headings(): HasMany
+    {
+        return $this->hasMany(Heading::class);
     }
 
     /**

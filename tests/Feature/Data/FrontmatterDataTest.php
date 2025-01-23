@@ -10,6 +10,7 @@ it('can create a valid FrontmatterData instance', function () {
         'excerpt' => 'Test excerpt',
         'slug' => 'test-slug',
         'category' => 'Test Category',
+        'hash' => md5('Test Title'),
         'image' => 'test-image.jpg',
         'date' => 1715705878,
         'updatedAt' => 1715705878,
@@ -36,9 +37,10 @@ it('throws an exception when required fields are missing', function () {
 
 it('allows nullable fields to be null', function () {
     $data = [
-        'title' => 'Test Title',
+        'title' => 'Test Title2',
         'excerpt' => 'Test excerpt',
         'slug' => 'test-slug',
+        'hash' => md5('Test Title2'),
         'date' => 1715705878,
         'updatedAt' => 1715705878,
     ];

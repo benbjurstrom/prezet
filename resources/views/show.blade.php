@@ -1,9 +1,10 @@
 @php
-/* @var string $body */
-/* @var array $nav */
-/* @var array $headings */
-/* @var \BenBjurstrom\Prezet\Data\FrontmatterData $frontmatter */
+    /* @var string $body */
+    /* @var array $nav */
+    /* @var array $headings */
+    /* @var \BenBjurstrom\Prezet\Data\FrontmatterData $frontmatter */
 @endphp
+
 <x-prezet::template>
     @seo([
         'title' => $frontmatter->title,
@@ -53,7 +54,7 @@
                         <li>
                             <a
                                 href="#{{ $h2['id'] }}"
-                                :class="{'text-primary-500 hover:text-primary-500': activeHeading === '#{{ $h2['title'] }}'}"
+                                :class="{'text-primary-500 hover:text-primary-500': activeHeading === '{{ $h2['id'] }}'}"
                                 x-on:click.prevent="scrollToHeading('{{ $h2['id'] }}')"
                                 class="transition-colors"
                             >
@@ -69,7 +70,7 @@
                                         <li>
                                             <a
                                                 href="#{{ $h3['id'] }}"
-                                                :class="{'text-primary-700 hover:text-primary-700': activeHeading === '#{{ $h3['title'] }}'}"
+                                                :class="{'text-primary-700 hover:text-primary-700': activeHeading === '{{ $h3['id'] }}'}"
                                                 x-on:click.prevent="scrollToHeading('{{ $h3['id'] }}')"
                                                 class="transition-colors"
                                             >

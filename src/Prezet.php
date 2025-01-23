@@ -33,9 +33,9 @@ class Prezet
     /**
      * @return Collection<int, array{title: string, links: array<int, array<string, string>>}>
      */
-    public static function getNav(): Collection
+    public static function getNav(?string $filepath = null): Collection
     {
-        return GetSummary::handle();
+        return GetSummary::handle($filepath);
     }
 
     public static function getImage(string $path): string

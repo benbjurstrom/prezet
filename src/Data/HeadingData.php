@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Data;
 
-use Carbon\Carbon;
 use WendellAdriel\ValidatedDTO\Attributes\Rules;
 use WendellAdriel\ValidatedDTO\Casting\CarbonCast;
 use WendellAdriel\ValidatedDTO\Casting\DTOCast;
@@ -14,16 +13,25 @@ class HeadingData extends ValidatedDTO
     use EmptyRules;
 
     #[Rules(['required', 'integer'])]
-    public int $level;
+    public int $id;
 
     #[Rules(['required', 'integer'])]
-    public int $section;
+    public int $level;
+
+    #[Rules(['string'])]
+    public string $section;
 
     #[Rules(['required', 'string'])]
     public string $text;
 
     #[Rules(['required', 'string'])]
     public string $slug;
+
+    #[Rules(['required', 'string'])]
+    public string $url;
+
+    #[Rules(['required', 'integer'])]
+    public int $documentId;
 
     /**
      * @return array<string, array<int, null>|false>
@@ -40,6 +48,7 @@ class HeadingData extends ValidatedDTO
     {
         return [
             'document.slug' => 'slug',
+            'document_id' => 'documentId',
         ];
     }
 
@@ -48,8 +57,6 @@ class HeadingData extends ValidatedDTO
      */
     protected function casts(): array
     {
-        return [
-            'document' => new DTOCast(DocumentData::class),
-        ];
+        return [];
     }
 }
