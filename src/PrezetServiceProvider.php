@@ -29,7 +29,6 @@ class PrezetServiceProvider extends PackageServiceProvider
                 'create_prezet_tags_table',
                 'create_prezet_headings_table',
             ])
-            ->runsMigrations(true)
             ->hasCommands([
                 InstallCommand::class,
                 OgimageCommand::class,
