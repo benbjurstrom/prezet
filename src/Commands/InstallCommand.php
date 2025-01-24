@@ -31,23 +31,25 @@ class InstallCommand extends Command
 
         try {
             $gitStatus = $this->checkGitStatus();
-            
+
             // If git repo is dirty, exit with error
             if ($gitStatus === 'dirty') {
                 $this->error('Git directory is not clean. Please stash or commit your changes before installing.');
+
                 return self::FAILURE;
             }
-            
+
             // If no git repo or clean repo, proceed with appropriate confirmation
-            if ($gitStatus === 'no_git' && !$this->confirm('No git repository detected. This will modify your project files. Do you wish to continue?')) {
+            if ($gitStatus === 'no_git' && ! $this->confirm('No git repository detected. This will modify your project files. Do you wish to continue?')) {
                 return self::FAILURE;
             }
 
             // If we get here, either the repo is clean or user confirmed to proceed
             return $this->runInstall();
-            
+
         } catch (\Exception $e) {
             $this->error('An error occurred while checking git status: '.$e->getMessage());
+
             return self::FAILURE;
         }
     }
@@ -56,7 +58,7 @@ class InstallCommand extends Command
     {
         try {
             $process = Process::run('git status --porcelain');
-            
+
             if ($process->exitCode() !== 0) {
                 // Not a git repository
                 return 'no_git';
@@ -87,6 +89,7 @@ class InstallCommand extends Command
             return self::SUCCESS;
         } catch (\Exception $e) {
             $this->error('An error occurred during installation: '.$e->getMessage());
+
             return self::FAILURE;
         }
     }
