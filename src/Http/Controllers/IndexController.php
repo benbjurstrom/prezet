@@ -2,6 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
+use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
@@ -30,9 +31,11 @@ class IndexController
         $docs = $query->orderBy('date', 'desc')
             ->paginate(4);
 
+        $docsData = $docs->map(fn (Document $doc) => DocumentData::fromModel($doc));
+
         return view('prezet::index', [
             'nav' => $nav,
-            'articles' => $docs->pluck('frontmatter'),
+            'articles' => $docsData,
             'paginator' => $docs,
             'currentTag' => request()->query('tag'),
             'currentCategory' => request()->query('category'),

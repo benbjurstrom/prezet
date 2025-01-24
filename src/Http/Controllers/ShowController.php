@@ -20,12 +20,12 @@ class ShowController
 
         $nav = Prezet::getNav();
         $md = Prezet::getMarkdown($doc->filepath);
-        $fm = Prezet::getFrontmatter($doc->filepath);
+        $docData = Prezet::getFrontmatter($doc->filepath);
         $html = Prezet::getContent($md);
         $headings = Prezet::getHeadings($html);
 
         return view('prezet::show', [
-            'frontmatter' => $fm,
+            'document' => $docData,
             'headings' => $headings,
             'body' => $html,
             'nav' => $nav,

@@ -2,15 +2,15 @@
     /* @var string $body */
     /* @var array $nav */
     /* @var array $headings */
-    /* @var \BenBjurstrom\Prezet\Data\FrontmatterData $frontmatter */
+    /* @var \BenBjurstrom\Prezet\Data\DocumentData $document */
 @endphp
 
 <x-prezet::template>
     @seo([
-        'title' => $frontmatter->title,
-        'description' => $frontmatter->excerpt,
-        'url' => route('prezet.show', ['slug' => $frontmatter->slug]),
-        'image' => $frontmatter->image,
+        'title' => $document->frontmatter->title,
+        'description' => $document->frontmatter->excerpt,
+        'url' => route('prezet.show', ['slug' => $document->slug]),
+        'image' => $document->frontmatter->image,
     ])
 
     {{-- Left Sidebar --}}
@@ -22,12 +22,12 @@
     <article>
         <header class="mb-9 space-y-1">
             <p class="font-display text-sm font-medium text-primary-600">
-                {{ $frontmatter->category }}
+                {{ $document->category }}
             </p>
             <h1
                 class="font-display text-4xl font-medium tracking-tight text-gray-900"
             >
-                {{ $frontmatter->title }}
+                {{ $document->frontmatter->title }}
             </h1>
         </header>
         <div

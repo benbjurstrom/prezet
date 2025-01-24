@@ -9,7 +9,6 @@ use BenBjurstrom\Prezet\Actions\GetMarkdown;
 use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
 use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
 use Illuminate\Support\Collection;
 
 class Prezet

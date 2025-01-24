@@ -3,7 +3,6 @@
 namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
@@ -72,7 +71,7 @@ class UpdateIndex
         self::updateDocumentAttributes($document, $docData);
         self::updateHeadings($document);
 
-        if ($document->tags) {
+        if ($docData->frontmatter->tags) {
             self::setTags($document, $docData->frontmatter->tags);
         }
     }

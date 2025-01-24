@@ -25,7 +25,7 @@ test('skips document when hash and slug match', closure: function () {
     // Mock GetAllFrontmatter
     $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc) {
         $mock->shouldReceive('handle')->once()->andReturn(collect([
-            DocumentData::fromModel($doc)
+            DocumentData::fromModel($doc),
         ]));
     });
 
@@ -42,7 +42,7 @@ test('removes deleted documents and their relationships', function () {
         'hash' => 'abc123',
     ]);
 
-    $doc2 =  Document::factory()->create([
+    $doc2 = Document::factory()->create([
         'slug' => 'doc-2',
         'hash' => 'def456',
     ]);
@@ -70,7 +70,7 @@ test('removes deleted documents and their relationships', function () {
     $doc2->tags()->attach([$tag1->id, $tag2->id]);
 
     // Mock GetAllDocsFromFiles to return only doc1
-    $this->mock(GetAllDocsFromFiles::class, function ($mock) use($doc1) {
+    $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc1) {
         $mock->shouldReceive('handle')->once()->andReturn(collect([
             DocumentData::fromModel($doc1)]));
     });

@@ -85,7 +85,7 @@ class SearchControllerTest extends TestCase
                     'date' => now()->subDays(10)->toIso8601String(),
                     'updatedAt' => now()->subDays(10)->toIso8601String(),
                 ],
-        ]);
+            ]);
 
         Heading::create([
             'document_id' => $doc->id,

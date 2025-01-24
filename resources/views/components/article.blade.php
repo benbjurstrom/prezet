@@ -18,7 +18,7 @@
                             class="text-gray-900"
                             href="{{ route('prezet.show', $article->slug) }}"
                         >
-                            {{ $article->title }}
+                            {{ $article->frontmatter->title }}
                         </a>
                     </h2>
                     <div class="flex flex-wrap">
@@ -28,7 +28,7 @@
                         >
                             {{ $article->category }}
                         </a>
-                        @foreach ($article->tags as $tag)
+                        @foreach ($article->frontmatter->tags as $tag)
                             <a
                                 class="mr-3 text-sm font-medium uppercase text-primary-500 hover:text-primary-600"
                                 href="{{ route('prezet.index', ['tag' => $tag]) }}"
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="prose max-w-none text-gray-500">
-                    {{ $article->excerpt }}
+                    {{ $article->frontmatter->excerpt }}
                 </div>
             </div>
             <div class="text-base font-medium leading-6">
