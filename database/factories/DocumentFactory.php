@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\BenBjurstrom\Prezet\Models;
+namespace BenBjurstrom\Prezet\Database\Factories;
 
 use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,6 +21,7 @@ class DocumentFactory extends Factory
             'slug' => $this->faker->unique()->slug,
             'category' => $this->faker->optional()->word,
             'draft' => $this->faker->boolean,
+            'hash' => md5(random_bytes(16)),
             'frontmatter' => [
                 'title' => $this->faker->sentence,
                 'excerpt' => $this->faker->paragraph,

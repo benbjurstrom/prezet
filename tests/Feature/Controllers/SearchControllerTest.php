@@ -70,7 +70,7 @@ class SearchControllerTest extends TestCase
 
     private function seedTestData(): void
     {
-        $documents = [
+        $doc = Document::factory()->create(
             [
                 'slug' => 'intro-to-laravel',
                 'category' => 'Web Development',
@@ -85,26 +85,13 @@ class SearchControllerTest extends TestCase
                     'date' => now()->subDays(10)->toIso8601String(),
                     'updatedAt' => now()->subDays(10)->toIso8601String(),
                 ],
-            ],
-        ];
-
-        foreach ($documents as $doc) {
-            $document = Document::create([
-                'slug' => $doc['slug'],
-                'category' => $doc['category'],
-                'draft' => $doc['draft'],
-                'frontmatter' => $doc['frontmatter'],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
 
-            Heading::create([
-                'document_id' => $document->id,
-                'text' => $doc['frontmatter'][
-                    'title'],
-                'level' => 1,
-                'section' => $doc['frontmatter']['title'],
-            ]);
-        }
+        Heading::create([
+            'document_id' => $doc->id,
+            'text' => $doc->frontmatter->title,
+            'level' => 1,
+            'section' => $doc->frontmatter->title,
+        ]);
     }
 }

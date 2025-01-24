@@ -1,31 +1,14 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetAllFrontmatter;
+use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
 use Illuminate\Support\Facades\Config;
-
-/**
- * Helper function to create valid FrontmatterData objects
- */
-function frontmatterData(array $overrides = []): FrontmatterData
-{
-    return new FrontmatterData(array_merge([
-        'title' => 'Test Title',
-        'slug' => 'test-slug',
-        'excerpt' => 'Test excerpt',
-        'category' => 'test-category',
-        'tags' => ['tag1', 'tag2'],
-        'image' => null,
-        'draft' => false,
-        'hash' => 'test-hash',
-        'createdAt' => now()->subDays(10),
-        'updatedAt' => now()->subDays(5),
-    ], $overrides));
-}
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 test('throws exception when database missing', function () {
     unlink(Config::get('database.connections.prezet.database'));
@@ -34,26 +17,23 @@ test('throws exception when database missing', function () {
         ->toThrow(\RuntimeException::class, 'Prezet database not found');
 });
 
-test('skips document when hash and slug match', function () {
-    // Create initial document
-    Document::create([
+test('throws exception when documents table missing', function () {
+    Schema::connection('prezet')->dropIfExists('documents');
+
+    expect(fn () => UpdateIndex::handle())
+        ->toThrow(\RuntimeException::class, 'Prezet database exists but is missing the \'documents\' table');
+});
+
+test('skips document when hash and slug match', closure: function () {
+    $doc = Document::factory()->create([
         'slug' => 'test-doc',
         'hash' => 'abc123',
-        'frontmatter' => frontmatterData([
-            'title' => 'Test Doc',
-            'slug' => 'test-doc',
-            'hash' => 'abc123',
-        ]),
     ]);
 
     // Mock GetAllFrontmatter
-    $this->mock(GetAllFrontmatter::class, function ($mock) {
+    $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc) {
         $mock->shouldReceive('handle')->once()->andReturn(collect([
-            frontmatterData([
-                'title' => 'Test Doc',
-                'slug' => 'test-doc',
-                'hash' => 'abc123',
-            ]),
+            DocumentData::fromModel($doc),
         ]));
     });
 
@@ -65,24 +45,14 @@ test('skips document when hash and slug match', function () {
 
 test('removes deleted documents and their relationships', function () {
     // Create initial documents
-    $doc1 = Document::create([
+    $doc1 = Document::factory()->create([
         'slug' => 'doc-1',
         'hash' => 'abc123',
-        'frontmatter' => frontmatterData([
-            'title' => 'Doc 1',
-            'slug' => 'doc-1',
-            'hash' => 'abc123',
-        ]),
     ]);
 
-    $doc2 = Document::create([
+    $doc2 = Document::factory()->create([
         'slug' => 'doc-2',
         'hash' => 'def456',
-        'frontmatter' => frontmatterData([
-            'title' => 'Doc 2',
-            'slug' => 'doc-2',
-            'hash' => 'def456',
-        ]),
     ]);
 
     // Create headings
@@ -107,15 +77,10 @@ test('removes deleted documents and their relationships', function () {
     $doc1->tags()->attach($tag1);
     $doc2->tags()->attach([$tag1->id, $tag2->id]);
 
-    // Mock GetAllFrontmatter to return only doc1
-    $this->mock(GetAllFrontmatter::class, function ($mock) {
+    // Mock GetAllDocsFromFiles to return only doc1
+    $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc1) {
         $mock->shouldReceive('handle')->once()->andReturn(collect([
-            frontmatterData([
-                'title' => 'Doc 1',
-                'slug' => 'doc-1',
-                'hash' => 'abc123',
-            ]),
-        ]));
+            DocumentData::fromModel($doc1)]));
     });
 
     UpdateIndex::handle();
@@ -135,33 +100,90 @@ test('removes deleted documents and their relationships', function () {
         ->and(Tag::where('name', 'tag2')->exists())->toBeFalse();
 });
 
-// test('updates document when hash changes', function () {
-//    // Create initial document
-//    Document::create([
-//        'slug' => 'test-doc',
-//        'hash' => 'old-hash',
-//        'frontmatter' => frontmatterData([
-//            'title' => 'Old Title',
-//            'slug' => 'test-doc',
-//            'hash' => 'old-hash',
-//        ]),
-//    ]);
-//
-//    // Mock GetAllFrontmatter
-//    $this->mock(GetAllFrontmatter::class, function ($mock) {
-//        $mock->shouldReceive('handle')->once()->andReturn(collect([
-//            frontmatterData([
-//                'title' => 'New Title',
-//                'slug' => 'test-doc',
-//                'hash' => 'new-hash',
-//            ]),
-//        ]));
-//    });
-//
-//    UpdateIndex::handle();
-//
-//    expect(Document::count())->toBe(1)
-//        ->and(Document::first())
-//        ->hash->toBe('new-hash')
-//        ->slug->toBe('test-doc');
-// });
+test('updates document when hash changes', function () {
+    // Create initial document
+    $oldDoc = Document::factory()->create([
+        'slug' => 'test-doc',
+        'hash' => 'old-hash',
+    ]);
+
+    $t = Tag::firstOrCreate(
+        ['name' => strtolower('old-tag')]
+    );
+
+    $oldDoc->tags()->attach($t->id);
+
+    // Create a heading for the document
+    Heading::create([
+        'document_id' => $oldDoc->id,
+        'text' => 'Old Heading',
+        'level' => 1,
+        'section' => '',
+    ]);
+
+    Storage::fake('prezet');
+    Storage::disk(config('prezet.filesystem.disk'))->put('content/test-doc.md', '---
+title: Post 1
+category: new-category
+date: 2023-05-01
+tags:
+    - new-tag
+excerpt: Post 1 Excerpt
+---
+# New Heading');
+
+    UpdateIndex::handle();
+
+    // Assert document was updated
+    $updatedDoc = Document::where('slug', 'test-doc')->first();
+    expect($updatedDoc->hash)->toBe('90d0808a17c5949d40925284575235cd')
+        ->and($updatedDoc->category)->toBe('new-category')
+        ->and($updatedDoc->frontmatter->title)->toBe('Post 1')
+        ->and($updatedDoc->frontmatter->excerpt)->toBe('Post 1 Excerpt');
+
+    // Assert headings were updated
+    $headings = $updatedDoc->headings()->get();
+    expect($headings)->toHaveCount(1)
+        ->and($headings[0]->text)->toBe('Post 1')
+        ->and($headings[0]->level)->toBe(1);
+
+    // Assert tags were updated
+    $tags = $updatedDoc->tags()->pluck('name')->toArray();
+    expect($tags)->toBe(['new-tag']);
+
+    // Assert old tag was removed
+    expect(Tag::where('name', 'old-tag')->exists())->toBeFalse();
+});
+
+test('creates new document when slug does not exist', function () {
+    Storage::fake('prezet');
+    Storage::disk(config('prezet.filesystem.disk'))->put('content/new-doc.md', '---
+title: Post 1
+category: new-category
+date: 2023-05-01
+tags:
+    - new-tag
+    - test-tag
+excerpt: Post 1 Excerpt
+---
+## New H2');
+
+    UpdateIndex::handle();
+
+    // Assert new document was created
+    $newDoc = Document::where('slug', 'new-doc')->first();
+    expect($newDoc)->not->toBeNull()
+        ->and($newDoc->hash)->toBe('4c214aa720579296e8e4ab2577bcc6d1');
+
+    // Assert headings were created
+    $headings = $newDoc->headings()->get();
+    expect($headings)->toHaveCount(2)
+        ->and($headings[0]->text)->toBe('Post 1')
+        ->and($headings[0]->level)->toBe(1)
+        ->and($headings[1]->text)->toBe('New H2')
+        ->and($headings[1]->level)->toBe(2);
+
+    // Assert tags were created
+    $tags = $newDoc->tags()->pluck('name')->toArray();
+    expect($tags)->toBe(['new-tag', 'test-tag']);
+});

@@ -2,7 +2,7 @@
     /* @var array $nav */
     /* @var array|null|string $currentTag */
     /* @var array|null|string $currentCategory */
-    /* @var \Illuminate\Support\Collection<int,\BenBjurstrom\Prezet\Data\FrontmatterData> $articles */
+    /* @var \Illuminate\Support\Collection<int,\BenBjurstrom\Prezet\Data\DocumentData> $articles */
 @endphp
 
 <x-prezet::template>

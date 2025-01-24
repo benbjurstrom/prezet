@@ -2,20 +2,20 @@
 
 namespace BenBjurstrom\Prezet;
 
-use BenBjurstrom\Prezet\Actions\GetFrontmatter;
+use BenBjurstrom\Prezet\Actions\GetDocFromFile;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
 use BenBjurstrom\Prezet\Actions\GetMarkdown;
 use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Data\DocumentData;
 use Illuminate\Support\Collection;
 
 class Prezet
 {
-    public static function getFrontmatter(string $filepath): FrontmatterData
+    public static function getFrontmatter(string $filepath): DocumentData
     {
-        return GetFrontmatter::handle($filepath);
+        return GetDocFromFile::handle($filepath);
     }
 
     public static function getMarkdown(string $filePath): string

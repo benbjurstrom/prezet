@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('slug')->index()->unique();
             $table->string('category')->index()->nullable();
             $table->boolean('draft')->default(false)->index();
+            $table->char('hash', length: 32)->index();
             $table->jsonb('frontmatter');
-            $table->char('hash', length: 32)->index()->nullable();
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at');
+            $table->timestampTz('created_at')->index();
+            $table->timestampTz('updated_at')->index();
 
             $table->index('slug', 'hash');
         });

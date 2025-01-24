@@ -3,8 +3,11 @@
 namespace BenBjurstrom\Prezet\Models;
 
 use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Database\Factories\DocumentFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,6 +25,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Document extends Model
 {
     /**
+     * @use HasFactory<DocumentFactory>
+     */
+    use HasFactory;
+
+    /**
      * The connection name for the model.
      *
      * @var string|null
@@ -29,6 +37,14 @@ class Document extends Model
     protected $connection = 'prezet';
 
     protected $guarded = [];
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory(): DocumentFactory
+    {
+        return DocumentFactory::new();
+    }
 
     /**
      * Get the attributes that should be cast.

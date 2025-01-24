@@ -14,9 +14,6 @@ class FrontmatterData extends ValidatedDTO
     use EmptyRules;
 
     #[Rules(['required', 'string'])]
-    public string $slug;
-
-    #[Rules(['required', 'string'])]
     public string $title;
 
     #[Rules(['required', 'string'])]
@@ -25,26 +22,20 @@ class FrontmatterData extends ValidatedDTO
     #[Rules(['nullable', 'string'])]
     public ?string $category;
 
-    /**
-     * @var array<int, string> $tags
-     */
-    #[Rules(['array'])]
-    public array $tags;
-
     #[Rules(['nullable', 'string'])]
     public ?string $image;
 
     #[Rules(['bool'])]
     public bool $draft;
 
-    #[Rules(['required', 'string'])]
-    public string $hash;
-
     #[Rules(['required'])]
-    public Carbon $createdAt;
+    public Carbon $date;
 
-    #[Rules(['required'])]
-    public Carbon $updatedAt;
+    /**
+     * @var array<int, string> $tags
+     */
+    #[Rules(['array'])]
+    public array $tags;
 
     //    Good override example
     //    #[Rules(['nullable', 'string'])]
@@ -68,7 +59,6 @@ class FrontmatterData extends ValidatedDTO
     {
         return [
             'description' => 'excerpt',
-            'date' => 'createdAt',
         ];
     }
 
@@ -78,8 +68,7 @@ class FrontmatterData extends ValidatedDTO
     protected function casts(): array
     {
         return [
-            'createdAt' => new CarbonCast,
-            'updatedAt' => new CarbonCast,
+            'date' => new CarbonCast,
         ];
     }
 
@@ -88,6 +77,6 @@ class FrontmatterData extends ValidatedDTO
      */
     protected function failedValidation(): void
     {
-        throw new FrontmatterException($this->validator->errors(), $this->data['slug'] ?? false);
+        throw new FrontmatterException($this->validator->errors(), $this->data['title'] ?? false);
     }
 }

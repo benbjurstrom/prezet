@@ -27,6 +27,7 @@ return [
     */
 
     'data' => [
+        'document' => BenBjurstrom\Prezet\Data\DocumentData::class,
         'frontmatter' => BenBjurstrom\Prezet\Data\FrontmatterData::class,
     ],
 
