@@ -22,23 +22,20 @@ class FrontmatterData extends ValidatedDTO
     #[Rules(['nullable', 'string'])]
     public ?string $category;
 
-    /**
-     * @var array<int, string> $tags
-     */
-    #[Rules(['array'])]
-    public array $tags;
-
     #[Rules(['nullable', 'string'])]
     public ?string $image;
 
     #[Rules(['bool'])]
     public bool $draft;
 
-    #[Rules(['required', 'string'])]
-    public string $hash;
-
     #[Rules(['required'])]
     public Carbon $date;
+
+    /**
+     * @var array<int, string> $tags
+     */
+    #[Rules(['array'])]
+    public array $tags;
 
     //    Good override example
     //    #[Rules(['nullable', 'string'])]
@@ -62,7 +59,6 @@ class FrontmatterData extends ValidatedDTO
     {
         return [
             'description' => 'excerpt',
-            'createdAt' => 'date',
         ];
     }
 

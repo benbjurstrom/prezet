@@ -8,9 +8,7 @@ it('can create a valid FrontmatterData instance', function () {
     $data = [
         'title' => 'Test Title',
         'excerpt' => 'Test excerpt',
-        'slug' => 'test-slug',
         'category' => 'Test Category',
-        'hash' => md5('Test Title'),
         'image' => 'test-image.jpg',
         'date' => 1715705878,
         'updatedAt' => 1715705878,
@@ -20,8 +18,7 @@ it('can create a valid FrontmatterData instance', function () {
 
     expect($frontmatter->title)->toBe('Test Title');
     expect($frontmatter->excerpt)->toBe('Test excerpt');
-    expect($frontmatter->slug)->toBe('test-slug');
-    expect($frontmatter->createdAt)->toBeInstanceOf(Carbon::class);
+    expect($frontmatter->date)->toBeInstanceOf(Carbon::class);
     expect($frontmatter->category)->toBe('Test Category');
     expect($frontmatter->image)->toBe('test-image.jpg');
 });

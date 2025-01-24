@@ -2,6 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
@@ -17,7 +18,7 @@ class UpdateIndex
     {
         self::ensureDatabaseExists();
 
-        $docs = app(GetAllFrontmatter::class)->handle();
+        $docs = app(GetAllDocsFromFiles::class)->handle();
 
         // Get all current slugs from filesystem
         $currentSlugs = $docs->pluck('slug')->toArray();
@@ -26,7 +27,7 @@ class UpdateIndex
         self::removeDeletedDocuments($currentSlugs);
 
         // Update or create documents
-        $docs->each(function (FrontmatterData $doc) {
+        $docs->each(function (DocumentData $doc) {
             self::upsertDocument($doc);
         });
 
@@ -48,12 +49,12 @@ class UpdateIndex
     {
         Document::whereNotIn('slug', $currentSlugs)->each(function (Document $document) {
             // This will automatically delete related headings due to cascade
-            $document->tags()->detach(); // TODO: Does this remove tags that are still in use by other documents?
+            $document->tags()->detach();
             $document->delete();
         });
     }
 
-    protected static function upsertDocument(FrontmatterData $doc): void
+    protected static function upsertDocument(DocumentData $doc): void
     {
         // Check if document exists with same slug and hash
         $existingDoc = Document::where('slug', $doc->slug)
@@ -68,7 +69,7 @@ class UpdateIndex
         // Find document by slug to update, or create new one
         $document = Document::where('slug', $doc->slug)->first() ?? new Document;
 
-        self::updateDocumentAttributes($document, $doc);
+        self::updateDocumentAttributes($document, $fm);
         self::updateHeadings($document);
 
         if ($doc->tags) {
@@ -76,16 +77,16 @@ class UpdateIndex
         }
     }
 
-    protected static function updateDocumentAttributes(Document $document, FrontmatterData $doc): void
+    protected static function updateDocumentAttributes(Document $document, FrontmatterData $fm): void
     {
         $document->fill([
-            'slug' => $doc->slug,
-            'category' => $doc->category,
-            'draft' => $doc->draft,
-            'hash' => $doc->hash,
-            'frontmatter' => $doc,
-            'created_at' => $doc->createdAt,
-            'updated_at' => $doc->updatedAt,
+            'slug' => $fm->slug,
+            'category' => $fm->category,
+            'draft' => $fm->draft,
+            'hash' => $fm->hash,
+            'frontmatter' => $fm,
+            'created_at' => $fm->createdAt,
+            'updated_at' => $fm->updatedAt,
         ]);
 
         $document->save();

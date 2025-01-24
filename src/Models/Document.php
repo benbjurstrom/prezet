@@ -3,6 +3,7 @@
 namespace BenBjurstrom\Prezet\Models;
 
 use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Database\Factories\DocumentFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -36,6 +37,14 @@ class Document extends Model
     protected $connection = 'prezet';
 
     protected $guarded = [];
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return DocumentFactory::new();
+    }
 
     /**
      * Get the attributes that should be cast.

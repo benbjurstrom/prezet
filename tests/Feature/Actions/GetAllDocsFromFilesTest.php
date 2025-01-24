@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetAllFrontmatter;
+use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,7 +19,7 @@ excerpt: Post 2 Excerpt
 ---
 # Post 2 Content');
 
-    $posts = GetAllFrontmatter::handle();
+    $posts = GetAllDocsFromFiles::handle();
 
     expect($posts)->toHaveCount(2);
     expect($posts->first()->title)->toBe('Post 2');
@@ -30,5 +30,5 @@ it('throws exception if frontmatter is missing', function () {
     Storage::fake('prezet');
     Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '# Post 1 Content');
 
-    GetAllFrontmatter::handle();
+    GetAllDocsFromFiles::handle();
 })->throws(FrontmatterMissingException::class);

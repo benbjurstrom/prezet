@@ -1,31 +1,13 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetAllFrontmatter;
+use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
+use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
 use Illuminate\Support\Facades\Config;
-
-/**
- * Helper function to create valid FrontmatterData objects
- */
-function frontmatterData(array $overrides = []): FrontmatterData
-{
-    return new FrontmatterData(array_merge([
-        'title' => 'Test Title',
-        'slug' => 'test-slug',
-        'excerpt' => 'Test excerpt',
-        'category' => 'test-category',
-        'tags' => ['tag1', 'tag2'],
-        'image' => null,
-        'draft' => false,
-        'hash' => 'test-hash',
-        'createdAt' => now()->subDays(10),
-        'updatedAt' => now()->subDays(5),
-    ], $overrides));
-}
 
 test('throws exception when database missing', function () {
     unlink(Config::get('database.connections.prezet.database'));
@@ -34,26 +16,16 @@ test('throws exception when database missing', function () {
         ->toThrow(\RuntimeException::class, 'Prezet database not found');
 });
 
-test('skips document when hash and slug match', function () {
-    // Create initial document
-    Document::create([
+test('skips document when hash and slug match', closure: function () {
+    $doc = Document::factory()->create([
         'slug' => 'test-doc',
         'hash' => 'abc123',
-        'frontmatter' => frontmatterData([
-            'title' => 'Test Doc',
-            'slug' => 'test-doc',
-            'hash' => 'abc123',
-        ]),
     ]);
 
     // Mock GetAllFrontmatter
-    $this->mock(GetAllFrontmatter::class, function ($mock) {
+    $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc) {
         $mock->shouldReceive('handle')->once()->andReturn(collect([
-            frontmatterData([
-                'title' => 'Test Doc',
-                'slug' => 'test-doc',
-                'hash' => 'abc123',
-            ]),
+            DocumentData::fromModel($doc)
         ]));
     });
 
@@ -65,24 +37,14 @@ test('skips document when hash and slug match', function () {
 
 test('removes deleted documents and their relationships', function () {
     // Create initial documents
-    $doc1 = Document::create([
+    $doc1 = Document::factory()->create([
         'slug' => 'doc-1',
         'hash' => 'abc123',
-        'frontmatter' => frontmatterData([
-            'title' => 'Doc 1',
-            'slug' => 'doc-1',
-            'hash' => 'abc123',
-        ]),
     ]);
 
-    $doc2 = Document::create([
+    $doc2 =  Document::factory()->create([
         'slug' => 'doc-2',
         'hash' => 'def456',
-        'frontmatter' => frontmatterData([
-            'title' => 'Doc 2',
-            'slug' => 'doc-2',
-            'hash' => 'def456',
-        ]),
     ]);
 
     // Create headings
@@ -107,15 +69,10 @@ test('removes deleted documents and their relationships', function () {
     $doc1->tags()->attach($tag1);
     $doc2->tags()->attach([$tag1->id, $tag2->id]);
 
-    // Mock GetAllFrontmatter to return only doc1
-    $this->mock(GetAllFrontmatter::class, function ($mock) {
+    // Mock GetAllDocsFromFiles to return only doc1
+    $this->mock(GetAllDocsFromFiles::class, function ($mock) use($doc1) {
         $mock->shouldReceive('handle')->once()->andReturn(collect([
-            frontmatterData([
-                'title' => 'Doc 1',
-                'slug' => 'doc-1',
-                'hash' => 'abc123',
-            ]),
-        ]));
+            DocumentData::fromModel($doc1)]));
     });
 
     UpdateIndex::handle();

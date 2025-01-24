@@ -11,6 +11,7 @@ it('can create a valid DocumentData instance', function () {
         'slug' => 'test-slug',
         'category' => 'Test Category',
     ]);
+
     $dd = DocumentData::fromModel($document);
 
     expect($dd->slug)->toBe('test-slug')

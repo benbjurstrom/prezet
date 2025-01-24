@@ -2,14 +2,14 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Data\DocumentData;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
-class GetAllFrontmatter
+class GetAllDocsFromFiles
 {
     /**
-     * @return Collection<int,FrontmatterData>
+     * @return Collection<int,DocumentData>
      */
     public static function handle(): Collection
     {
@@ -21,8 +21,8 @@ class GetAllFrontmatter
                 return pathinfo($filePath, PATHINFO_EXTENSION) === 'md';
             })
             ->map(function ($filePath) {
-                return GetFrontmatter::handle($filePath);
+                return GetDocFromMd::handle($filePath);
             })
-            ->sortByDesc('createdAt');
+            ->sortByDesc('date');
     }
 }
