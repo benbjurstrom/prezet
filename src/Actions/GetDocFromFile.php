@@ -35,6 +35,7 @@ class GetDocFromFile
         if ($doc) {
             $docData = $docClass::fromModel($doc);
             $docData->content = $content;
+
             return $docData;
         }
 
