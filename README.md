@@ -60,7 +60,7 @@ php artisan prezet:install
 After adding or modifying your markdown files, you need to update the index to reflect these changes:
 
 ```bash
-php artisan prezet:index --force
+php artisan prezet:index --fresh
 ```
 
 This command updates the SQLite index with the latest front matter information from your markdown files. Run this command whenever you:
