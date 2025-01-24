@@ -10,14 +10,14 @@ use Illuminate\Console\Command;
 
 class UpdateIndexCommand extends Command
 {
-    public $signature = 'prezet:index {--force : Force recreate the database}';
+    public $signature = 'prezet:index {--fresh : Fresh recreates the database}';
 
-    public $description = 'Updates the prezet.sqlite file. Use --force to recreate the database.';
+    public $description = 'Updates the prezet.sqlite file. Use --fresh to recreate the database.';
 
     public function handle(): int
     {
         try {
-            if ($this->option('force')) {
+            if ($this->option('fresh')) {
                 $this->info('Recreating database...');
                 CreateIndex::handle();
             }
