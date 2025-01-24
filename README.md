@@ -49,7 +49,7 @@ composer require benbjurstrom/prezet
 
 #### Run the package installer:
 
-_⚠️ NOTE: Before running the installer on an existing application it is recommended to switch to a clean branch so you can see the changes Prezet made during the installation process._
+_⚠️ NOTE: For existing applications it is recommended to switch to a clean branch so you can review the changes Prezet made during the installation process._
 
 ```bash
 php artisan prezet:install
