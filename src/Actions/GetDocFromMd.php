@@ -45,8 +45,8 @@ class GetDocFromMd
             'content' => $content,
             'category' => $fm->category,
             'frontmatter' => $fm,
-            'updatedAt' => $fm->date,
-            'createdAt' => $storage->lastModified($filePath),
+            'updatedAt' => $storage->lastModified($filePath),
+            'createdAt' => $fm->date,
         ]);
     }
 

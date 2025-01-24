@@ -23,6 +23,6 @@ class GetAllDocsFromFiles
             ->map(function ($filePath) {
                 return GetDocFromMd::handle($filePath);
             })
-            ->sortByDesc('date');
+            ->sortByDesc('createdAt');
     }
 }

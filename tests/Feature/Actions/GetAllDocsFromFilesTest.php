@@ -19,11 +19,11 @@ excerpt: Post 2 Excerpt
 ---
 # Post 2 Content');
 
-    $posts = GetAllDocsFromFiles::handle();
+    $docs = GetAllDocsFromFiles::handle();
 
-    expect($posts)->toHaveCount(2);
-    expect($posts->first()->title)->toBe('Post 2');
-    expect($posts->last()->title)->toBe('Post 1');
+    expect($docs)->toHaveCount(2);
+    expect($docs->first()->frontmatter->title)->toBe('Post 2');
+    expect($docs->last()->frontmatter->title)->toBe('Post 1');
 });
 
 it('throws exception if frontmatter is missing', function () {

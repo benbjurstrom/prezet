@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Document extends Model
 {
     /**
-     * @template TFactory of Factory
+     * @use HasFactory<DocumentFactory>
      */
     use HasFactory;
 
@@ -41,7 +41,7 @@ class Document extends Model
     /**
      * Create a new factory instance for the model.
      */
-    protected static function newFactory()
+    protected static function newFactory(): DocumentFactory
     {
         return DocumentFactory::new();
     }

@@ -54,11 +54,11 @@ class UpdateIndex
         });
     }
 
-    protected static function upsertDocument(DocumentData $doc): void
+    protected static function upsertDocument(DocumentData $docData): void
     {
         // Check if document exists with same slug and hash
-        $existingDoc = Document::where('slug', $doc->slug)
-            ->where('hash', $doc->hash)
+        $existingDoc = Document::where('slug', $docData->slug)
+            ->where('hash', $docData->hash)
             ->first();
 
         // If document exists with same hash, no need to update
@@ -67,26 +67,26 @@ class UpdateIndex
         }
 
         // Find document by slug to update, or create new one
-        $document = Document::where('slug', $doc->slug)->first() ?? new Document;
+        $document = Document::where('slug', $docData->slug)->first() ?? new Document;
 
-        self::updateDocumentAttributes($document, $fm);
+        self::updateDocumentAttributes($document, $docData);
         self::updateHeadings($document);
 
-        if ($doc->tags) {
-            self::setTags($document, $doc->tags);
+        if ($document->tags) {
+            self::setTags($document, $docData->frontmatter->tags);
         }
     }
 
-    protected static function updateDocumentAttributes(Document $document, FrontmatterData $fm): void
+    protected static function updateDocumentAttributes(Document $document, DocumentData $docData): void
     {
         $document->fill([
-            'slug' => $fm->slug,
-            'category' => $fm->category,
-            'draft' => $fm->draft,
-            'hash' => $fm->hash,
-            'frontmatter' => $fm,
-            'created_at' => $fm->createdAt,
-            'updated_at' => $fm->updatedAt,
+            'slug' => $docData->slug,
+            'category' => $docData->category,
+            'draft' => $docData->draft,
+            'hash' => $docData->hash,
+            'frontmatter' => $docData->frontmatter,
+            'created_at' => $docData->createdAt,
+            'updated_at' => $docData->updatedAt,
         ]);
 
         $document->save();
