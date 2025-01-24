@@ -106,7 +106,7 @@ class InstallCommand extends Command
     protected function installNodeDependencies(): void
     {
         $this->info('Installing node dependencies');
-        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss vite-plugin-watch-and-run';
+        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss@3.x vite-plugin-watch-and-run';
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {
             $bin = 'pnpm';

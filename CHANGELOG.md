@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.21.1](https://github.com/benbjurstrom/prezet/compare/v0.21.0...v0.21.1) - 2025-01-24
+
+### What's Changed
+
+* 126 use tailwind 3 by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/127
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v0.21.0...v0.21.1
+
 ## [v0.21.0](https://github.com/benbjurstrom/prezet/compare/v0.20.1...v0.21.0) - 2025-01-23
 
 ### What's Changed
