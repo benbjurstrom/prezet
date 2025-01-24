@@ -149,14 +149,14 @@ class UpdateIndex
         if (! file_exists($dbPath)) {
             throw new \RuntimeException(
                 "Prezet database not found at $dbPath.\n".
-                "Please run 'php artisan prezet:index --force' to create the database."
+                "Please run 'php artisan prezet:index --fresh' to create the database."
             );
         }
 
         if (! Schema::connection('prezet')->hasTable('documents')) {
             throw new \RuntimeException(
                 "Prezet database exists but is missing the 'documents' table.\n".
-                "Please run 'php artisan prezet:index --force' to create the database."
+                "Please run 'php artisan prezet:index --fresh' to create the database."
             );
         }
     }
