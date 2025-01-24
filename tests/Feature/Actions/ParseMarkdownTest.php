@@ -63,3 +63,68 @@ HTML;
 
     expect($result->getContent())->toEqual($expectedHtml);
 });
+
+it('parses markdown with blade components', function () {
+    $markdown = <<<'MD'
+---
+title: 'Example Post'
+excerpt: 'This is an example post.'
+date: '2021-12-24'
+---
+
+# Heading 1
+
+This is a paragraph with **bold** and *italic* text.
+
+```html +parse
+<x-prezet::logo />
+```
+MD;
+
+    $parseMarkdown = new ParseMarkdown;
+
+    $expectedHtml = <<<'HTML'
+<h1>Heading 1</h1>
+<p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
+<svg
+    class="h-9 w-auto"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 36 36"
+>
+    <path
+        d="m5 31 7-26h5l-7 26H5ZM18 14V9l13 6.5v5L18 27v-5l8-4-8-4Z"
+        class="fill-primary-600"
+    />
+</svg>
+
+
+HTML;
+
+    $result = $parseMarkdown->handle($markdown);
+
+    expect($result->getContent())->toEqual($expectedHtml);
+});
+
+it('parses markdown with youtube', function () {
+    $markdown = <<<'MD'
+---
+title: 'Example Post'
+excerpt: 'This is an example post.'
+date: '2021-12-24'
+---
+
+# Heading 1
+
+This is a paragraph with **bold** and *italic* text.
+
+```html +parse
+<x-prezet::youtube videoid="dt1ado9wJi8" title="Supercharge Markdown with Laravel" date="2023-12-15T12:00:00+08:00">
+    Login
+</x-prezet::youtube>
+```
+MD;
+
+    $parseMarkdown = new ParseMarkdown;
+    $result = $parseMarkdown->handle($markdown);
+});

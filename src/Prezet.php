@@ -2,7 +2,7 @@
 
 namespace BenBjurstrom\Prezet;
 
-use BenBjurstrom\Prezet\Actions\GetDocFromMd;
+use BenBjurstrom\Prezet\Actions\GetDocFromFile;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
 use BenBjurstrom\Prezet\Actions\GetMarkdown;
@@ -15,7 +15,7 @@ class Prezet
 {
     public static function getFrontmatter(string $filepath): DocumentData
     {
-        return GetDocFromMd::handle($filepath);
+        return GetDocFromFile::handle($filepath);
     }
 
     public static function getMarkdown(string $filePath): string

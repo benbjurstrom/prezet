@@ -12,7 +12,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
-class GetDocFromMd
+class GetDocFromFile
 {
     /**
      * @throws FrontmatterMissingException
@@ -33,7 +33,9 @@ class GetDocFromMd
             'slug' => $slug,
         ])->first();
         if ($doc) {
-            return $docClass::fromModel($doc);
+            $docData = $docClass::fromModel($doc);
+            $docData->content = $content;
+            return $docData;
         }
 
         $fm = ParseFrontmatter::handle($content, $filePath);

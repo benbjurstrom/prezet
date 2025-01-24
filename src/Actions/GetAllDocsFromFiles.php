@@ -21,7 +21,7 @@ class GetAllDocsFromFiles
                 return pathinfo($filePath, PATHINFO_EXTENSION) === 'md';
             })
             ->map(function ($filePath) {
-                return GetDocFromMd::handle($filePath);
+                return GetDocFromFile::handle($filePath);
             })
             ->sortByDesc('createdAt');
     }

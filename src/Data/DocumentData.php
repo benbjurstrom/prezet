@@ -31,6 +31,9 @@ class DocumentData extends ValidatedDTO
     #[Rules(['required'])]
     public FrontmatterData $frontmatter;
 
+    #[Rules(['nullable', 'string'])]
+    public ?string $content;
+
     #[Rules(['required'])]
     public Carbon $createdAt;
 

@@ -2,7 +2,9 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
+use Illuminate\Support\Facades\Route;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -10,6 +12,8 @@ class UpdateSitemap
 {
     public static function handle(): void
     {
+        self::ensureRoutesAreRegistered();
+
         $docs = Document::query()
             ->orderBy('date', 'desc')
             ->where('draft', false)
@@ -34,5 +38,12 @@ class UpdateSitemap
         if (config('app.env') !== 'testing') {
             $sitemap->writeToFile(public_path('prezet_sitemap.xml'));
         }
+    }
+
+    public static function ensureRoutesAreRegistered(): void
+    {
+        Route::get('prezet/{slug}', ShowController::class)
+            ->name('prezet.show')
+            ->where('slug', '.*');
     }
 }

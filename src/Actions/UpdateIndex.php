@@ -3,12 +3,10 @@
 namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
 class UpdateIndex
@@ -31,10 +29,6 @@ class UpdateIndex
         });
 
         self::cleanupOrphanedTags();
-
-        Route::get('prezet/{slug}', ShowController::class)
-            ->name('prezet.show')
-            ->where('slug', '.*');
 
         UpdateSitemap::handle();
     }
@@ -69,7 +63,7 @@ class UpdateIndex
         $document = Document::where('slug', $docData->slug)->first() ?? new Document;
 
         self::updateDocumentAttributes($document, $docData);
-        self::updateHeadings($document);
+        self::updateHeadings($document, $docData->content);
 
         if ($docData->frontmatter->tags) {
             self::setTags($document, $docData->frontmatter->tags);
@@ -91,13 +85,17 @@ class UpdateIndex
         $document->save();
     }
 
-    protected static function updateHeadings(Document $document): void
+    protected static function updateHeadings(Document $document, ?string $content): void
     {
+        if (! $content) {
+            // This shouldn't happen, but just in case
+            throw new \RuntimeException('Cannot create headings. Document content is empty.');
+        }
+
         // Delete existing headings
         $document->headings()->delete();
 
-        $md = GetMarkdown::handle($document->filepath);
-        $html = ParseMarkdown::handle($md);
+        $html = ParseMarkdown::handle($content);
         $headings = GetFlatHeadings::handle($html);
         $title = $document->frontmatter->title;
 
