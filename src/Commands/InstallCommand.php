@@ -73,9 +73,7 @@ class InstallCommand extends Command
 
     protected function copyTailwindFiles(): void
     {
-        $this->info('Copying tailwind.prezet.config.js, postcss.config.js, prezet.css, and vite.config.js');
-        $this->files->copy(__DIR__.'/../../tailwind.prezet.config.js', base_path('tailwind.prezet.config.js'));
-        $this->files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
+        $this->info('Copying prezet.css, and vite.config.js');
         $this->files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
         $this->files->copy(__DIR__.'/../../stubs/vite.config.js', base_path('vite.config.js'));
 
@@ -106,7 +104,7 @@ class InstallCommand extends Command
     protected function installNodeDependencies(): void
     {
         $this->info('Installing node dependencies');
-        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss@3.x vite-plugin-watch-and-run';
+        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography @tailwindcss/vite tailwindcss vite-plugin-watch-and-run';
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {
             $bin = 'pnpm';

@@ -1,7 +1,7 @@
 <header
     class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between bg-white px-4 py-5 shadow-md shadow-gray-900/5 transition duration-500 sm:px-6 lg:px-8"
 >
-    <div class="relative flex flex-grow basis-0 items-center">
+    <div class="relative flex grow basis-0 items-center">
         <button
             aria-label="Menu"
             class="mr-4 rounded-lg p-1.5 hover:bg-gray-100 active:bg-gray-200 lg:hidden"
@@ -26,7 +26,7 @@
         <a
             aria-label="Home"
             href="{{ route('prezet.index') }}"
-            class="inline-block flex items-center space-x-2"
+            class="block flex items-center space-x-2"
         >
             <x-prezet::logo />
             <span class="text-2xl font-bold text-gray-900">
@@ -35,7 +35,7 @@
         </a>
     </div>
     <div
-        class="relative flex basis-0 items-center justify-end gap-3 sm:gap-8 md:flex-grow lg:gap-6"
+        class="relative flex basis-0 items-center justify-end gap-3 sm:gap-8 md:grow lg:gap-6"
     >
         <x-prezet::search />
         <a

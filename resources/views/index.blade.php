@@ -36,7 +36,7 @@
                                 {{ \Illuminate\Support\Str::title($currentTag) }}
                                 <a
                                     href="{{ route('prezet.index', array_filter(request()->except('tag'))) }}"
-                                    class="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-gray-500/20"
+                                    class="group relative -mr-1 h-3.5 w-3.5 rounded-xs hover:bg-gray-500/20"
                                 >
                                     <span class="sr-only">Remove</span>
                                     <svg
@@ -57,7 +57,7 @@
                                 {{ $currentCategory }}
                                 <a
                                     href="{{ route('prezet.index', array_filter(request()->except('category'))) }}"
-                                    class="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-gray-500/20"
+                                    class="group relative -mr-1 h-3.5 w-3.5 rounded-xs hover:bg-gray-500/20"
                                 >
                                     <span class="sr-only">Remove</span>
                                     <svg
