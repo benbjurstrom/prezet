@@ -2,6 +2,7 @@
     /* @var string $body */
     /* @var array $nav */
     /* @var array $headings */
+    /* @var string $linkedData */
     /* @var \BenBjurstrom\Prezet\Data\DocumentData $document */
 @endphp
 
@@ -12,6 +13,10 @@
         'url' => route('prezet.show', ['slug' => $document->slug]),
         'image' => $document->frontmatter->image,
     ])
+
+    @push('jsonld')
+        <script type="application/ld+json">{!! $linkedData !!}</script>
+    @endpush
 
     {{-- Left Sidebar --}}
     <x-slot name="left">

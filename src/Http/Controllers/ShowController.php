@@ -2,6 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
+use BenBjurstrom\Prezet\Actions\GetLinkedData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
@@ -23,9 +24,11 @@ class ShowController
         $docData = Prezet::getFrontmatter($doc->filepath);
         $html = Prezet::getContent($md);
         $headings = Prezet::getHeadings($html);
+        $linkedData = json_encode(GetLinkedData::handle($docData), JSON_UNESCAPED_SLASHES);
 
         return view('prezet::show', [
             'document' => $docData,
+            'linkedData' => $linkedData,
             'headings' => $headings,
             'body' => $html,
             'nav' => $nav,

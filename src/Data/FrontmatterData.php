@@ -31,15 +31,14 @@ class FrontmatterData extends ValidatedDTO
     #[Rules(['required'])]
     public Carbon $date;
 
+    #[Rules(['nullable', 'string'])]
+    public ?string $author;
+
     /**
      * @var array<int, string> $tags
      */
     #[Rules(['array'])]
     public array $tags;
-
-    //    Good override example
-    //    #[Rules(['nullable', 'string'])]
-    //    public ?string $author;
 
     /**
      * @return array<string, array<int, null>|false>
