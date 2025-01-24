@@ -40,6 +40,8 @@ class Document extends Model
 
     /**
      * Create a new factory instance for the model.
+     *
+     * @return DocumentFactory<Document>
      */
     protected static function newFactory(): DocumentFactory
     {

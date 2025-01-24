@@ -20,17 +20,18 @@ excerpt: Post 1 Excerpt
 });
 
 it('can get docdata from existing document record', function () {
+    $hash = 'e13b8284a991ef208cd5675661918a13';
     $doc1 = Document::factory()->create([
         'slug' => 'post1',
-        'hash' => 'f92c1a906e1f61e24b0008384d7c1881',
+        'hash' => $hash,
+        'frontmatter' => [
+            'title' => 'Old title',
+        ],
     ]);
-
-    $doc1->frontmatter->title = 'Post 1';
-    $doc1->save();
 
     Storage::fake('prezet');
     Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '---
-title: Post 1
+title: New Title
 date: 2023-05-01
 excerpt: Post 1 Excerpt
 ---
@@ -38,8 +39,11 @@ excerpt: Post 1 Excerpt
 
     $doc = GetDocFromFile::handle('content/post1.md');
 
+    // Expect record has an id since it came from the database
     expect($doc->id)->tobe($doc1->id);
-    expect($doc->frontmatter)->toHaveKey('title', 'Post 1');
+    expect($doc->hash)->tobe($hash);
+    // Expect frontmatter was not updated since hash and slug were the same
+    expect($doc->frontmatter)->toHaveKey('title', 'Old title');
 });
 
 it('throws an exception if frontmatter keys are missing', function () {
