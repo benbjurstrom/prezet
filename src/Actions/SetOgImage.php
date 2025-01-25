@@ -9,7 +9,7 @@ use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatte
 
 class SetOgImage
 {
-    public static function handle(string $slug, string $imgPath): void
+    public function handle(string $slug, string $imgPath): void
     {
         $doc = Document::where('slug', $slug)->firstOrFail();
         $md = GetMarkdown::handle($doc->filepath);

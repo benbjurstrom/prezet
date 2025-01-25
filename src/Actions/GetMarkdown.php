@@ -11,7 +11,7 @@ class GetMarkdown
     /**
      * @throws FileNotFoundException|MissingConfigurationException
      */
-    public static function handle(string $filePath): string
+    public function handle(string $filePath): string
     {
         $storage = Storage::disk(GetPrezetDisk::handle());
         if (! $storage->exists($filePath)) {

@@ -8,9 +8,8 @@ use Spatie\Browsershot\Browsershot as SpatieBrowsershot;
 
 class GenerateOgImage
 {
-    public static function handle(string $mdPath): string
+    public function handle(string $mdPath): string
     {
-
         $url = route('prezet.ogimage', ['slug' => $mdPath]);
 
         $screenshot = SpatieBrowsershot::url($url)

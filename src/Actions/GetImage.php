@@ -8,24 +8,24 @@ use Illuminate\Support\Facades\Storage;
 
 class GetImage
 {
-    public static function handle(string $path): string
+    public function handle(string $path): string
     {
         $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-        self::validateFileExtension($extension);
+        $this->validateFileExtension($extension);
 
-        $size = self::extractSize($path);
-        $path = self::removeSize($path);
+        $size = $this->extractSize($path);
+        $path = $this->removeSize($path);
 
-        $image = self::loadImage($path);
+        $image = $this->loadImage($path);
 
         if (isset($size)) {
-            $image = self::resizeImage($image, $size);
+            $image = $this->resizeImage($image, $size);
         }
 
-        return self::outputImage($image, $extension);
+        return $this->outputImage($image, $extension);
     }
 
-    protected static function validateFileExtension(string $extension): void
+    protected function validateFileExtension(string $extension): void
     {
         $allowedExtensions = ['png', 'jpg', 'jpeg', 'webp'];
 
@@ -34,7 +34,7 @@ class GetImage
         }
     }
 
-    protected static function loadImage(string $path): GdImage
+    protected function loadImage(string $path): GdImage
     {
         $imageStr = Storage::disk(GetPrezetDisk::handle())->get('images/'.$path);
         if (! $imageStr) {
@@ -49,7 +49,7 @@ class GetImage
         return $image;
     }
 
-    private static function extractSize(string $path): ?int
+    private function extractSize(string $path): ?int
     {
         $allowedWidths = config('prezet.image.widths');
         if (! is_array($allowedWidths)) {
@@ -65,7 +65,7 @@ class GetImage
         return null;
     }
 
-    private static function removeSize(string $path): string
+    private function removeSize(string $path): string
     {
         $pattern = '/(.+)-(\d+)w\.(\w+)$/';
 
@@ -78,7 +78,7 @@ class GetImage
         return $result;
     }
 
-    private static function resizeImage(GdImage $image, int $size): GdImage
+    private function resizeImage(GdImage $image, int $size): GdImage
     {
         $originalWidth = imagesx($image);
         $originalHeight = imagesy($image);
@@ -91,7 +91,7 @@ class GetImage
         return $resizedImage;
     }
 
-    private static function outputImage(GdImage $image, string $extension): string
+    private function outputImage(GdImage $image, string $extension): string
     {
         ob_start();
         switch ($extension) {

@@ -6,29 +6,30 @@ use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 class UpdateIndex
 {
-    public static function handle(): void
+    public function handle(): void
     {
-        self::ensureDatabaseExists();
+        $this->ensureDatabaseExists();
 
-        $docs = app(GetAllDocsFromFiles::class)->handle();
+        $docs = Prezet::getAllDocsFromFiles();
 
         // Get all current slugs from filesystem
         $currentSlugs = $docs->pluck('slug')->toArray();
 
         // Remove documents that no longer exist in the filesystem
-        self::removeDeletedDocuments($currentSlugs);
+        $this->removeDeletedDocuments($currentSlugs);
 
         // Update or create documents
         $docs->each(function (DocumentData $doc) {
-            self::upsertDocument($doc);
+            $this->upsertDocument($doc);
         });
 
-        self::cleanupOrphanedTags();
+        $this->cleanupOrphanedTags();
 
         UpdateSitemap::handle();
     }
@@ -38,7 +39,7 @@ class UpdateIndex
      *
      * @param  array<int, string>  $currentSlugs
      */
-    protected static function removeDeletedDocuments(array $currentSlugs): void
+    protected function removeDeletedDocuments(array $currentSlugs): void
     {
         Document::whereNotIn('slug', $currentSlugs)->each(function (Document $document) {
             // This will automatically delete related headings due to cascade
@@ -47,7 +48,7 @@ class UpdateIndex
         });
     }
 
-    protected static function upsertDocument(DocumentData $docData): void
+    protected function upsertDocument(DocumentData $docData): void
     {
         // Check if document exists with same slug and hash
         $existingDoc = Document::where('slug', $docData->slug)
@@ -62,15 +63,15 @@ class UpdateIndex
         // Find document by slug to update, or create new one
         $document = Document::where('slug', $docData->slug)->first() ?? new Document;
 
-        self::updateDocumentAttributes($document, $docData);
-        self::updateHeadings($document, $docData->content);
+        $this->updateDocumentAttributes($document, $docData);
+        $this->updateHeadings($document, $docData->content);
 
         if ($docData->frontmatter->tags) {
-            self::setTags($document, $docData->frontmatter->tags);
+            $this->setTags($document, $docData->frontmatter->tags);
         }
     }
 
-    protected static function updateDocumentAttributes(Document $document, DocumentData $docData): void
+    protected function updateDocumentAttributes(Document $document, DocumentData $docData): void
     {
         $document->fill([
             'slug' => $docData->slug,
@@ -85,7 +86,7 @@ class UpdateIndex
         $document->save();
     }
 
-    protected static function updateHeadings(Document $document, ?string $content): void
+    protected function updateHeadings(Document $document, ?string $content): void
     {
         if (! $content) {
             // This shouldn't happen, but just in case
@@ -120,7 +121,7 @@ class UpdateIndex
     /**
      * @param  array<int, string>  $tags
      */
-    protected static function setTags(Document $document, array $tags): void
+    protected function setTags(Document $document, array $tags): void
     {
         // Detach existing tags
         $document->tags()->detach();
@@ -137,12 +138,12 @@ class UpdateIndex
     /**
      * Remove tags that aren't associated with any documents
      */
-    protected static function cleanupOrphanedTags(): void
+    protected function cleanupOrphanedTags(): void
     {
         Tag::whereDoesntHave('documents')->delete();
     }
 
-    private static function ensureDatabaseExists(): void
+    private function ensureDatabaseExists(): void
     {
         $dbPath = Config::string('database.connections.prezet.database');
 

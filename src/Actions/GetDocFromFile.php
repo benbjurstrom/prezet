@@ -8,30 +8,38 @@ use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
 use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
 use BenBjurstrom\Prezet\Models\Document;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 class GetDocFromFile
 {
+    private Filesystem $storage;
+
+    public function __construct()
+    {
+        $this->storage = Storage::disk(GetPrezetDisk::handle());
+    }
+
     /**
      * @throws FrontmatterMissingException
      * @throws InvalidConfigurationException
      * @throws FileNotFoundException
      * @throws MissingConfigurationException
      */
-    public static function handle(string $filePath): DocumentData
+    public function handle(string $filePath): DocumentData
     {
-        $docClass = self::getDocumentDataClass();
-        $storage = Storage::disk(GetPrezetDisk::handle());
-        $content = self::getFileContent($filePath, $storage);
+        $docClass = $this->getDocumentDataClass();
+        $content = $this->getFileContent($filePath);
 
         $hash = md5($content);
-        $slug = self::getSlug($filePath);
+        $slug = $this->getSlug($filePath);
         $doc = Document::query()->where([
             'hash' => $hash,
             'slug' => $slug,
         ])->first();
+
         if ($doc) {
             $docData = $docClass::fromModel($doc);
             $docData->content = $content;
@@ -39,7 +47,7 @@ class GetDocFromFile
             return $docData;
         }
 
-        $fm = ParseFrontmatter::handle($content, $filePath);
+        $fm = Prezet::parseFrontmatter($content, $filePath);
 
         return $docClass::fromArray([
             'slug' => $slug,
@@ -48,12 +56,12 @@ class GetDocFromFile
             'content' => $content,
             'category' => $fm->category,
             'frontmatter' => $fm,
-            'updatedAt' => $storage->lastModified($filePath),
+            'updatedAt' => $this->storage->lastModified($filePath),
             'createdAt' => $fm->date,
         ]);
     }
 
-    protected static function getSlug(string $filePath): string
+    protected function getSlug(string $filePath): string
     {
         $relativePath = trim(str_replace('content', '', $filePath), '/');
         $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
@@ -61,9 +69,9 @@ class GetDocFromFile
         return trim($slug, './');
     }
 
-    protected static function getFileContent(string $filePath, Filesystem $storage): string
+    protected function getFileContent(string $filePath): string
     {
-        $content = $storage->get($filePath);
+        $content = $this->storage->get($filePath);
         if (! $content) {
             throw new FileNotFoundException($filePath);
         }
@@ -74,7 +82,7 @@ class GetDocFromFile
     /**
      * @throws InvalidConfigurationException
      */
-    protected static function getDocumentDataClass(): string
+    protected function getDocumentDataClass(): string
     {
         $key = 'prezet.data.document';
         $fmClass = Config::string($key);

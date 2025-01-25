@@ -14,11 +14,11 @@ class ParseFrontmatter
      * @throws FrontmatterMissingException
      * @throws InvalidConfigurationException
      */
-    public static function handle(string $content, string $filePath): FrontmatterData
+    public function handle(string $content, string $filePath): FrontmatterData
     {
-        $frontmatter = self::parseFrontmatter($content, $filePath);
-        $frontmatter = self::normalizeDateInFrontmatter($frontmatter);
-        $fmClass = self::getFrontMatterDataClass();
+        $frontmatter = $this->parseFrontmatter($content, $filePath);
+        $frontmatter = $this->normalizeDateInFrontmatter($frontmatter);
+        $fmClass = $this->getFrontMatterDataClass();
 
         return $fmClass::fromArray($frontmatter);
     }
@@ -28,7 +28,7 @@ class ParseFrontmatter
      *
      * @throws FrontmatterMissingException
      */
-    protected static function parseFrontmatter(string $content, string $filePath): array
+    protected function parseFrontmatter(string $content, string $filePath): array
     {
         $ext = new FrontMatterExtension;
         $parser = $ext->getFrontMatterParser();
@@ -45,7 +45,7 @@ class ParseFrontmatter
      * @param  array<string, mixed>  $frontmatter
      * @return array<string, mixed>
      */
-    protected static function normalizeDateInFrontmatter(array $frontmatter): array
+    protected function normalizeDateInFrontmatter(array $frontmatter): array
     {
         if (! empty($frontmatter['date']) && is_string($frontmatter['date'])) {
             $frontmatter['date'] = strtotime($frontmatter['date']);
@@ -57,7 +57,7 @@ class ParseFrontmatter
     /**
      * @throws InvalidConfigurationException
      */
-    protected static function getFrontMatterDataClass(): string
+    protected function getFrontMatterDataClass(): string
     {
         $key = 'prezet.data.frontmatter';
         $fmClass = Config::string($key);

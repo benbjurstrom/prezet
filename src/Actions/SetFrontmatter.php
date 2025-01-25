@@ -9,36 +9,36 @@ class SetFrontmatter
     /**
      * @param  array<string, mixed>  $fm
      */
-    public static function update(string $md, array $fm): string
+    public function update(string $md, array $fm): string
     {
         // Remove existing frontmatter if present
         $pattern = '/^---\s*\n.*?\n---\s*\n/s';
         $cleanMarkdown = preg_replace($pattern, '', $md);
 
         // Add new frontmatter
-        return self::addFrontmatter($fm).$cleanMarkdown;
+        return $this->addFrontmatter($fm).$cleanMarkdown;
     }
 
     /**
      * @param  array<string, mixed>  $fm
      */
-    private static function addFrontmatter(array $fm): string
+    private function addFrontmatter(array $fm): string
     {
         $yaml = "---\n";
         foreach ($fm as $key => $value) {
-            $yaml .= $key.': '.self::formatValue($value)."\n";
+            $yaml .= $key.': '.$this->formatValue($value)."\n";
         }
         $yaml .= "---\n\n";
 
         return $yaml;
     }
 
-    private static function formatValue(mixed $value): mixed
+    private function formatValue(mixed $value): mixed
     {
         if (is_int($value) && $value > 946713600) {
             return (new Carbon($value))->toDateString();
         } elseif (is_array($value)) {
-            return '['.implode(', ', array_map([self::class, 'formatValue'], $value)).']';
+            return '['.implode(', ', array_map([$this, 'formatValue'], $value)).']';
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
         } elseif (is_null($value)) {

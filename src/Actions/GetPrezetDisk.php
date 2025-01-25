@@ -9,7 +9,7 @@ class GetPrezetDisk
     /**
      * @throws MissingConfigurationException
      */
-    public static function handle(): string
+    public function handle(): string
     {
         $key = 'prezet.filesystem.disk';
         $disk = config('prezet.filesystem.disk');
