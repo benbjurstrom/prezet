@@ -1,6 +1,5 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetMarkdown;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;

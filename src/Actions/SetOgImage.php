@@ -17,7 +17,7 @@ class SetOgImage
         $content = Prezet::parseMarkdown($md);
 
         if (! $content instanceof RenderedContentWithFrontMatter) {
-            abort(500, 'Invalid markdown file. No front matter found.');
+            throw new FrontmatterMissingException($slug);
         }
         $fm = $content->getFrontMatter();
         if (! $fm || ! is_array($fm)) {

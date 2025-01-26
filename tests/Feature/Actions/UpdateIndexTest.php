@@ -1,7 +1,6 @@
 <?php
 
 use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
-use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;

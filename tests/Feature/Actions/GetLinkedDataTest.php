@@ -1,6 +1,5 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetLinkedData;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
