@@ -108,11 +108,11 @@ class Prezet extends Facade
     }
 
     /**
-     * @param array<string, mixed> $fm
+     * @param  array<string, mixed>  $fm
      */
     public static function setFrontmatter(string $md, array $fm): string
     {
-        return app(SetFrontmatter::class)->update($md, $fm);
+        return app(SetFrontmatter::class)->handle($md, $fm);
     }
 
     public static function setOgImage(string $slug, string $imgPath): void

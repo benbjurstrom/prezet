@@ -2,6 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,7 +19,7 @@ class GetSummary
             $filepath = 'SUMMARY.md';
         }
 
-        $md = Storage::disk(GetPrezetDisk::handle())->get($filepath);
+        $md = Storage::disk(Prezet::getPrezetDisk())->get($filepath);
 
         if (! $md) {
             return collect([]);

@@ -19,7 +19,7 @@ class GetDocFromFile
 
     public function __construct()
     {
-        $this->storage = Storage::disk(GetPrezetDisk::handle());
+        $this->storage = Storage::disk(Prezet::getPrezetDisk());
     }
 
     /**

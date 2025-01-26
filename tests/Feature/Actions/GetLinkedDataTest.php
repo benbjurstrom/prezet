@@ -3,6 +3,7 @@
 use BenBjurstrom\Prezet\Actions\GetLinkedData;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Config;
 
 beforeEach(function () {
@@ -45,7 +46,7 @@ it('generates linked data with specified author', function () {
     ]);
     $docData = DocumentData::fromModel($document);
 
-    $linkedData = GetLinkedData::handle($docData);
+    $linkedData = Prezet::getLinkedData($docData);
 
     expect($linkedData)
         ->toHaveKey('@context', 'https://schema.org')
@@ -68,7 +69,7 @@ it('uses first author when no author specified', function () {
     ]);
     $docData = DocumentData::fromModel($document);
 
-    $linkedData = GetLinkedData::handle($docData);
+    $linkedData = Prezet::getLinkedData($docData);
 
     expect($linkedData['author'])
         ->toBe(Config::get('prezet.authors.john'));
@@ -82,7 +83,7 @@ it('uses publisher image when no image specified', function () {
     ]);
     $docData = DocumentData::fromModel($document);
 
-    $linkedData = GetLinkedData::handle($docData);
+    $linkedData = Prezet::getLinkedData($docData);
 
     expect($linkedData['image'])
         ->toBe(Config::get('prezet.publisher.image'));
@@ -96,7 +97,7 @@ it('keeps absolute image URLs unchanged', function () {
     ]);
     $docData = DocumentData::fromModel($document);
 
-    $linkedData = GetLinkedData::handle($docData);
+    $linkedData = Prezet::getLinkedData($docData);
 
     expect($linkedData['image'])
         ->toBe('https://other-domain.com/test.jpg');
@@ -110,7 +111,7 @@ it('prepends publisher origin to relative image paths', function () {
     ]);
     $docData = DocumentData::fromModel($document);
 
-    $linkedData = GetLinkedData::handle($docData);
+    $linkedData = Prezet::getLinkedData($docData);
 
     expect($linkedData['image'])
         ->toBe('https://example.com/images/test.jpg');

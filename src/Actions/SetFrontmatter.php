@@ -9,7 +9,7 @@ class SetFrontmatter
     /**
      * @param  array<string, mixed>  $fm
      */
-    public function update(string $md, array $fm): string
+    public function handle(string $md, array $fm): string
     {
         // Remove existing frontmatter if present
         $pattern = '/^---\s*\n.*?\n---\s*\n/s';

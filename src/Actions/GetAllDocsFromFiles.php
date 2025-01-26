@@ -14,8 +14,8 @@ class GetAllDocsFromFiles
      */
     public function handle(): Collection
     {
-        $files = collect(Storage::disk(GetPrezetDisk::handle())
-            ->allFiles('content'));
+        $disk = Prezet::getPrezetDisk();
+        $files = collect(Storage::disk($disk)->allFiles('content'));
 
         return $files
             ->filter(function ($filePath) {

@@ -29,7 +29,10 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class PrezetServiceProvider extends PackageServiceProvider
 {
-    public $bindings = [
+    /**
+     * @var array<string, string>
+     */
+    public array $bindings = [
         CreateIndex::class => CreateIndex::class,
         GenerateOgImage::class => GenerateOgImage::class,
         GetAllDocsFromFiles::class => GetAllDocsFromFiles::class,

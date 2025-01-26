@@ -1,7 +1,7 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\SetOgImage;
+use BenBjurstrom\Prezet\Prezet;
 
 it('sets the ogimage frontmatter', function () {
-    $result = SetOgImage::handle('welcome-to-prezet', 'test-image.jpg');
+    $result = Prezet::setOgImage('welcome-to-prezet', 'test-image.jpg');
 })->throwsNoExceptions()->skip();

@@ -2,7 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
-use BenBjurstrom\Prezet\Actions\GetImage;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -10,7 +10,7 @@ class ImageController
 {
     public function __invoke(Request $request, string $path): Response
     {
-        $file = GetImage::handle($path);
+        $file = Prezet::getImage($path);
 
         return response($file, 200, [
             'Content-Type' => match (pathinfo($path, PATHINFO_EXTENSION)) {

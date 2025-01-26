@@ -3,6 +3,7 @@
 namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
+use BenBjurstrom\Prezet\Prezet;
 use GdImage;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +37,7 @@ class GetImage
 
     protected function loadImage(string $path): GdImage
     {
-        $imageStr = Storage::disk(GetPrezetDisk::handle())->get('images/'.$path);
+        $imageStr = Storage::disk(Prezet::getPrezetDisk())->get('images/'.$path);
         if (! $imageStr) {
             abort(404);
         }

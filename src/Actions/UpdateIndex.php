@@ -31,7 +31,7 @@ class UpdateIndex
 
         $this->cleanupOrphanedTags();
 
-        UpdateSitemap::handle();
+        Prezet::updateSitemap();
     }
 
     /**
@@ -96,8 +96,8 @@ class UpdateIndex
         // Delete existing headings
         $document->headings()->delete();
 
-        $html = ParseMarkdown::handle($content);
-        $headings = GetFlatHeadings::handle($html);
+        $html = Prezet::parseMarkdown($content);
+        $headings = Prezet::getFlatHeadings($html);
         $title = $document->frontmatter->title;
 
         // Add title as first heading

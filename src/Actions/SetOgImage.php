@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use BenBjurstrom\Prezet\Models\Document;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 
@@ -12,8 +13,8 @@ class SetOgImage
     public function handle(string $slug, string $imgPath): void
     {
         $doc = Document::where('slug', $slug)->firstOrFail();
-        $md = GetMarkdown::handle($doc->filepath);
-        $content = ParseMarkdown::handle($md);
+        $md = Prezet::getMarkdown($doc->filepath);
+        $content = Prezet::parseMarkdown($md);
 
         if (! $content instanceof RenderedContentWithFrontMatter) {
             abort(500, 'Invalid markdown file. No front matter found.');
@@ -24,9 +25,9 @@ class SetOgImage
         }
 
         $fm['image'] = $imgPath;
-        $newMd = SetFrontmatter::update($md, $fm);
+        $newMd = Prezet::setFrontmatter($md, $fm);
 
-        $storage = Storage::disk(GetPrezetDisk::handle());
+        $storage = Storage::disk(Prezet::getPrezetDisk());
         $path = 'content/'.$slug.'.md';
         $storage->put($path, $newMd);
     }
