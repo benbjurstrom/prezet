@@ -13,19 +13,19 @@ class GetHeadings
     /**
      * @return array<int, array<string, array<int, array<string, string>>|string>>
      */
-    public static function handle(string $html): array
+    public function handle(string $html): array
     {
         $html = '<?xml encoding="UTF-8">'.$html;
         $dom = new DOMDocument;
         @$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-        return self::extractHeadings($dom);
+        return $this->extractHeadings($dom);
     }
 
     /**
      * @return array<int, array<string, array<int, array<string, string>>|string>>
      */
-    private static function extractHeadings(DOMDocument $dom): array
+    private function extractHeadings(DOMDocument $dom): array
     {
         $xpath = new DOMXPath($dom);
         $h2Elements = $xpath->query('//h2');
@@ -36,7 +36,7 @@ class GetHeadings
         }
 
         foreach ($h2Elements as $h2Element) {
-            $children = self::extractChildHeadings($h2Element, 'h3');
+            $children = $this->extractChildHeadings($h2Element, 'h3');
 
             $result[] = [
                 'id' => 'content-'.Str::slug($h2Element->textContent, language: null),
@@ -51,7 +51,7 @@ class GetHeadings
     /**
      * @return array<int, array<string, string>>
      */
-    private static function extractChildHeadings(DOMNode $parentElement, string $childTagName): array
+    private function extractChildHeadings(DOMNode $parentElement, string $childTagName): array
     {
         $nextSibling = $parentElement->nextSibling;
         $children = [];

@@ -1,8 +1,8 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetDocFromFile;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use BenBjurstrom\Prezet\Models\Document;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
 
 it('can get docdata from a markdown file', function () {
@@ -14,7 +14,7 @@ excerpt: Post 1 Excerpt
 ---
 # Post 1 Content');
 
-    $doc = GetDocFromFile::handle('content/post1.md');
+    $doc = Prezet::getDocFromFile('content/post1.md');
 
     expect($doc->frontmatter)->toHaveKey('title', 'Post 1');
 });
@@ -37,7 +37,7 @@ excerpt: Post 1 Excerpt
 ---
 # Post 1 Content');
 
-    $doc = GetDocFromFile::handle('content/post1.md');
+    $doc = Prezet::getDocFromFile('content/post1.md');
 
     // Expect record has an id since it came from the database
     expect($doc->id)->tobe($doc1->id);
@@ -50,5 +50,5 @@ it('throws an exception if frontmatter keys are missing', function () {
     Storage::fake('prezet');
     Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '# Post 1 Content');
 
-    GetDocFromFile::handle('content/post1.md');
+    Prezet::getDocFromFile('content/post1.md');
 })->expectException(FrontmatterMissingException::class);

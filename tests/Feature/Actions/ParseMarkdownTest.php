@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\ParseMarkdown;
+use BenBjurstrom\Prezet\Prezet;
 
 it('parses markdown into html', function () {
     $markdown = <<<'MD'
@@ -18,8 +18,6 @@ This is a paragraph with **bold** and *italic* text.
 - List item 2
 MD;
 
-    $parseMarkdown = new ParseMarkdown;
-
     $expectedHtml = <<<'HTML'
 <h1>Heading 1</h1>
 <p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
@@ -30,7 +28,7 @@ MD;
 
 HTML;
 
-    $result = $parseMarkdown->handle($markdown);
+    $result = Prezet::parseMarkdown($markdown);
 
     expect($result->getContent())->toEqual($expectedHtml);
 });
@@ -50,8 +48,6 @@ This is a paragraph with **bold** and *italic* text.
 ![Image Title](/path/to/image.jpg)
 MD;
 
-    $parseMarkdown = new ParseMarkdown;
-
     $expectedHtml = <<<'HTML'
 <h1>Heading 1</h1>
 <p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
@@ -59,7 +55,7 @@ MD;
 
 HTML;
 
-    $result = $parseMarkdown->handle($markdown);
+    $result = Prezet::parseMarkdown($markdown);
 
     expect($result->getContent())->toEqual($expectedHtml);
 });
@@ -81,8 +77,6 @@ This is a paragraph with **bold** and *italic* text.
 ```
 MD;
 
-    $parseMarkdown = new ParseMarkdown;
-
     $expectedHtml = <<<'HTML'
 <h1>Heading 1</h1>
 <p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>
@@ -101,7 +95,7 @@ MD;
 
 HTML;
 
-    $result = $parseMarkdown->handle($markdown);
+    $result = Prezet::parseMarkdown($markdown);
 
     expect($result->getContent())->toEqual($expectedHtml);
 });
@@ -125,6 +119,5 @@ This is a paragraph with **bold** and *italic* text.
 ```
 MD;
 
-    $parseMarkdown = new ParseMarkdown;
-    $result = $parseMarkdown->handle($markdown);
-});
+    Prezet::parseMarkdown($markdown);
+})->throwsNoExceptions();

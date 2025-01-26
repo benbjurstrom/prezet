@@ -2,7 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Tests\Feature\Actions;
 
-use BenBjurstrom\Prezet\Actions\CreateIndex;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +22,7 @@ beforeEach(function () {
 test('creates a new index database', function () {
     // Note that Artisan calls, like the one in CreateIndex do not run in tests.
 
-    CreateIndex::handle();
+    Prezet::CreateIndex();
     // Assert
     expect(file_exists($this->dbPath))->toBeTrue()
         ->and(Schema::connection('prezet')->hasTable('migrations'))->toBeTrue();
@@ -37,7 +37,7 @@ test('creates parent directory if it doesnt exist', function () {
 
     try {
         // Act
-        CreateIndex::handle();
+        Prezet::CreateIndex();
 
         // Assert
         expect(file_exists($nestedPath))->toBeTrue()
@@ -68,7 +68,7 @@ test('cleans up temporary files on failure', function () {
 
     try {
         // Act
-        CreateIndex::handle();
+        Prezet::CreateIndex();
     } catch (\Exception $e) {
         // Exception expected
     } finally {

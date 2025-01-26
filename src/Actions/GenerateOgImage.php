@@ -2,15 +2,15 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Browsershot\Browsershot as SpatieBrowsershot;
 
 class GenerateOgImage
 {
-    public static function handle(string $mdPath): string
+    public function handle(string $mdPath): string
     {
-
         $url = route('prezet.ogimage', ['slug' => $mdPath]);
 
         $screenshot = SpatieBrowsershot::url($url)
@@ -21,10 +21,10 @@ class GenerateOgImage
 
         $filename = Str::slug(str_replace('/', '-', $mdPath)).'.webp';
         $filepath = 'images/ogimages/'.$filename;
-        Storage::disk(GetPrezetDisk::handle())->put($filepath, $screenshot);
+        Storage::disk(Prezet::getPrezetDisk())->put($filepath, $screenshot);
 
         $imageUrl = route('prezet.image', 'ogimages/'.$filename, false);
-        SetOgImage::handle($mdPath, $imageUrl);
+        Prezet::setOgImage($mdPath, $imageUrl);
 
         return $imageUrl;
     }

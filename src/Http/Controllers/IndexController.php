@@ -27,7 +27,7 @@ class IndexController
             });
         }
 
-        $nav = Prezet::getNav();
+        $nav = Prezet::getSummary();
         $docs = $query->orderBy('date', 'desc')
             ->paginate(4);
 

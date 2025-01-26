@@ -2,10 +2,9 @@
 
 namespace BenBjurstrom\Prezet\Commands;
 
-use BenBjurstrom\Prezet\Actions\CreateIndex;
-use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterException;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Console\Command;
 
 class UpdateIndexCommand extends Command
@@ -19,11 +18,11 @@ class UpdateIndexCommand extends Command
         try {
             if ($this->option('fresh')) {
                 $this->info('Recreating database...');
-                CreateIndex::handle();
+                Prezet::createIndex();
             }
 
             $this->info('Updating index...');
-            UpdateIndex::handle();
+            Prezet::updateIndex();
 
             $this->info('Index updated successfully.');
         } catch (FrontmatterMissingException $e) {

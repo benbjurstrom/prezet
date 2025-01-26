@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetSummary;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
 
 it('can parse the SUMMARY.md file', function () {
@@ -21,7 +21,7 @@ it('can parse the SUMMARY.md file', function () {
 -   [Controllers](content/customize/controllers)
 EOT);
 
-    $result = GetSummary::handle($filename);
+    $result = Prezet::getSummary($filename);
 
     expect($result)->toEqual(collect([
         [

@@ -1,11 +1,11 @@
 <?php
 
 use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
-use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Storage;
 test('throws exception when database missing', function () {
     unlink(Config::get('database.connections.prezet.database'));
 
-    expect(fn () => UpdateIndex::handle())
+    expect(fn () => Prezet::updateIndex())
         ->toThrow(\RuntimeException::class, 'Prezet database not found');
 });
 
 test('throws exception when documents table missing', function () {
     Schema::connection('prezet')->dropIfExists('documents');
 
-    expect(fn () => UpdateIndex::handle())
+    expect(fn () => Prezet::updateIndex())
         ->toThrow(\RuntimeException::class, 'Prezet database exists but is missing the \'documents\' table');
 });
 
@@ -37,7 +37,7 @@ test('skips document when hash and slug match', closure: function () {
         ]));
     });
 
-    UpdateIndex::handle();
+    Prezet::updateIndex();
 
     expect(Document::count())->toBe(1)
         ->and(Document::first()->hash)->toBe('abc123');
@@ -83,7 +83,7 @@ test('removes deleted documents and their relationships', function () {
             DocumentData::fromModel($doc1)]));
     });
 
-    UpdateIndex::handle();
+    Prezet::updateIndex();
 
     // Assert documents
     expect(Document::count())->toBe(1)
@@ -132,7 +132,7 @@ excerpt: Post 1 Excerpt
 ---
 # New Heading');
 
-    UpdateIndex::handle();
+    Prezet::updateIndex();
 
     // Assert document was updated
     $updatedDoc = Document::where('slug', 'test-doc')->first();
@@ -168,7 +168,7 @@ excerpt: Post 1 Excerpt
 ---
 ## New H2');
 
-    UpdateIndex::handle();
+    Prezet::updateIndex();
 
     // Assert new document was created
     $newDoc = Document::where('slug', 'new-doc')->first();

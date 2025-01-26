@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetHeadings;
+use BenBjurstrom\Prezet\Prezet;
 
 it('gets the headings html', function () {
     $html = <<<'HTML'
@@ -30,7 +30,7 @@ HTML;
         ],
     ];
 
-    $result = GetHeadings::handle($html);
+    $result = Prezet::getHeadings($html);
 
     expect($result)->toEqual($expected);
 });

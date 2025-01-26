@@ -11,11 +11,11 @@ class GetLinkedData
     /**
      * @return array<string, string|array<string, string>>
      */
-    public static function handle(DocumentData $document): array
+    public function handle(DocumentData $document): array
     {
         $fm = $document->frontmatter;
-        $author = self::getAuthor($fm);
-        $image = self::getImage($fm);
+        $author = $this->getAuthor($fm);
+        $image = $this->getImage($fm);
         $publisher = Config::array('prezet.publisher');
 
         return [
@@ -33,7 +33,7 @@ class GetLinkedData
     /**
      * @return array<string, string>
      */
-    private static function getAuthor(FrontmatterData $fm): array
+    private function getAuthor(FrontmatterData $fm): array
     {
         $authors = Config::array('prezet.authors');
 
@@ -46,7 +46,7 @@ class GetLinkedData
         return reset($authors);
     }
 
-    private static function getImage(FrontmatterData $fm): string
+    private function getImage(FrontmatterData $fm): string
     {
         $publisher = Config::array('prezet.publisher');
 

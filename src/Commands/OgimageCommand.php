@@ -2,8 +2,8 @@
 
 namespace BenBjurstrom\Prezet\Commands;
 
-use BenBjurstrom\Prezet\Actions\GenerateOgImage;
 use BenBjurstrom\Prezet\Models\Document;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Console\Command;
 
 use function Laravel\Prompts\info;
@@ -32,7 +32,7 @@ class OgimageCommand extends Command
         }
 
         $slugs->each(function ($slug) {
-            $imageUrl = GenerateOgImage::handle($slug);
+            $imageUrl = Prezet::generateOgImage($slug);
             info('OgImage url: '.$imageUrl);
         });
 

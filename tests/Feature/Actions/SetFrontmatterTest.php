@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\SetFrontmatter;
+use BenBjurstrom\Prezet\Prezet;
 
 test('it replaces existing frontmatter in markdown', function () {
     $markdown = <<<'EOD'
@@ -32,7 +32,7 @@ tags: [updated, test]
 This is the content.
 EOD;
 
-    $result = SetFrontmatter::update($markdown, $frontmatter);
+    $result = Prezet::setFrontmatter($markdown, $frontmatter);
 
     expect($result)->toBe($expected);
 });

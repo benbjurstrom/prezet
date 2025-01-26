@@ -2,6 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,22 +13,21 @@ class GetSummary
      *
      * @throws \Exception
      */
-    public static function handle(?string $filepath): Collection
+    public function handle(?string $filepath): Collection
     {
         if (! $filepath) {
             $filepath = 'SUMMARY.md';
         }
 
-        $md = Storage::disk(GetPrezetDisk::handle())->get($filepath);
+        $md = Storage::disk(Prezet::getPrezetDisk())->get($filepath);
 
         if (! $md) {
             return collect([]);
         }
 
-        $sections = self::getSections($md)->map(function ($section) {
-
-            $title = self::getTitle($section);
-            $links = self::getLinks($section);
+        $sections = $this->getSections($md)->map(function ($section) {
+            $title = $this->getTitle($section);
+            $links = $this->getLinks($section);
 
             return [
                 'title' => $title,
@@ -41,7 +41,7 @@ class GetSummary
     /**
      * @return Collection<int, string>
      */
-    protected static function getSections(string $md): Collection
+    protected function getSections(string $md): Collection
     {
         $pattern = '/##.*?(?=##|\z)/s';
         preg_match_all($pattern, $md, $matches, PREG_SET_ORDER);
@@ -51,7 +51,7 @@ class GetSummary
         });
     }
 
-    protected static function getTitle(string $section): string
+    protected function getTitle(string $section): string
     {
         $lines = explode("\n", $section);
         $title = trim(substr($lines[0], 2)); // Remove '## ' from the start
@@ -62,7 +62,7 @@ class GetSummary
     /**
      * @return array<int, array<string, string>>
      */
-    protected static function getLinks(string $section): array
+    protected function getLinks(string $section): array
     {
         $lines = explode("\n", $section);
 

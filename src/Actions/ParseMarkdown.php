@@ -16,7 +16,7 @@ class ParseMarkdown
     /**
      * @throws Exception|CommonMarkException
      */
-    public static function handle(string $md): RenderedContentInterface
+    public function handle(string $md): RenderedContentInterface
     {
         $config = config('prezet.commonmark.config');
         if (! is_array($config)) {
@@ -24,7 +24,7 @@ class ParseMarkdown
         }
 
         $environment = new Environment($config);
-        $extensions = self::getExtensions();
+        $extensions = $this->getExtensions();
 
         foreach ($extensions as $extension) {
             $environment->addExtension(new $extension);
@@ -44,7 +44,7 @@ class ParseMarkdown
      *
      * @throws InvalidConfigurationException
      */
-    protected static function getExtensions(): array
+    protected function getExtensions(): array
     {
         $extensions = config('prezet.commonmark.extensions');
         if (! is_array($extensions)) {

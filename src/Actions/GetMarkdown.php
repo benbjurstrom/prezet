@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Exceptions\FileNotFoundException;
 use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
+use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
 
 class GetMarkdown
@@ -11,9 +12,9 @@ class GetMarkdown
     /**
      * @throws FileNotFoundException|MissingConfigurationException
      */
-    public static function handle(string $filePath): string
+    public function handle(string $filePath): string
     {
-        $storage = Storage::disk(GetPrezetDisk::handle());
+        $storage = Storage::disk(Prezet::getPrezetDisk());
         if (! $storage->exists($filePath)) {
             abort(404);
         }

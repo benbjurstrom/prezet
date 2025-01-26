@@ -10,9 +10,9 @@ use Spatie\Sitemap\Tags\Url;
 
 class UpdateSitemap
 {
-    public static function handle(): void
+    public function handle(): void
     {
-        self::ensureRoutesAreRegistered();
+        $this->ensureRoutesAreRegistered();
 
         $docs = Document::query()
             ->orderBy('date', 'desc')
@@ -40,7 +40,7 @@ class UpdateSitemap
         }
     }
 
-    public static function ensureRoutesAreRegistered(): void
+    public function ensureRoutesAreRegistered(): void
     {
         Route::get('prezet/{slug}', ShowController::class)
             ->name('prezet.show')

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateIndex
 {
-    public static function handle(): void
+    public function handle(): void
     {
         $originalPath = Config::string('database.connections.prezet.database');
         $tempPath = sys_get_temp_dir().'/prezet_'.uniqid().'.sqlite';
@@ -22,8 +22,8 @@ class CreateIndex
             Config::set('database.connections.prezet.database', $tempPath);
             DB::purge('prezet');
 
-            self::runMigrations($tempPath);
-            self::ensureDirectoryExists($originalPath);
+            $this->runMigrations($tempPath);
+            $this->ensureDirectoryExists($originalPath);
 
             if (! rename($tempPath, $originalPath)) {
                 throw new \RuntimeException("Failed to move database from {$tempPath} to {$originalPath}");
@@ -48,7 +48,7 @@ class CreateIndex
         }
     }
 
-    protected static function ensureDirectoryExists(string $path): void
+    protected function ensureDirectoryExists(string $path): void
     {
         $dir = dirname($path);
         if (! is_dir($dir)) {
@@ -58,7 +58,7 @@ class CreateIndex
         }
     }
 
-    protected static function runMigrations(string $path): void
+    protected function runMigrations(string $path): void
     {
         if (! Schema::connection('prezet')->hasTable('migrations')) {
             Schema::connection('prezet')->create('migrations', function ($table) {
