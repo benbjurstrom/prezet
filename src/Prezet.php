@@ -24,6 +24,8 @@ use BenBjurstrom\Prezet\Data\FrontmatterData;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 use League\CommonMark\Output\RenderedContentInterface;
+use BenBjurstrom\Prezet\Data\HeadingData;
+use BenBjurstrom\Prezet\Actions\SearchHeadings;
 
 class Prezet extends Facade
 {
@@ -128,5 +130,13 @@ class Prezet extends Facade
     public static function updateSitemap(): void
     {
         app(UpdateSitemap::class)->handle();
+    }
+
+    /**
+     * @return Collection<int, HeadingData>
+     */
+    public static function searchHeadings(string $query): Collection
+    {
+        return app(SearchHeadings::class)->handle($query);
     }
 }

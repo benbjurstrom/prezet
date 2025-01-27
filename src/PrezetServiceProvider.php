@@ -19,6 +19,7 @@ use BenBjurstrom\Prezet\Actions\SetFrontmatter;
 use BenBjurstrom\Prezet\Actions\SetOgImage;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Actions\UpdateSitemap;
+use BenBjurstrom\Prezet\Actions\SearchHeadings;
 use BenBjurstrom\Prezet\Commands\BrefCommand;
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
@@ -50,6 +51,7 @@ class PrezetServiceProvider extends PackageServiceProvider
         SetOgImage::class => SetOgImage::class,
         UpdateIndex::class => UpdateIndex::class,
         UpdateSitemap::class => UpdateSitemap::class,
+        SearchHeadings::class => SearchHeadings::class,
     ];
 
     public function configurePackage(Package $package): void
