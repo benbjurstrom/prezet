@@ -15,17 +15,17 @@ use BenBjurstrom\Prezet\Actions\GetPrezetDisk;
 use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseFrontmatter;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
+use BenBjurstrom\Prezet\Actions\SearchHeadings;
 use BenBjurstrom\Prezet\Actions\SetFrontmatter;
 use BenBjurstrom\Prezet\Actions\SetOgImage;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Actions\UpdateSitemap;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Data\HeadingData;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 use League\CommonMark\Output\RenderedContentInterface;
-use BenBjurstrom\Prezet\Data\HeadingData;
-use BenBjurstrom\Prezet\Actions\SearchHeadings;
 
 class Prezet extends Facade
 {

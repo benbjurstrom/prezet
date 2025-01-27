@@ -22,4 +22,4 @@ class SearchHeadings
                 return HeadingData::fromModel($heading);
             });
     }
-} 
+}
