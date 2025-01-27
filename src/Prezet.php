@@ -15,12 +15,14 @@ use BenBjurstrom\Prezet\Actions\GetPrezetDisk;
 use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseFrontmatter;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
+use BenBjurstrom\Prezet\Actions\SearchHeadings;
 use BenBjurstrom\Prezet\Actions\SetFrontmatter;
 use BenBjurstrom\Prezet\Actions\SetOgImage;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Actions\UpdateSitemap;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Data\HeadingData;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 use League\CommonMark\Output\RenderedContentInterface;
@@ -128,5 +130,13 @@ class Prezet extends Facade
     public static function updateSitemap(): void
     {
         app(UpdateSitemap::class)->handle();
+    }
+
+    /**
+     * @return Collection<int, HeadingData>
+     */
+    public static function searchHeadings(string $query): Collection
+    {
+        return app(SearchHeadings::class)->handle($query);
     }
 }

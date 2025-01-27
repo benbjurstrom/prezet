@@ -2,8 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
-use BenBjurstrom\Prezet\Data\HeadingData;
-use BenBjurstrom\Prezet\Models\Heading;
+use BenBjurstrom\Prezet\Prezet;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -26,14 +25,7 @@ class SearchController
             throw new Exception('Query must be a string');
         }
 
-        $results = Heading::where('text', 'LIKE', "%{$query}%")
-            ->with('document')
-            ->whereRelation('document', 'draft', false)
-            ->limit(5)
-            ->get()
-            ->map(function ($heading) {
-                return HeadingData::fromModel($heading);
-            });
+        $results = Prezet::searchHeadings($query);
 
         return response()->json($results);
     }

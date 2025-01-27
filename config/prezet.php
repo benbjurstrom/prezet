@@ -116,9 +116,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Metadata
+    | Structured Data
     |--------------------------------------------------------------------------
     |
+    | Prezet uses these values for JSON-LD structured data. 'authors' defines
+    | named authors you can reference in front matter, and 'publisher' is used
+    | as the default publisher for all content.
     |
     */
 
