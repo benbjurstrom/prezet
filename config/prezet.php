@@ -17,22 +17,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Data Classes
-    |--------------------------------------------------------------------------
-    |
-    | These classes are used to store markdown information in a Validated DTO.
-    | You can override the default classes with your own and configure Pezet to
-    | use them here.
-    |
-    */
-
-    'data' => [
-        'document' => BenBjurstrom\Prezet\Data\DocumentData::class,
-        'frontmatter' => BenBjurstrom\Prezet\Data\FrontmatterData::class,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | CommonMark
     |--------------------------------------------------------------------------
     |

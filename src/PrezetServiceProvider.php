@@ -25,6 +25,10 @@ use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
 use BenBjurstrom\Prezet\Commands\PurgeCacheCommand;
 use BenBjurstrom\Prezet\Commands\UpdateIndexCommand;
+use BenBjurstrom\Prezet\Data\DocumentData;
+use BenBjurstrom\Prezet\Data\FrontmatterData;
+use BenBjurstrom\Prezet\Data\HeadingData;
+use BenBjurstrom\Prezet\Data\YoutubeData;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -34,6 +38,9 @@ class PrezetServiceProvider extends PackageServiceProvider
      * @var array<string, string>
      */
     public array $bindings = [
+        /**
+         * Action Class Bindings
+         */
         CreateIndex::class => CreateIndex::class,
         GenerateOgImage::class => GenerateOgImage::class,
         GetAllDocsFromFiles::class => GetAllDocsFromFiles::class,
@@ -52,6 +59,14 @@ class PrezetServiceProvider extends PackageServiceProvider
         UpdateIndex::class => UpdateIndex::class,
         UpdateSitemap::class => UpdateSitemap::class,
         SearchHeadings::class => SearchHeadings::class,
+
+        /**
+         * Data Class Bindings
+         */
+        DocumentData::class => DocumentData::class,
+        HeadingData::class => HeadingData::class,
+        FrontmatterData::class => FrontmatterData::class,
+        YoutubeData::class => YoutubeData::class,
     ];
 
     public function configurePackage(Package $package): void

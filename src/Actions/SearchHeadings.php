@@ -19,7 +19,7 @@ class SearchHeadings
             ->limit(5)
             ->get()
             ->map(function ($heading) {
-                return HeadingData::fromModel($heading);
+                return app(HeadingData::class)::fromModel($heading);
             });
     }
 }

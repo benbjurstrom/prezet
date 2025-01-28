@@ -5,7 +5,6 @@ namespace BenBjurstrom\Prezet\Actions;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
-use Illuminate\Support\Facades\Config;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 
 class ParseFrontmatter
@@ -18,9 +17,8 @@ class ParseFrontmatter
     {
         $frontmatter = $this->parseFrontmatter($content, $filePath);
         $frontmatter = $this->normalizeDateInFrontmatter($frontmatter);
-        $fmClass = $this->getFrontMatterDataClass();
 
-        return $fmClass::fromArray($frontmatter);
+        return app(FrontmatterData::class)::fromArray($frontmatter);
     }
 
     /**
@@ -52,19 +50,5 @@ class ParseFrontmatter
         }
 
         return $frontmatter;
-    }
-
-    /**
-     * @throws InvalidConfigurationException
-     */
-    protected function getFrontMatterDataClass(): string
-    {
-        $key = 'prezet.data.frontmatter';
-        $fmClass = Config::string($key);
-        if (! class_exists($fmClass)) {
-            throw new InvalidConfigurationException($key, $fmClass, 'is not a valid class');
-        }
-
-        return $fmClass;
     }
 }

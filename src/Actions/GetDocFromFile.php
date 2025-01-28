@@ -10,7 +10,6 @@ use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 class GetDocFromFile
@@ -30,7 +29,6 @@ class GetDocFromFile
      */
     public function handle(string $filePath): DocumentData
     {
-        $docClass = $this->getDocumentDataClass();
         $content = $this->getFileContent($filePath);
 
         $hash = md5($content);
@@ -41,7 +39,7 @@ class GetDocFromFile
         ])->first();
 
         if ($doc) {
-            $docData = $docClass::fromModel($doc);
+            $docData = app(DocumentData::class)::fromModel($doc);
             $docData->content = $content;
 
             return $docData;
@@ -49,7 +47,7 @@ class GetDocFromFile
 
         $fm = Prezet::parseFrontmatter($content, $filePath);
 
-        return $docClass::fromArray([
+        return app(DocumentData::class)::fromArray([
             'slug' => $slug,
             'hash' => $hash,
             'draft' => $fm->draft,
@@ -77,19 +75,5 @@ class GetDocFromFile
         }
 
         return $content;
-    }
-
-    /**
-     * @throws InvalidConfigurationException
-     */
-    protected function getDocumentDataClass(): string
-    {
-        $key = 'prezet.data.document';
-        $fmClass = Config::string($key);
-        if (! class_exists($fmClass)) {
-            throw new InvalidConfigurationException($key, $fmClass, 'is not a valid class');
-        }
-
-        return $fmClass;
     }
 }
