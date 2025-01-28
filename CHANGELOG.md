@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.0-rc2](https://github.com/benbjurstrom/prezet/compare/v0.21.1...v1.0.0-rc2) - 2025-01-28
+
+### What's Changed
+
+* 143 move search logic to an action by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/144
+* 145 resolve data classes via service container by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/146
+* 147 remove prezet bref command by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/148
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc1...v1.0.0-rc2
+
 ## [v0.21.1](https://github.com/benbjurstrom/prezet/compare/v0.21.0...v0.21.1) - 2025-01-24
 
 ### What's Changed
