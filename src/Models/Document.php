@@ -57,7 +57,7 @@ class Document extends Model
     {
         return [
             'draft' => 'boolean',
-            'frontmatter' => FrontmatterData::class,
+            'frontmatter' => get_class(app(FrontmatterData::class)),
         ];
     }
 

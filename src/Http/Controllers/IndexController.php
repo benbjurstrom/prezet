@@ -31,7 +31,7 @@ class IndexController
         $docs = $query->orderBy('date', 'desc')
             ->paginate(4);
 
-        $docsData = $docs->map(fn (Document $doc) => DocumentData::fromModel($doc));
+        $docsData = $docs->map(fn (Document $doc) => app(DocumentData::class)::fromModel($doc));
 
         return view('prezet::index', [
             'nav' => $nav,

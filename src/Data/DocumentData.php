@@ -65,7 +65,7 @@ class DocumentData extends ValidatedDTO
     protected function casts(): array
     {
         return [
-            'frontmatter' => new DTOCast(FrontmatterData::class),
+            'frontmatter' => new DTOCast(get_class(app(FrontmatterData::class))),
             'createdAt' => new CarbonCast,
             'updatedAt' => new CarbonCast,
         ];
