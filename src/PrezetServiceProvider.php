@@ -20,7 +20,6 @@ use BenBjurstrom\Prezet\Actions\SetFrontmatter;
 use BenBjurstrom\Prezet\Actions\SetOgImage;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Actions\UpdateSitemap;
-use BenBjurstrom\Prezet\Commands\BrefCommand;
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
 use BenBjurstrom\Prezet\Commands\PurgeCacheCommand;
@@ -91,7 +90,6 @@ class PrezetServiceProvider extends PackageServiceProvider
                 OgimageCommand::class,
                 PurgeCacheCommand::class,
                 UpdateIndexCommand::class,
-                BrefCommand::class,
             ]);
     }
 }
