@@ -65,7 +65,7 @@ class InstallCommand extends Command
             }
 
             $output = $process->output();
-            
+
             // If no changes, return clean
             if ($output === '') {
                 return 'clean';
@@ -74,7 +74,7 @@ class InstallCommand extends Command
             // Check if only composer files are modified
             $changes = array_filter(explode("\n", trim($output)));
             $onlyComposerFiles = true;
-            
+
             foreach ($changes as $change) {
                 $file = substr($change, 3); // Skip the status flags (e.g. 'M  ')
                 if ($file !== 'composer.json' && $file !== 'composer.lock') {
