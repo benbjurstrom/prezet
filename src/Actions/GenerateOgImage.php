@@ -15,6 +15,7 @@ class GenerateOgImage
 
         $screenshot = SpatieBrowsershot::url($url)
             ->windowSize(1200, 630)
+            ->deviceScaleFactor(2)
             ->waitUntilNetworkIdle()
             ->setScreenshotType('webp', 85)
             ->screenshot();
