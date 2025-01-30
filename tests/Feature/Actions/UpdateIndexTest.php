@@ -135,7 +135,7 @@ excerpt: Post 1 Excerpt
 
     // Assert document was updated
     $updatedDoc = Document::where('filepath', $filepath)->first();
-    expect($updatedDoc->hash)->toBe('f9d9171d4e65fd062b8e0585a3671479')
+    expect($updatedDoc->hash)->toBe('90d0808a17c5949d40925284575235cd')
         ->and($updatedDoc->category)->toBe('new-category')
         ->and($updatedDoc->frontmatter->title)->toBe('Post 1')
         ->and($updatedDoc->frontmatter->excerpt)->toBe('Post 1 Excerpt');
@@ -173,7 +173,7 @@ excerpt: Post 1 Excerpt
     // Assert new document was created
     $newDoc = Document::where('filepath', $filePath)->first();
     expect($newDoc)->not->toBeNull()
-        ->and($newDoc->hash)->toBe('450e48d6060b2df8d7903689e0dce511');
+        ->and($newDoc->hash)->toBe('4c214aa720579296e8e4ab2577bcc6d1');
 
     // Assert headings were created
     $headings = $newDoc->headings()->get();

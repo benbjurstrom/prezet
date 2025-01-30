@@ -90,7 +90,7 @@ class GetDocumentDataFromFile
         $slug = $this->getBaseSlug($fm, $filepath);
 
         // Then optionally append the key if configured and key exists
-        if (Config::boolean('prezet.slug.keys') && $fm->key) {
+        if (Config::boolean('prezet.slug.keyed') && $fm->key) {
             return $slug.'-'.$fm->key;
         }
 

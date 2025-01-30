@@ -22,14 +22,14 @@ return [
     |
     | Configure how document slugs are generated. The source can be 'filepath'
     | or 'title'. Note that a slug defined in front matter will take precedence
-    | over the generated slug. When 'keys' is true, the front matter key will be
-    | appended to the slug (e.g., my-post-123).
+    | over the generated slug. When 'keyed' is true, the key present in the
+    | front matter key will be appended to the slug (e.g., my-post-123).
     |
     */
 
     'slug' => [
         'source' => 'filepath', // 'filepath' or 'title'
-        'keys' => false, // 'true' or 'false'
+        'keyed' => false, // 'true' or 'false'
     ],
 
     /*

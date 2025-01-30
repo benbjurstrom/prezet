@@ -4,6 +4,7 @@ namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GetDocumentModelFromSlug
@@ -14,7 +15,7 @@ class GetDocumentModelFromSlug
 
         return Document::query()
             ->where('slug', $slug)
-            ->when(config('app.env') !== 'local', function ($query) {
+            ->when(app()->isProduction(), function ($query) {
                 return $query->where('draft', false);
             })
             ->firstOrFail();
@@ -22,43 +23,60 @@ class GetDocumentModelFromSlug
 
     protected function validateSlug(string $input): void
     {
-        // first check if the slug is valid
-        $validSlug = Document::query()
+        // first check if the given slug exists
+        if (Document::query()
             ->where('slug', $input)
-            ->exists();
-
-        // if valid return early
-        if ($validSlug) {
+            ->exists()) {
             return;
         }
 
-        // if not check whether the key exists
-        $key = last(explode('-', $input));
-        $matchesKey = Document::query()
-            ->where('key', $key)
-            ->first();
+        // if not check whether there's a matching key
+        $this->redirectUsingKey($input);
 
-        // and redirect to the correct slug
-        if ($matchesKey) {
-            throw new HttpResponseException(
-                redirect()->route('prezet.show', $matchesKey->slug, 301)
-            );
-        }
-
-        // if it doesn't match the key, check whether the slug is a filepath
-        $filepath = 'content/'.$input.'.md';
-        $matchesFilepath = Document::query()
-            ->where('filepath', $filepath)
-            ->first();
-
-        // and redirect to the correct slug
-        if ($matchesFilepath) {
-            throw new HttpResponseException(
-                redirect()->route('prezet.show', $matchesFilepath->slug, 301)
-            );
-        }
+        // if not check whether there's a matching filepath
+        $this->redirectUsingFilepath($input);
 
         // if none of the above, throw a 404
         throw new NotFoundHttpException;
+    }
+
+    protected function redirectUsingKey(string $input): void
+    {
+        // return early if not using keyed slugs
+        if (! Config::boolean('prezet.slug.keyed')) {
+            return;
+        }
+
+        $key = last(explode('-', $input));
+        $doc = Document::query()
+            ->where('key', $key)
+            ->first();
+
+        // found a match so redirect to the correct slug
+        if ($doc) {
+            throw new HttpResponseException(
+                redirect()->route('prezet.show', $doc->slug, app()->isProduction() ? 301 : 302)
+            );
+        }
+    }
+
+    protected function redirectUsingFilepath(string $input): void
+    {
+        // return early if using filepath as source for slugs (no need to redirect)
+        if (Config::string('prezet.slug.source') === 'filepath') {
+            return;
+        }
+
+        $filepath = 'content/'.$input.'.md';
+        $doc = Document::query()
+            ->where('filepath', $filepath)
+            ->first();
+
+        // found a match so redirect to the correct slug
+        if ($doc) {
+            throw new HttpResponseException(
+                redirect()->route('prezet.show', $doc->slug, app()->isProduction() ? 301 : 302)
+            );
+        }
     }
 }

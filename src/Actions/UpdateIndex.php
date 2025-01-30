@@ -37,7 +37,7 @@ class UpdateIndex
 
     protected function ensureDocumentHasKey(DocumentData $docData): DocumentData
     {
-        if (! Config::boolean('prezet.slug.keys')) {
+        if (! Config::boolean('prezet.slug.keyed')) {
             return $docData;
         }
 
