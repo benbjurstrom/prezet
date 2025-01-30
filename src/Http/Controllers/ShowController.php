@@ -13,7 +13,7 @@ class ShowController
     public function __invoke(Request $request, string $slug): View
     {
         Prezet::validateSlug($slug);
-        
+
         $doc = Document::query()
             ->where('slug', $slug)
             ->when(config('app.env') !== 'local', function ($query) {
@@ -23,7 +23,7 @@ class ShowController
 
         $nav = Prezet::getSummary();
         $md = Prezet::getMarkdown($doc->filepath);
-        $docData = Prezet::getDocFromFile($doc->filepath);
+        $docData = Prezet::getDocumentDataFromFile($doc->filepath);
         $html = Prezet::parseMarkdown($md)->getContent();
         $headings = Prezet::getHeadings($html);
         $linkedData = json_encode(Prezet::getLinkedData($docData), JSON_UNESCAPED_SLASHES);

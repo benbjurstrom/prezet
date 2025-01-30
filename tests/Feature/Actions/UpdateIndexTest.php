@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
@@ -31,7 +31,7 @@ test('skips document when hash and filepath match', closure: function () {
         'hash' => 'abc123',
     ]);
 
-    $mock = $this->mock(GetAllDocsFromFiles::class);
+    $mock = $this->mock(GetDocumentDataFromFiles::class);
     $mock->shouldReceive('handle')->once()->andReturn(collect([
         DocumentData::fromModel($doc),
     ]));
@@ -76,8 +76,8 @@ test('removes deleted documents and their relationships', function () {
     $doc1->tags()->attach($tag1);
     $doc2->tags()->attach([$tag1->id, $tag2->id]);
 
-    // Mock GetAllDocsFromFiles to return only doc1
-    $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc1) {
+    // Mock getDocumentDataFromFiles to return only doc1
+    $this->mock(GetDocumentDataFromFiles::class, function ($mock) use ($doc1) {
         $mock->shouldReceive('handle')->once()->andReturn(collect([
             DocumentData::fromModel($doc1)]));
     });

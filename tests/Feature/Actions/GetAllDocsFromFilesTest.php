@@ -19,7 +19,7 @@ excerpt: Post 2 Excerpt
 ---
 # Post 2 Content');
 
-    $docs = Prezet::getAllDocsFromFiles();
+    $docs = Prezet::getDocumentDataFromFiles();
 
     expect($docs)->toHaveCount(2);
     expect($docs->first()->frontmatter->title)->toBe('Post 2');
@@ -30,5 +30,5 @@ it('throws exception if frontmatter is missing', function () {
     Storage::fake('prezet');
     Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '# Post 1 Content');
 
-    Prezet::getAllDocsFromFiles();
+    Prezet::getDocumentDataFromFiles();
 })->throws(FrontmatterMissingException::class);

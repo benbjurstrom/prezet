@@ -16,7 +16,7 @@ class UpdateIndex
     {
         $this->ensureDatabaseExists();
 
-        $docs = Prezet::getAllDocsFromFiles();
+        $docs = Prezet::getDocumentDataFromFiles();
 
         // Get all current paths from filesystem
         $currentFiles = $docs->pluck('filepath')->toArray();
@@ -43,7 +43,7 @@ class UpdateIndex
             Prezet::setKey($docData->filepath, $key);
 
             // the hash has changed so best to completely reload document data
-            return Prezet::getDocFromFile($docData->filepath);
+            return Prezet::getDocumentDataFromFile($docData->filepath);
         }
 
         return $docData;

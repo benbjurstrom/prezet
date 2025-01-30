@@ -4,8 +4,8 @@ namespace BenBjurstrom\Prezet;
 
 use BenBjurstrom\Prezet\Actions\CreateIndex;
 use BenBjurstrom\Prezet\Actions\GenerateOgImage;
-use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
-use BenBjurstrom\Prezet\Actions\GetDocFromFile;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFile;
 use BenBjurstrom\Prezet\Actions\GetFlatHeadings;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
@@ -47,8 +47,8 @@ class PrezetServiceProvider extends PackageServiceProvider
          */
         CreateIndex::class => CreateIndex::class,
         GenerateOgImage::class => GenerateOgImage::class,
-        GetAllDocsFromFiles::class => GetAllDocsFromFiles::class,
-        GetDocFromFile::class => GetDocFromFile::class,
+        GetDocumentDataFromFiles::class => GetDocumentDataFromFiles::class,
+        GetDocumentDataFromFile::class => GetDocumentDataFromFile::class,
         GetFlatHeadings::class => GetFlatHeadings::class,
         GetHeadings::class => GetHeadings::class,
         GetImage::class => GetImage::class,

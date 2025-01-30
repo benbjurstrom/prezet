@@ -14,7 +14,7 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class GetDocFromFile
+class GetDocumentDataFromFile
 {
     private Filesystem $storage;
 
@@ -64,7 +64,7 @@ class GetDocFromFile
         ]);
     }
 
-    protected function getSlug(FrontmatterData $fm, $filepath): string
+    protected function getSlug(FrontmatterData $fm, string $filepath): string
     {
         // First determine the base slug
         if ($fm->slug) {

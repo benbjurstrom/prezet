@@ -4,8 +4,8 @@ namespace BenBjurstrom\Prezet;
 
 use BenBjurstrom\Prezet\Actions\CreateIndex;
 use BenBjurstrom\Prezet\Actions\GenerateOgImage;
-use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
-use BenBjurstrom\Prezet\Actions\GetDocFromFile;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFile;
 use BenBjurstrom\Prezet\Actions\GetFlatHeadings;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
@@ -45,14 +45,14 @@ class PrezetService
     /**
      * @return Collection<int,DocumentData>
      */
-    public static function getAllDocsFromFiles(): Collection
+    public static function getDocumentDataFromFiles(): Collection
     {
-        return app(GetAllDocsFromFiles::class)->handle();
+        return app(GetDocumentDataFromFiles::class)->handle();
     }
 
-    public static function getDocFromFile(string $filepath): DocumentData
+    public static function getDocumentDataFromFile(string $filepath): DocumentData
     {
-        return app(GetDocFromFile::class)->handle($filepath);
+        return app(GetDocumentDataFromFile::class)->handle($filepath);
     }
 
     /**
