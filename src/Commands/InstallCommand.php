@@ -76,10 +76,10 @@ class InstallCommand extends Command
             $onlyComposerFiles = true;
 
             foreach ($changes as $change) {
-                if(!str_contains($change, 'composer')){
+                if (! str_contains($change, 'composer')) {
                     $onlyComposerFiles = false;
                     break;
-                };
+                }
             }
 
             return $onlyComposerFiles ? 'clean' : 'dirty';
