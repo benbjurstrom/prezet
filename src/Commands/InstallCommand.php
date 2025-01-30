@@ -76,8 +76,7 @@ class InstallCommand extends Command
             $onlyComposerFiles = true;
 
             foreach ($changes as $change) {
-                $file = substr($change, 3); // Skip the status flags (e.g. 'M  ')
-                if ($file !== 'composer.json' && $file !== 'composer.lock') {
+                if (! str_contains($change, 'composer')) {
                     $onlyComposerFiles = false;
                     break;
                 }
@@ -137,7 +136,9 @@ class InstallCommand extends Command
 
     protected function copyTailwindFiles(): void
     {
-        $this->info('Copying prezet.css, and vite.config.js');
+        $this->info('Copying prezet.css, postcss.config.js, and vite.config.js');
+        $this->files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
+        $this->files->copy(__DIR__.'/../../stubs/app.css', resource_path('css/app.css'));
         $this->files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
         $this->files->copy(__DIR__.'/../../stubs/vite.config.js', base_path('vite.config.js'));
 
@@ -168,7 +169,7 @@ class InstallCommand extends Command
     protected function installNodeDependencies(): void
     {
         $this->info('Installing node dependencies');
-        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography @tailwindcss/vite tailwindcss vite-plugin-watch-and-run';
+        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography @tailwindcss/vite tailwindcss@4 vite-plugin-watch-and-run @tailwindcss/postcss';
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {
             $bin = 'pnpm';
