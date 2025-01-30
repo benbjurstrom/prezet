@@ -14,15 +14,15 @@ description: A test post
 ---
 # Test Content
 MD;
+    $filepath = 'content/welcome-to-prezet.md';
+    Storage::disk('prezet')->put($filepath, $initialContent);
 
-    Storage::disk('prezet')->put('content/welcome-to-prezet.md', $initialContent);
-
-    Document::factory()->create([
-        'slug' => 'welcome-to-prezet',
+    $doc = Document::factory()->create([
+        'filepath' => $filepath,
     ]);
 
     // Act
-    Prezet::setOgImage('welcome-to-prezet', 'test-image.jpg');
+    Prezet::setOgImage($doc, 'test-image.jpg');
 
     // Assert
     $updatedContent = Storage::disk('prezet')->get('content/welcome-to-prezet.md');
@@ -38,15 +38,10 @@ it('throws exception when frontmatter is missing', function () {
 
     Storage::disk('prezet')->put('content/welcome-to-prezet.md', $contentWithoutFrontmatter);
 
-    Document::factory()->create([
+    $doc = Document::factory()->create([
         'slug' => 'welcome-to-prezet',
+        'filepath' => 'content/welcome-to-prezet.md',
     ]);
 
-    Prezet::setOgImage('welcome-to-prezet', 'test-image.jpg');
+    Prezet::setOgImage($doc, 'test-image.jpg');
 })->throws(\BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException::class);
-
-it('throws not found exception when file does not exist', function () {
-    Storage::fake('prezet');
-
-    Prezet::setOgImage('non-existent-post', 'test-image.jpg');
-})->throws(\Illuminate\Database\Eloquent\ModelNotFoundException::class);

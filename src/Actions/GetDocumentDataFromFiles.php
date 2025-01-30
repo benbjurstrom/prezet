@@ -7,7 +7,7 @@ use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
-class GetAllDocsFromFiles
+class GetDocumentDataFromFiles
 {
     /**
      * @return Collection<int,DocumentData>
@@ -22,7 +22,7 @@ class GetAllDocsFromFiles
                 return pathinfo($filePath, PATHINFO_EXTENSION) === 'md';
             })
             ->map(function ($filePath) {
-                return Prezet::getDocFromFile($filePath);
+                return Prezet::getDocumentDataFromFile($filePath);
             })
             ->sortByDesc('createdAt');
     }

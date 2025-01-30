@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
@@ -24,18 +24,16 @@ test('throws exception when documents table missing', function () {
         ->toThrow(\RuntimeException::class, 'Prezet database exists but is missing the \'documents\' table');
 });
 
-test('skips document when hash and slug match', closure: function () {
+test('skips document when hash and filepath match', closure: function () {
     $doc = Document::factory()->create([
-        'slug' => 'test-doc',
+        'filepath' => 'test-doc.md',
         'hash' => 'abc123',
     ]);
 
-    // Mock GetAllFrontmatter
-    $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc) {
-        $mock->shouldReceive('handle')->once()->andReturn(collect([
-            DocumentData::fromModel($doc),
-        ]));
-    });
+    $mock = $this->mock(GetDocumentDataFromFiles::class);
+    $mock->shouldReceive('handle')->once()->andReturn(collect([
+        DocumentData::fromModel($doc),
+    ]));
 
     Prezet::updateIndex();
 
@@ -77,8 +75,8 @@ test('removes deleted documents and their relationships', function () {
     $doc1->tags()->attach($tag1);
     $doc2->tags()->attach([$tag1->id, $tag2->id]);
 
-    // Mock GetAllDocsFromFiles to return only doc1
-    $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc1) {
+    // Mock getDocumentDataFromFiles to return only doc1
+    $this->mock(GetDocumentDataFromFiles::class, function ($mock) use ($doc1) {
         $mock->shouldReceive('handle')->once()->andReturn(collect([
             DocumentData::fromModel($doc1)]));
     });
@@ -122,7 +120,8 @@ test('updates document when hash changes', function () {
     ]);
 
     Storage::fake('prezet');
-    Storage::disk(config('prezet.filesystem.disk'))->put('content/test-doc.md', '---
+    $filepath = 'content/test-doc.md';
+    Storage::disk(config('prezet.filesystem.disk'))->put($filepath, '---
 title: Post 1
 category: new-category
 date: 2023-05-01
@@ -135,7 +134,7 @@ excerpt: Post 1 Excerpt
     Prezet::updateIndex();
 
     // Assert document was updated
-    $updatedDoc = Document::where('slug', 'test-doc')->first();
+    $updatedDoc = Document::where('filepath', $filepath)->first();
     expect($updatedDoc->hash)->toBe('90d0808a17c5949d40925284575235cd')
         ->and($updatedDoc->category)->toBe('new-category')
         ->and($updatedDoc->frontmatter->title)->toBe('Post 1')
@@ -156,8 +155,9 @@ excerpt: Post 1 Excerpt
 });
 
 test('creates new document when slug does not exist', function () {
+    $filePath = 'content/new-doc.md';
     Storage::fake('prezet');
-    Storage::disk(config('prezet.filesystem.disk'))->put('content/new-doc.md', '---
+    Storage::disk(config('prezet.filesystem.disk'))->put($filePath, '---
 title: Post 1
 category: new-category
 date: 2023-05-01
@@ -171,7 +171,7 @@ excerpt: Post 1 Excerpt
     Prezet::updateIndex();
 
     // Assert new document was created
-    $newDoc = Document::where('slug', 'new-doc')->first();
+    $newDoc = Document::where('filepath', $filePath)->first();
     expect($newDoc)->not->toBeNull()
         ->and($newDoc->hash)->toBe('4c214aa720579296e8e4ab2577bcc6d1');
 

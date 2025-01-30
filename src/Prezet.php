@@ -4,52 +4,55 @@ namespace BenBjurstrom\Prezet;
 
 use BenBjurstrom\Prezet\Actions\CreateIndex;
 use BenBjurstrom\Prezet\Actions\GenerateOgImage;
-use BenBjurstrom\Prezet\Actions\GetAllDocsFromFiles;
-use BenBjurstrom\Prezet\Actions\GetDocFromFile;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFile;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
+use BenBjurstrom\Prezet\Actions\GetDocumentModelFromSlug;
 use BenBjurstrom\Prezet\Actions\GetFlatHeadings;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
 use BenBjurstrom\Prezet\Actions\GetLinkedData;
 use BenBjurstrom\Prezet\Actions\GetMarkdown;
 use BenBjurstrom\Prezet\Actions\GetPrezetDisk;
+use BenBjurstrom\Prezet\Actions\GetSlugFromFilepath;
 use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseFrontmatter;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
 use BenBjurstrom\Prezet\Actions\SearchHeadings;
 use BenBjurstrom\Prezet\Actions\SetFrontmatter;
+use BenBjurstrom\Prezet\Actions\SetKey;
 use BenBjurstrom\Prezet\Actions\SetOgImage;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Actions\UpdateSitemap;
 use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Data\HeadingData;
+use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Facade;
 use League\CommonMark\Output\RenderedContentInterface;
 
-class Prezet extends Facade
+class Prezet
 {
     public static function createIndex(): void
     {
         app(CreateIndex::class)->handle();
     }
 
-    public static function generateOgImage(string $mdPath): string
+    public static function generateOgImage(string $slug): string
     {
-        return app(GenerateOgImage::class)->handle($mdPath);
+        return app(GenerateOgImage::class)->handle($slug);
     }
 
     /**
      * @return Collection<int,DocumentData>
      */
-    public static function getAllDocsFromFiles(): Collection
+    public static function getDocumentDataFromFiles(): Collection
     {
-        return app(GetAllDocsFromFiles::class)->handle();
+        return app(GetDocumentDataFromFiles::class)->handle();
     }
 
-    public static function getDocFromFile(string $filepath): DocumentData
+    public static function getDocumentDataFromFile(string $filepath): DocumentData
     {
-        return app(GetDocFromFile::class)->handle($filepath);
+        return app(GetDocumentDataFromFile::class)->handle($filepath);
     }
 
     /**
@@ -117,9 +120,9 @@ class Prezet extends Facade
         return app(SetFrontmatter::class)->handle($md, $fm);
     }
 
-    public static function setOgImage(string $slug, string $imgPath): void
+    public static function setOgImage(Document $doc, string $imgPath): void
     {
-        app(SetOgImage::class)->handle($slug, $imgPath);
+        app(SetOgImage::class)->handle($doc, $imgPath);
     }
 
     public static function updateIndex(): void
@@ -138,5 +141,20 @@ class Prezet extends Facade
     public static function searchHeadings(string $query): Collection
     {
         return app(SearchHeadings::class)->handle($query);
+    }
+
+    public static function setKey(string $filepath, string $key): void
+    {
+        app(SetKey::class)->handle($filepath, $key);
+    }
+
+    public static function getSlugFromFilepath(string $filepath): string
+    {
+        return app(GetSlugFromFilepath::class)->handle($filepath);
+    }
+
+    public static function getDocumentModelFromSlug(string $slug): Document
+    {
+        return app(GetDocumentModelFromSlug::class)->handle($slug);
     }
 }
