@@ -33,17 +33,9 @@ class GetDocumentDataFromFile
     public function handle(string $filePath): DocumentData
     {
         $content = $this->getFileContent($filePath);
-
         $hash = md5($content);
-        $doc = Document::query()->where([
-            'hash' => $hash,
-            'filepath' => $filePath,
-        ])->first();
 
-        if ($doc) {
-            $docData = app(DocumentData::class)::fromModel($doc);
-            $docData->content = $content;
-
+        if ($docData = $this->unchanged($hash, $filePath, $content)) {
             return $docData;
         }
 
@@ -63,6 +55,33 @@ class GetDocumentDataFromFile
             'updatedAt' => $this->storage->lastModified($filePath),
             'createdAt' => $fm->date,
         ]);
+    }
+
+    protected function getFileContent(string $filePath): string
+    {
+        $content = $this->storage->get($filePath);
+        if (! $content) {
+            throw new FileNotFoundException($filePath);
+        }
+
+        return $content;
+    }
+
+    protected function unchanged(string $hash, string $filePath, string $content): ?DocumentData
+    {
+        $doc = Document::query()->where([
+            'hash' => $hash,
+            'filepath' => $filePath,
+        ])->first();
+
+        if ($doc) {
+            $docData = app(DocumentData::class)::fromModel($doc);
+            $docData->content = $content;
+
+            return $docData;
+        }
+
+        return null;
     }
 
     protected function getSlug(FrontmatterData $fm, string $filepath): string
@@ -92,15 +111,5 @@ class GetDocumentDataFromFile
 
         // Otherwise use the file path
         return Prezet::getSlugFromFilepath($filepath);
-    }
-
-    protected function getFileContent(string $filePath): string
-    {
-        $content = $this->storage->get($filePath);
-        if (! $content) {
-            throw new FileNotFoundException($filePath);
-        }
-
-        return $content;
     }
 }

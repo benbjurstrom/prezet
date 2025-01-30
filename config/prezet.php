@@ -20,15 +20,16 @@ return [
     | Slug Configuration
     |--------------------------------------------------------------------------
     |
-    | Configure how document slugs are generated. The 'source' can be 'filepath'
-    | or 'title' to determine the base slug. When 'keys' is true, the frontmatter
-    | key will be appended to the slug (e.g., my-post-123).
+    | Configure how document slugs are generated. The source can be 'filepath'
+    | or 'title'. Note that a slug defined in front matter will take precedence
+    | over the generated slug. When 'keys' is true, the front matter key will be
+    | appended to the slug (e.g., my-post-123).
     |
     */
 
     'slug' => [
         'source' => 'filepath', // 'filepath' or 'title'
-        'keys' => true, // 'true' or 'false'
+        'keys' => false, // 'true' or 'false'
     ],
 
     /*
