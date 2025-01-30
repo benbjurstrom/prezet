@@ -34,6 +34,12 @@ class FrontmatterData extends ValidatedDTO
     #[Rules(['nullable', 'string'])]
     public ?string $author;
 
+    #[Rules(['nullable', 'string'])]
+    public ?string $slug;
+
+    #[Rules(['nullable', 'string'])]
+    public ?string $key;
+
     /**
      * @var array<int, string> $tags
      */

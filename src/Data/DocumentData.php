@@ -25,6 +25,12 @@ class DocumentData extends ValidatedDTO
     #[Rules(['bool'])]
     public bool $draft;
 
+    #[Rules(['nullable', 'string'])]
+    public ?string $key;
+
+    #[Rules(['required', 'string'])]
+    public string $filepath;
+
     #[Rules(['required', 'string'])]
     public string $hash;
 

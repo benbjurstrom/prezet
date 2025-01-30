@@ -9,6 +9,7 @@ use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Mockery\MockInterface;
 
 test('throws exception when database missing', function () {
     unlink(Config::get('database.connections.prezet.database'));
@@ -24,18 +25,16 @@ test('throws exception when documents table missing', function () {
         ->toThrow(\RuntimeException::class, 'Prezet database exists but is missing the \'documents\' table');
 });
 
-test('skips document when hash and slug match', closure: function () {
+test('skips document when hash and filepath match', closure: function () {
     $doc = Document::factory()->create([
-        'slug' => 'test-doc',
+        'filepath' => 'test-doc.md',
         'hash' => 'abc123',
     ]);
 
-    // Mock GetAllFrontmatter
-    $this->mock(GetAllDocsFromFiles::class, function ($mock) use ($doc) {
-        $mock->shouldReceive('handle')->once()->andReturn(collect([
-            DocumentData::fromModel($doc),
-        ]));
-    });
+    $mock = $this->mock(GetAllDocsFromFiles::class);
+    $mock->shouldReceive('handle')->once()->andReturn(collect([
+        DocumentData::fromModel($doc),
+    ]));
 
     Prezet::updateIndex();
 
@@ -122,7 +121,8 @@ test('updates document when hash changes', function () {
     ]);
 
     Storage::fake('prezet');
-    Storage::disk(config('prezet.filesystem.disk'))->put('content/test-doc.md', '---
+    $filepath = 'content/test-doc.md';
+    Storage::disk(config('prezet.filesystem.disk'))->put($filepath, '---
 title: Post 1
 category: new-category
 date: 2023-05-01
@@ -135,8 +135,8 @@ excerpt: Post 1 Excerpt
     Prezet::updateIndex();
 
     // Assert document was updated
-    $updatedDoc = Document::where('slug', 'test-doc')->first();
-    expect($updatedDoc->hash)->toBe('90d0808a17c5949d40925284575235cd')
+    $updatedDoc = Document::where('filepath', $filepath)->first();
+    expect($updatedDoc->hash)->toBe('f9d9171d4e65fd062b8e0585a3671479')
         ->and($updatedDoc->category)->toBe('new-category')
         ->and($updatedDoc->frontmatter->title)->toBe('Post 1')
         ->and($updatedDoc->frontmatter->excerpt)->toBe('Post 1 Excerpt');
@@ -156,8 +156,9 @@ excerpt: Post 1 Excerpt
 });
 
 test('creates new document when slug does not exist', function () {
+    $filePath = 'content/new-doc.md';
     Storage::fake('prezet');
-    Storage::disk(config('prezet.filesystem.disk'))->put('content/new-doc.md', '---
+    Storage::disk(config('prezet.filesystem.disk'))->put($filePath, '---
 title: Post 1
 category: new-category
 date: 2023-05-01
@@ -171,9 +172,9 @@ excerpt: Post 1 Excerpt
     Prezet::updateIndex();
 
     // Assert new document was created
-    $newDoc = Document::where('slug', 'new-doc')->first();
+    $newDoc = Document::where('filepath', $filePath)->first();
     expect($newDoc)->not->toBeNull()
-        ->and($newDoc->hash)->toBe('4c214aa720579296e8e4ab2577bcc6d1');
+        ->and($newDoc->hash)->toBe('450e48d6060b2df8d7903689e0dce511');
 
     // Assert headings were created
     $headings = $newDoc->headings()->get();

@@ -18,14 +18,16 @@ class UpdateIndex
 
         $docs = Prezet::getAllDocsFromFiles();
 
-        // Get all current slugs from filesystem
-        $currentSlugs = $docs->pluck('slug')->toArray();
+        // Get all current paths from filesystem
+        $currentFiles = $docs->pluck('filepath')->toArray();
 
         // Remove documents that no longer exist in the filesystem
-        $this->removeDeletedDocuments($currentSlugs);
+        $this->removeDeletedDocuments($currentFiles);
 
         // Update or create documents
         $docs->each(function (DocumentData $doc) {
+            $doc = $this->handleKey($doc);
+
             $this->upsertDocument($doc);
         });
 
@@ -34,14 +36,27 @@ class UpdateIndex
         Prezet::updateSitemap();
     }
 
+    protected function handleKey(DocumentData $docData): DocumentData
+    {
+        if (! $docData->key && config('prezet.slug.keys')) {
+            $key = substr($docData->hash, -8);
+            Prezet::setKey($docData->filepath, $key);
+
+            // the hash has changed so best to completely reload document data
+            return Prezet::getDocFromFile($docData->filepath);
+        }
+
+        return $docData;
+    }
+
     /**
      * Remove documents that no longer exist in the filesystem
      *
-     * @param  array<int, string>  $currentSlugs
+     * @param  array<int, string>  $currentPaths
      */
-    protected function removeDeletedDocuments(array $currentSlugs): void
+    protected function removeDeletedDocuments(array $currentPaths): void
     {
-        Document::whereNotIn('slug', $currentSlugs)->each(function (Document $document) {
+        Document::whereNotIn('filepath', $currentPaths)->each(function (Document $document) {
             // This will automatically delete related headings due to cascade
             $document->tags()->detach();
             $document->delete();
@@ -50,8 +65,8 @@ class UpdateIndex
 
     protected function upsertDocument(DocumentData $docData): void
     {
-        // Check if document exists with same slug and hash
-        $existingDoc = Document::where('slug', $docData->slug)
+        // Check if document exists with same filepath and hash
+        $existingDoc = Document::where('filepath', $docData->filepath)
             ->where('hash', $docData->hash)
             ->first();
 
@@ -60,8 +75,8 @@ class UpdateIndex
             return;
         }
 
-        // Find document by slug to update, or create new one
-        $document = Document::where('slug', $docData->slug)->first() ?? new Document;
+        // Find document by filepath to update, or create new one
+        $document = Document::where('filepath', $docData->filepath)->first() ?? new Document;
 
         $this->updateDocumentAttributes($document, $docData);
         $this->updateHeadings($document, $docData->content);
@@ -74,6 +89,8 @@ class UpdateIndex
     protected function updateDocumentAttributes(Document $document, DocumentData $docData): void
     {
         $document->fill([
+            'filepath' => $docData->filepath,
+            'key' => $docData->key,
             'slug' => $docData->slug,
             'category' => $docData->category,
             'draft' => $docData->draft,

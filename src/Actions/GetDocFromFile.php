@@ -3,6 +3,7 @@
 namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Data\DocumentData;
+use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Exceptions\FileNotFoundException;
 use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
 use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
@@ -11,6 +12,7 @@ use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class GetDocFromFile
 {
@@ -32,10 +34,9 @@ class GetDocFromFile
         $content = $this->getFileContent($filePath);
 
         $hash = md5($content);
-        $slug = $this->getSlug($filePath);
         $doc = Document::query()->where([
             'hash' => $hash,
-            'slug' => $slug,
+            'filepath' => $filePath,
         ])->first();
 
         if ($doc) {
@@ -47,7 +48,11 @@ class GetDocFromFile
 
         $fm = Prezet::parseFrontmatter($content, $filePath);
 
+        $slug = $this->getSlug($fm, $filePath);
+
         return app(DocumentData::class)::fromArray([
+            'key' => $fm->key,
+            'filepath' => $filePath,
             'slug' => $slug,
             'hash' => $hash,
             'draft' => $fm->draft,
@@ -59,12 +64,26 @@ class GetDocFromFile
         ]);
     }
 
-    protected function getSlug(string $filePath): string
+    protected function getSlug(FrontmatterData $fm, $filepath): string
     {
-        $relativePath = trim(str_replace('content', '', $filePath), '/');
-        $slug = pathinfo($relativePath, PATHINFO_DIRNAME).'/'.pathinfo($relativePath, PATHINFO_FILENAME);
+        // First determine the base slug
+        if ($fm->slug) {
+            $slug = $fm->slug;
+        } else {
+            // Generate slug based on config source
+            $slug = match (config('prezet.slug.source')) {
+                'filepath' => Prezet::getSlugFromFilepath($filepath),
+                'title' => Str::slug($fm->title),
+                default => Str::slug($fm->title), // fallback to title if config is invalid
+            };
+        }
 
-        return trim($slug, './');
+        // Optionally append key if configured and key exists
+        if (config('prezet.slug.keys') && $fm->key) {
+            return $slug.'-'.$fm->key;
+        }
+
+        return $slug;
     }
 
     protected function getFileContent(string $filePath): string

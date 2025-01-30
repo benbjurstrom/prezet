@@ -5,7 +5,6 @@ namespace BenBjurstrom\Prezet\Models;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Database\Factories\DocumentFactory;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -75,21 +74,5 @@ class Document extends Model
     public function headings(): HasMany
     {
         return $this->hasMany(Heading::class);
-    }
-
-    /**
-     * @return Attribute<string, never>
-     */
-    protected function filepath(): Attribute
-    {
-        return Attribute::make(
-            get: function (mixed $value, mixed $attributes): string {
-                if (is_array($attributes) && isset($attributes['slug'])) {
-                    return 'content/'.$attributes['slug'].'.md';
-                }
-
-                return '';
-            }
-        );
     }
 }

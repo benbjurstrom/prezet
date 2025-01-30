@@ -17,6 +17,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Slug Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configure how document slugs are generated. The 'source' can be 'filepath'
+    | or 'title' to determine the base slug. When 'keys' is true, the frontmatter
+    | key will be appended to the slug (e.g., my-post-123).
+    |
+    */
+
+    'slug' => [
+        'source' => 'filepath', // 'filepath' or 'title'
+        'keys' => true, // 'true' or 'false'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | CommonMark
     |--------------------------------------------------------------------------
     |

@@ -12,14 +12,17 @@ use BenBjurstrom\Prezet\Actions\GetImage;
 use BenBjurstrom\Prezet\Actions\GetLinkedData;
 use BenBjurstrom\Prezet\Actions\GetMarkdown;
 use BenBjurstrom\Prezet\Actions\GetPrezetDisk;
+use BenBjurstrom\Prezet\Actions\GetSlugFromFilepath;
 use BenBjurstrom\Prezet\Actions\GetSummary;
 use BenBjurstrom\Prezet\Actions\ParseFrontmatter;
 use BenBjurstrom\Prezet\Actions\ParseMarkdown;
 use BenBjurstrom\Prezet\Actions\SearchHeadings;
 use BenBjurstrom\Prezet\Actions\SetFrontmatter;
+use BenBjurstrom\Prezet\Actions\SetKey;
 use BenBjurstrom\Prezet\Actions\SetOgImage;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Actions\UpdateSitemap;
+use BenBjurstrom\Prezet\Actions\ValidateSlug;
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
 use BenBjurstrom\Prezet\Commands\PurgeCacheCommand;
@@ -37,6 +40,8 @@ class PrezetServiceProvider extends PackageServiceProvider
      * @var array<string, string>
      */
     public array $bindings = [
+        PrezetService::class => PrezetService::class,
+
         /**
          * Action Class Bindings
          */
@@ -50,6 +55,7 @@ class PrezetServiceProvider extends PackageServiceProvider
         GetLinkedData::class => GetLinkedData::class,
         GetMarkdown::class => GetMarkdown::class,
         GetPrezetDisk::class => GetPrezetDisk::class,
+        GetSlugFromFilepath::class => GetSlugFromFilepath::class,
         GetSummary::class => GetSummary::class,
         ParseFrontmatter::class => ParseFrontmatter::class,
         ParseMarkdown::class => ParseMarkdown::class,
@@ -58,6 +64,8 @@ class PrezetServiceProvider extends PackageServiceProvider
         UpdateIndex::class => UpdateIndex::class,
         UpdateSitemap::class => UpdateSitemap::class,
         SearchHeadings::class => SearchHeadings::class,
+        SetKey::class => SetKey::class,
+        ValidateSlug::class => ValidateSlug::class,
 
         /**
          * Data Class Bindings
@@ -67,6 +75,7 @@ class PrezetServiceProvider extends PackageServiceProvider
         FrontmatterData::class => FrontmatterData::class,
         YoutubeData::class => YoutubeData::class,
     ];
+
 
     public function configurePackage(Package $package): void
     {

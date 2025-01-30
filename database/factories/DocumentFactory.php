@@ -20,12 +20,17 @@ class DocumentFactory extends Factory
     public function definition(): array
     {
         $createdAt = Carbon::now()->subDays(rand(1, 100));
+        $hash = md5(random_bytes(16));
+        $key = $key = substr($hash, -8);
+        $slug = $this->faker->unique()->slug;
 
         return [
-            'slug' => $this->faker->unique()->slug,
+            'filepath' => 'content/'.$slug.'.md',
+            'slug' => $slug,
             'category' => $this->faker->optional()->word,
             'draft' => $this->faker->boolean,
-            'hash' => md5(random_bytes(16)),
+            'hash' => $hash,
+            'key' => $key,
             'frontmatter' => [
                 'title' => $this->faker->sentence,
                 'excerpt' => $this->faker->paragraph,
@@ -34,6 +39,7 @@ class DocumentFactory extends Factory
                 'image' => $this->faker->optional()->imageUrl(),
                 'draft' => $this->faker->boolean,
                 'date' => $createdAt->toIso8601String(),
+                'key' => $key,
             ],
             'created_at' => $createdAt,
             'updated_at' => $createdAt,

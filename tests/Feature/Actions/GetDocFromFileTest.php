@@ -21,8 +21,9 @@ excerpt: Post 1 Excerpt
 
 it('can get docdata from existing document record', function () {
     $hash = 'e13b8284a991ef208cd5675661918a13';
+    $filepath = 'content/post1.md';
     $doc1 = Document::factory()->create([
-        'slug' => 'post1',
+        'filepath' => $filepath,
         'hash' => $hash,
         'frontmatter' => [
             'title' => 'Old title',
@@ -30,14 +31,14 @@ it('can get docdata from existing document record', function () {
     ]);
 
     Storage::fake('prezet');
-    Storage::disk(config('prezet.filesystem.disk'))->put('content/post1.md', '---
+    Storage::disk(config('prezet.filesystem.disk'))->put($filepath, '---
 title: New Title
 date: 2023-05-01
 excerpt: Post 1 Excerpt
 ---
 # Post 1 Content');
 
-    $doc = Prezet::getDocFromFile('content/post1.md');
+    $doc = Prezet::getDocFromFile($filepath);
 
     // Expect record has an id since it came from the database
     expect($doc->id)->tobe($doc1->id);
