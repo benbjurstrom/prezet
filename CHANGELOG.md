@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.0-rc3](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc2...v1.0.0-rc3) - 2025-01-30
+
+### What's Changed
+
+* 151 ignore changes to composer when installing by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/152
+* Allow providing optional slug to OG image generation command by @damms005 in https://github.com/benbjurstrom/prezet/pull/149
+* 155 fully qualified ogimage url by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/156
+* 153 self healing links by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/159
+
+### New Contributors
+
+* @damms005 made their first contribution in https://github.com/benbjurstrom/prezet/pull/149
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc2...v1.0.0-rc3
+
 ## [v1.0.0-rc2](https://github.com/benbjurstrom/prezet/compare/v0.21.1...v1.0.0-rc2) - 2025-01-28
 
 ### What's Changed
