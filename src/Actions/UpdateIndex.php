@@ -26,7 +26,9 @@ class UpdateIndex
 
         // Update or create documents
         $docs->each(function (DocumentData $doc) {
-            $doc = $this->handleKey($doc);
+            if(Config::boolean('prezet.slug.keys')){
+                $doc = $this->ensureDocumentHasKey($doc);
+            }
 
             $this->upsertDocument($doc);
         });
@@ -36,9 +38,9 @@ class UpdateIndex
         Prezet::updateSitemap();
     }
 
-    protected function handleKey(DocumentData $docData): DocumentData
+    protected function ensureDocumentHasKey(DocumentData $docData): DocumentData
     {
-        if (! $docData->key && config('prezet.slug.keys')) {
+        if (! $docData->key) {
             $key = substr($docData->hash, -8);
             Prezet::setKey($docData->filepath, $key);
 

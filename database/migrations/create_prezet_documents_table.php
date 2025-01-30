@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestampTz('created_at')->index();
             $table->timestampTz('updated_at')->index();
 
-            $table->index('slug', 'hash');
+            $table->index('filepath', 'hash');
         });
     }
 

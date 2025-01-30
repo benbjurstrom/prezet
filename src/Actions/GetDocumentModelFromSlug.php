@@ -4,17 +4,30 @@ namespace BenBjurstrom\Prezet\Actions;
 
 use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ValidateSlug
+class GetDocumentModelFromSlug
 {
-    public function handle(string $input): void
+    public function handle(string $slug): Document
     {
-        // first check if the valid slug exists
+        $this->validateSlug($slug);
+
+        return Document::query()
+            ->where('slug', $slug)
+            ->when(config('app.env') !== 'local', function ($query) {
+                return $query->where('draft', false);
+            })
+            ->firstOrFail();
+    }
+
+    protected function validateSlug(string $input): void
+    {
+        // first check if the slug is valid
         $validSlug = Document::query()
             ->where('slug', $input)
             ->exists();
 
-        // if it does, return it
+        // if valid return early
         if ($validSlug) {
             return;
         }
@@ -46,6 +59,6 @@ class ValidateSlug
         }
 
         // if none of the above, throw a 404
-        abort(404);
+        throw new NotFoundHttpException;
     }
-} 
+}

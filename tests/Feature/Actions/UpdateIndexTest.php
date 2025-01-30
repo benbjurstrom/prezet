@@ -9,7 +9,6 @@ use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
-use Mockery\MockInterface;
 
 test('throws exception when database missing', function () {
     unlink(Config::get('database.connections.prezet.database'));

@@ -4,8 +4,9 @@ namespace BenBjurstrom\Prezet;
 
 use BenBjurstrom\Prezet\Actions\CreateIndex;
 use BenBjurstrom\Prezet\Actions\GenerateOgImage;
-use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
 use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFile;
+use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
+use BenBjurstrom\Prezet\Actions\GetDocumentModelFromSlug;
 use BenBjurstrom\Prezet\Actions\GetFlatHeadings;
 use BenBjurstrom\Prezet\Actions\GetHeadings;
 use BenBjurstrom\Prezet\Actions\GetImage;
@@ -22,7 +23,6 @@ use BenBjurstrom\Prezet\Actions\SetKey;
 use BenBjurstrom\Prezet\Actions\SetOgImage;
 use BenBjurstrom\Prezet\Actions\UpdateIndex;
 use BenBjurstrom\Prezet\Actions\UpdateSitemap;
-use BenBjurstrom\Prezet\Actions\ValidateSlug;
 use BenBjurstrom\Prezet\Commands\InstallCommand;
 use BenBjurstrom\Prezet\Commands\OgimageCommand;
 use BenBjurstrom\Prezet\Commands\PurgeCacheCommand;
@@ -40,8 +40,6 @@ class PrezetServiceProvider extends PackageServiceProvider
      * @var array<string, string>
      */
     public array $bindings = [
-        PrezetService::class => PrezetService::class,
-
         /**
          * Action Class Bindings
          */
@@ -65,7 +63,7 @@ class PrezetServiceProvider extends PackageServiceProvider
         UpdateSitemap::class => UpdateSitemap::class,
         SearchHeadings::class => SearchHeadings::class,
         SetKey::class => SetKey::class,
-        ValidateSlug::class => ValidateSlug::class,
+        GetDocumentModelFromSlug::class => GetDocumentModelFromSlug::class,
 
         /**
          * Data Class Bindings
@@ -75,7 +73,6 @@ class PrezetServiceProvider extends PackageServiceProvider
         FrontmatterData::class => FrontmatterData::class,
         YoutubeData::class => YoutubeData::class,
     ];
-
 
     public function configurePackage(Package $package): void
     {

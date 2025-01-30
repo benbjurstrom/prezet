@@ -11,6 +11,7 @@ use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -67,23 +68,30 @@ class GetDocumentDataFromFile
     protected function getSlug(FrontmatterData $fm, string $filepath): string
     {
         // First determine the base slug
-        if ($fm->slug) {
-            $slug = $fm->slug;
-        } else {
-            // Generate slug based on config source
-            $slug = match (config('prezet.slug.source')) {
-                'filepath' => Prezet::getSlugFromFilepath($filepath),
-                'title' => Str::slug($fm->title),
-                default => Str::slug($fm->title), // fallback to title if config is invalid
-            };
-        }
+        $slug = $this->getBaseSlug($fm, $filepath);
 
-        // Optionally append key if configured and key exists
-        if (config('prezet.slug.keys') && $fm->key) {
+        // Then optionally append the key if configured and key exists
+        if (Config::boolean('prezet.slug.keys') && $fm->key) {
             return $slug.'-'.$fm->key;
         }
 
         return $slug;
+    }
+
+    protected function getBaseSlug(FrontmatterData $fm, string $filepath): string
+    {
+        // If slug is defined in front matter, use it
+        if ($fm->slug) {
+            return $fm->slug;
+        }
+
+        // If source is title, slugify the title
+        if (Config::string('prezet.slug.source') === 'title') {
+            return Str::slug($fm->title);
+        }
+
+        // Otherwise use the file path
+        return Prezet::getSlugFromFilepath($filepath);
     }
 
     protected function getFileContent(string $filePath): string

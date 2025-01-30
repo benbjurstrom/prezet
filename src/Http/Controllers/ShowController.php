@@ -2,9 +2,7 @@
 
 namespace BenBjurstrom\Prezet\Http\Controllers;
 
-use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Prezet;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,15 +10,7 @@ class ShowController
 {
     public function __invoke(Request $request, string $slug): View
     {
-        Prezet::validateSlug($slug);
-
-        $doc = Document::query()
-            ->where('slug', $slug)
-            ->when(config('app.env') !== 'local', function ($query) {
-                return $query->where('draft', false);
-            })
-            ->firstOrFail();
-
+        $doc = Prezet::getDocumentModelFromSlug($slug);
         $nav = Prezet::getSummary();
         $md = Prezet::getMarkdown($doc->filepath);
         $docData = Prezet::getDocumentDataFromFile($doc->filepath);
