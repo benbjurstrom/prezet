@@ -13,9 +13,9 @@ class ShowController
         $doc = Prezet::getDocumentModelFromSlug($slug);
         $nav = Prezet::getSummary();
         $md = Prezet::getMarkdown($doc->filepath);
-        $docData = Prezet::getDocumentDataFromFile($doc->filepath);
         $html = Prezet::parseMarkdown($md)->getContent();
         $headings = Prezet::getHeadings($html);
+        $docData = Prezet::getDocumentDataFromFile($doc->filepath);
         $linkedData = json_encode(Prezet::getLinkedData($docData), JSON_UNESCAPED_SLASHES);
 
         return view('prezet::show', [

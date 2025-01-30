@@ -26,7 +26,7 @@ class UpdateIndex
 
         // Update or create documents
         $docs->each(function (DocumentData $doc) {
-            if(Config::boolean('prezet.slug.keys')){
+            if (Config::boolean('prezet.slug.keys')) {
                 $doc = $this->ensureDocumentHasKey($doc);
             }
 
