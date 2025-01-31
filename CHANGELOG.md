@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.0-rc4](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc3...v1.0.0-rc4) - 2025-01-31
+
+### What's Changed
+
+* 160 fix install when tailwind v3 is present by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/161
+* 162 resolve models via the service container by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/165
+* 166 add tailwind3 flag to installer by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/167
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc3...v1.0.0-rc4
+
 ## [v1.0.0-rc3](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc2...v1.0.0-rc3) - 2025-01-30
 
 ### What's Changed
