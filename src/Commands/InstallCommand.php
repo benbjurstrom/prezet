@@ -145,7 +145,7 @@ class InstallCommand extends Command
 
         $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
     }
-    
+
     protected function copyTailwind3Files(): void
     {
         $this->info('Copying Tailwind3 configuration files');
@@ -156,7 +156,6 @@ class InstallCommand extends Command
 
         $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
     }
-
 
     protected function copyContentStubs(): void
     {
@@ -182,7 +181,7 @@ class InstallCommand extends Command
     protected function installNodeDependencies(): void
     {
         $this->info('Installing node dependencies');
-        
+
         if ($this->option('tailwind3')) {
             $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss@3.x vite-plugin-watch-and-run';
         } else {
