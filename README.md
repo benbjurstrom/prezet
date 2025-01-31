@@ -44,7 +44,7 @@ https://github.com/benbjurstrom/prezet/assets/12499093/771efccc-6ac3-414a-a852-6
 #### Install the Prezet package:
 
 ```bash
-composer require benbjurstrom/prezet:1.0.0-rc3
+composer require benbjurstrom/prezet:1.0.0-rc4
 ```
 
 #### Run the package installer:
@@ -53,6 +53,12 @@ _⚠️ NOTE: For existing applications it is recommended to switch to a clean b
 
 ```bash
 php artisan prezet:install
+```
+
+or if you prefer Tailwind v3
+
+```bash
+artisan prezet:install --tailwind3
 ```
 
 #### Update the index:
