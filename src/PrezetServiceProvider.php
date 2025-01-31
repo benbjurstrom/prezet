@@ -31,6 +31,9 @@ use BenBjurstrom\Prezet\Data\DocumentData;
 use BenBjurstrom\Prezet\Data\FrontmatterData;
 use BenBjurstrom\Prezet\Data\HeadingData;
 use BenBjurstrom\Prezet\Data\YoutubeData;
+use BenBjurstrom\Prezet\Models\Document;
+use BenBjurstrom\Prezet\Models\Heading;
+use BenBjurstrom\Prezet\Models\Tag;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -72,6 +75,13 @@ class PrezetServiceProvider extends PackageServiceProvider
         HeadingData::class => HeadingData::class,
         FrontmatterData::class => FrontmatterData::class,
         YoutubeData::class => YoutubeData::class,
+
+        /**
+         * Model Class Bindings
+         */
+        Document::class => Document::class,
+        Heading::class => Heading::class,
+        Tag::class => Tag::class,
     ];
 
     public function configurePackage(Package $package): void
