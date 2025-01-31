@@ -13,7 +13,7 @@ class GetDocumentModelFromSlug
     {
         $this->validateSlug($slug);
 
-        return Document::query()
+        return app(Document::class)::query()
             ->where('slug', $slug)
             ->when(app()->isProduction(), function ($query) {
                 return $query->where('draft', false);
@@ -24,7 +24,7 @@ class GetDocumentModelFromSlug
     protected function validateSlug(string $input): void
     {
         // first check if the given slug exists
-        if (Document::query()
+        if (app(Document::class)::query()
             ->where('slug', $input)
             ->exists()) {
             return;
@@ -48,7 +48,7 @@ class GetDocumentModelFromSlug
         }
 
         $key = last(explode('-', $input));
-        $doc = Document::query()
+        $doc = app(Document::class)::query()
             ->where('key', $key)
             ->first();
 
@@ -68,7 +68,7 @@ class GetDocumentModelFromSlug
         }
 
         $filepath = 'content/'.$input.'.md';
-        $doc = Document::query()
+        $doc = app(Document::class)::query()
             ->where('filepath', $filepath)
             ->first();
 
