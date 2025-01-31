@@ -13,7 +13,7 @@ class SearchHeadings
      */
     public function handle(string $query): Collection
     {
-        return Heading::where('text', 'LIKE', "%{$query}%")
+        return app(Heading::class)::where('text', 'LIKE', "%{$query}%")
             ->with('document')
             ->whereRelation('document', 'draft', false)
             ->limit(5)

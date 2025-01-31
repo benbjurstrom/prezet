@@ -15,7 +15,7 @@ class IndexController
         $category = $request->input('category');
         $tag = $request->input('tag');
 
-        $query = Document::where('draft', false);
+        $query = app(Document::class)::where('draft', false);
 
         if ($category) {
             $query->where('category', $category);

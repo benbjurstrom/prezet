@@ -23,7 +23,7 @@ class OgimageCommand extends Command
         }
 
         $slugs = $this->option('all')
-            ? Document::all()->pluck('slug')
+            ? app(Document::class)::all()->pluck('slug')
             : collect([$this->argument('slug')]);
 
         $slugs->each(function ($slug) {

@@ -59,7 +59,7 @@ class UpdateIndex
      */
     protected function removeDeletedDocuments(array $currentPaths): void
     {
-        Document::whereNotIn('filepath', $currentPaths)->each(function (Document $document) {
+        app(Document::class)::whereNotIn('filepath', $currentPaths)->each(function (Document $document) {
             // This will automatically delete related headings due to cascade
             $document->tags()->detach();
             $document->delete();
@@ -69,7 +69,7 @@ class UpdateIndex
     protected function upsertDocument(DocumentData $docData): void
     {
         // Check if document exists with same filepath and hash
-        $existingDoc = Document::where('filepath', $docData->filepath)
+        $existingDoc = app(Document::class)::where('filepath', $docData->filepath)
             ->where('hash', $docData->hash)
             ->first();
 
@@ -79,7 +79,7 @@ class UpdateIndex
         }
 
         // Find document by filepath to update, or create new one
-        $document = Document::where('filepath', $docData->filepath)->first() ?? new Document;
+        $document = app(Document::class)::where('filepath', $docData->filepath)->first() ?? new Document;
 
         $this->updateDocumentAttributes($document, $docData);
         $this->updateHeadings($document, $docData->content);
@@ -129,7 +129,7 @@ class UpdateIndex
 
         // Insert new headings
         foreach ($headings as $heading) {
-            Heading::create([
+            app(Heading::class)::create([
                 'document_id' => $document->id,
                 'text' => $heading['text'],
                 'level' => $heading['level'],
@@ -147,7 +147,7 @@ class UpdateIndex
         $document->tags()->detach();
 
         foreach ($tags as $tag) {
-            $t = Tag::firstOrCreate(
+            $t = app(Tag::class)::firstOrCreate(
                 ['name' => strtolower($tag)]
             );
 
@@ -160,7 +160,7 @@ class UpdateIndex
      */
     protected function cleanupOrphanedTags(): void
     {
-        Tag::whereDoesntHave('documents')->delete();
+        app(Tag::class)::whereDoesntHave('documents')->delete();
     }
 
     private function ensureDatabaseExists(): void

@@ -69,7 +69,7 @@ class GetDocumentDataFromFile
 
     protected function unchanged(string $hash, string $filePath, string $content): ?DocumentData
     {
-        $doc = Document::query()->where([
+        $doc = app(Document::class)::query()->where([
             'hash' => $hash,
             'filepath' => $filePath,
         ])->first();

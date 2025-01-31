@@ -9,7 +9,7 @@ class OgimageController
 {
     public function __invoke(string $slug): View
     {
-        $doc = Document::query()
+        $doc = app(Document::class)::query()
             ->where('slug', $slug)
             ->when(config('app.env') !== 'local', function ($query) {
                 return $query->where('draft', false);

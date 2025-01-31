@@ -14,7 +14,7 @@ class UpdateSitemap
     {
         $this->ensureRoutesAreRegistered();
 
-        $docs = Document::query()
+        $docs = app(Document::class)::query()
             ->orderBy('date', 'desc')
             ->where('draft', false)
             ->get();

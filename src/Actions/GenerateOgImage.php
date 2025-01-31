@@ -12,7 +12,7 @@ class GenerateOgImage
 {
     public function handle(string $slug): string
     {
-        $doc = Document::where('slug', $slug)->firstOrFail();
+        $doc = app(Document::class)::where('slug', $slug)->firstOrFail();
 
         $fileSlug = Prezet::getSlugFromFilepath($doc->filepath);
 
