@@ -10,7 +10,7 @@ class InstallCommand extends Command
 {
     use RunsCommands;
 
-    public $signature = 'prezet:install {--force : Force the operation without confirmation}';
+    public $signature = 'prezet:install {--force : Force the operation without confirmation} {--tailwind3 : Install Tailwind CSS v3 instead of v4}';
 
     public $description = 'Installs the Prezet package';
 
@@ -97,7 +97,8 @@ class InstallCommand extends Command
             $this->addRoutes();
             $this->copyContentStubs();
             $this->publishVendorFiles();
-            $this->copyTailwindFiles();
+            $this->option('tailwind3') ? $this->copyTailwind3Files() : $this->copyTailwindFiles();
+
             $this->installNodeDependencies();
 
             // run in separate process so config changes above are applied
@@ -136,7 +137,7 @@ class InstallCommand extends Command
 
     protected function copyTailwindFiles(): void
     {
-        $this->info('Copying prezet.css, postcss.config.js, and vite.config.js');
+        $this->info('Copying Tailwind configuration files');
         $this->files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
         $this->files->copy(__DIR__.'/../../stubs/app.css', resource_path('css/app.css'));
         $this->files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
@@ -144,6 +145,18 @@ class InstallCommand extends Command
 
         $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
     }
+    
+    protected function copyTailwind3Files(): void
+    {
+        $this->info('Copying Tailwind3 configuration files');
+        $this->files->copy(__DIR__.'/../../stubs/tailwind3/tailwind.prezet.config.js', base_path('tailwind.prezet.config.js'));
+        $this->files->copy(__DIR__.'/../../stubs/tailwind3/postcss.config.js', base_path('postcss.config.js'));
+        $this->files->copy(__DIR__.'/../../stubs/tailwind3/prezet.css', resource_path('css/prezet.css'));
+        $this->files->copy(__DIR__.'/../../stubs/tailwind3/vite.config.js', base_path('vite.config.js'));
+
+        $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
+    }
+
 
     protected function copyContentStubs(): void
     {
@@ -169,7 +182,12 @@ class InstallCommand extends Command
     protected function installNodeDependencies(): void
     {
         $this->info('Installing node dependencies');
-        $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography @tailwindcss/vite tailwindcss@4 vite-plugin-watch-and-run @tailwindcss/postcss';
+        
+        if ($this->option('tailwind3')) {
+            $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss@3.x vite-plugin-watch-and-run';
+        } else {
+            $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography @tailwindcss/vite tailwindcss@4 vite-plugin-watch-and-run @tailwindcss/postcss';
+        }
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {
             $bin = 'pnpm';
