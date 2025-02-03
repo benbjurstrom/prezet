@@ -139,9 +139,15 @@ class InstallCommand extends Command
     {
         $this->info('Copying Tailwind configuration files');
         $this->files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
-        $this->files->copy(__DIR__.'/../../stubs/app.css', resource_path('css/app.css'));
         $this->files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
         $this->files->copy(__DIR__.'/../../stubs/vite.config.js', base_path('vite.config.js'));
+
+        // Copy appropriate app.css based on whether tailwind.config.js exists
+        if (file_exists(base_path('tailwind.config.js'))) {
+            $this->files->copy(__DIR__.'/../../stubs/app-config.css', resource_path('css/app.css'));
+        } else {
+            $this->files->copy(__DIR__.'/../../stubs/app.css', resource_path('css/app.css'));
+        }
 
         $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
     }
