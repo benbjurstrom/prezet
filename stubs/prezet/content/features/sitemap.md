@@ -2,11 +2,11 @@
 title: Automated Sitemap Generation
 date: 2024-07-22
 category: Features
-excerpt: Automatically generate sitemaps for your markdown-based blog using Prezet. This feature leverages the Spatie sitemap package to create XML sitemaps, enhancing your site's SEO and making it easier for search engines to crawl and index your content.
+excerpt: Automatically generate sitemaps for your Prezet-powered blog.
 image: /prezet/img/ogimages/features-sitemap.webp
 ---
 
-Prezet includes a sitemap generation feature, allowing you to easily create and maintain sitemaps for your markdown-based blog. This feature leverages the [Spatie sitemap package](https://github.com/spatie/laravel-sitemap) to generate XML sitemaps, enhancing your site's SEO and making it easier for search engines to crawl and index your content.
+Prezet includes a sitemap generation feature, allowing you to easily create and maintain sitemaps for your markdown-based blog. This feature leverages a lightweight fork of the [Spatie sitemap package](https://github.com/benbjurstrom/laravel-sitemap-lite) to generate XML sitemaps, enhancing your site's SEO and making it easier for search engines to crawl and index your content.
 
 ## Automatic Generation
 

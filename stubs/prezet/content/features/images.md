@@ -1,16 +1,46 @@
 ---
-title: Automatic Image Optimization
+title: Working with Images in Prezet
 date: 2024-05-06
 category: Features
-excerpt: Prezet automatically optimizes images in your markdown files for responsive, efficient loading. Learn how it works and how to customize the settings.
+excerpt: Learn about Prezet's powerful image features including automatic optimization and interactive zoom capabilities.
 image: /prezet/img/ogimages/features-images.webp
 ---
 
-Prezet offers image optimization capabilities out of the box, enhancing your markdown-based blog with responsive, efficiently-loaded images like the one below.
+Prezet offers comprehensive image handling capabilities out of the box, enhancing your markdown-based blog with both responsive, efficiently-loaded images and interactive viewing features.
 
-![](images-20240509210223449.webp)
+## Zoomable Images
 
-## How It Works
+All images in your Prezet blog are automatically enhanced with zoom functionality powered by [alpinejs-zoomable](https://github.com/benbjurstrom/alpinejs-zoomable). This feature allows readers to click on any image to open a fullscreen view where they can zoom and pan to examine details more closely.
+
+Try it out with this example - click the image below to see the zoomed version where you can better read the configuration details:
+
+![Example of a complex configuration file with small text](images-20240509210223449.webp)
+
+When you click an image, you'll notice:
+- The image opens in a fullscreen overlay
+- You can zoom in/out using the buttons or mouse wheel
+- You can pan around the zoomed image by dragging
+- The overlay can be closed by clicking outside the image or using the close button
+
+### Disabling Zoomable Images
+
+If you prefer not to have zoomable images, you can disable this feature in your `config/prezet.php` file:
+
+```php
+'image' => [
+    'widths' => [
+        480, 640, 768, 960, 1536,
+    ],
+    'sizes' => '92vw, (max-width: 1024px) 92vw, 768px',
+    'zoomable' => false, // Disable zoomable images
+],
+```
+
+## Automatic Image Optimization
+
+In addition to zoom functionality, Prezet automatically optimizes your images for the web using responsive loading techniques.
+
+### How Optimization Works
 
 When you include a locally referenced image in your markdown file, Prezet's custom CommonMark extension, `MarkdownImageExtension`, transforms the standard image tag into a responsive, optimized version.
 
@@ -36,6 +66,8 @@ Prezet will convert this into an HTML tag with responsive image attributes:
     alt=""
 />
 ```
+
+This optimization works seamlessly with the zoom functionality - when you open an image in the fullscreen viewer, it automatically loads the highest resolution version from the srcset, ensuring optimal quality for detailed viewing.
 
 ## Image Controller
 
@@ -114,6 +146,7 @@ You can customize the image optimization settings in the `config/prezet.php` fil
         480, 640, 768, 960, 1536,
     ],
     'sizes' => '92vw, (max-width: 1024px) 92vw, 768px',
+    'zoomable' => true
 ],
 ```
 

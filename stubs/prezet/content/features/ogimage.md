@@ -2,7 +2,7 @@
 title: Automating OG Images with Prezet
 date: 2024-05-07
 category: Features
-excerpt: This article covers how to automatically generate Open Graph images for your blog posts using Prezet. Learn how to customize the OG image template and troubleshoot common issues.
+excerpt: Prezet automates the creation of Open Graph images for your blog posts.
 image: /prezet/img/ogimages/features-ogimage.webp
 ---
 
@@ -35,19 +35,21 @@ The `image` field should contain the URL path to your image. For more details on
 
 ## Automatic OG Image Generation
 
+While manually specifying ogimages gives you full control, Prezet's automatic OG image generation saves time and ensures consistency across your blog.
+
 ```html +parse
 <x-prezet::alert
     type="info"
-    title="Browsershot Requirement"
-    body="OG image generation requires Browsershot to be properly set up in your Laravel environment."
+    title="Puppeteer Requirement"
+    body="OG image generation relies on the Spatie Browsershot package which in turn requires the Puppeteer Node library."
 />
 ```
 
-While manually specifying ogimages gives you full control, Prezet's automatic OG image generation saves time and ensures consistency across your blog. Here's how it works:
+For more information about the requirements refer to the [Browsershot documentation](https://spatie.be/docs/browsershot/v4/requirements).
 
 ### The OgimageCommand
 
-This Artisan command generates OG images for your blog posts. You can use it in two ways:
+Prezet provides an artisan command to generate OG images for your blog posts. You can use it in two ways:
 
 1. For a specific markdown file:
    ```
