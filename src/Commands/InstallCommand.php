@@ -138,7 +138,12 @@ class InstallCommand extends Command
     protected function copyTailwindFiles(): void
     {
         $this->info('Copying Tailwind configuration files');
-        $this->files->copy(__DIR__.'/../../stubs/postcss.config.js', base_path('postcss.config.js'));
+
+        // Remove postcss.config.js if it exists, we'll be using the vite plugin
+        if (file_exists(base_path('postcss.config.js'))) {
+            $this->files->delete(base_path('postcss.config.js'));
+        }
+
         $this->files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
         $this->files->copy(__DIR__.'/../../stubs/vite.config.js', base_path('vite.config.js'));
 
@@ -191,7 +196,7 @@ class InstallCommand extends Command
         if ($this->option('tailwind3')) {
             $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss@3.x vite-plugin-watch-and-run';
         } else {
-            $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography @tailwindcss/vite tailwindcss@4 vite-plugin-watch-and-run @tailwindcss/postcss';
+            $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography @tailwindcss/vite tailwindcss@4 vite-plugin-watch-and-run';
         }
 
         if (file_exists(base_path('pnpm-lock.yaml'))) {

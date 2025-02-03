@@ -3,6 +3,7 @@
 @plugin '@tailwindcss/forms';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source "../views";
 
 @theme {
     --font-sans: Figtree, ui-sans-serif, system-ui, sans-serif,
