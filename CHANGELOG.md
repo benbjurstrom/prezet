@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.0-rc5](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc4...v1.0.0-rc5) - 2025-02-03
+
+### What's Changed
+
+* 170 fix install on windows by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/171
+* 169 fix tw4 install without tailwind config by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/172
+* 173 update bundled markdown files by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/174
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc4...v1.0.0-rc5
+
 ## [v1.0.0-rc4](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc3...v1.0.0-rc4) - 2025-01-31
 
 ### What's Changed
