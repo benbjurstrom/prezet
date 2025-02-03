@@ -28,7 +28,7 @@ class IndexController
         }
 
         $nav = Prezet::getSummary();
-        $docs = $query->orderBy('date', 'desc')
+        $docs = $query->orderBy('created_at', 'desc')
             ->paginate(4);
 
         $docsData = $docs->map(fn (Document $doc) => app(DocumentData::class)::fromModel($doc));

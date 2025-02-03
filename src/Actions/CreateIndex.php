@@ -23,14 +23,27 @@ class CreateIndex
             DB::purge('prezet');
 
             $this->runMigrations($tempPath);
+
+            // Ensure the SQLite connection is properly closed to release locks
+            DB::connection('prezet')->disconnect();
+
             $this->ensureDirectoryExists($originalPath);
 
-            if (! rename($tempPath, $originalPath)) {
-                throw new \RuntimeException("Failed to move database from {$tempPath} to {$originalPath}");
+            // Retry mechanism for handling file locks.
+            $maxRetries = 5;
+            $retryDelay = 200; // milliseconds
+            for ($i = 0; $i < $maxRetries; $i++) {
+                if (rename($tempPath, $originalPath)) {
+                    break;
+                }
+                usleep($retryDelay * 1000);
+            }
+
+            if (! file_exists($originalPath)) {
+                throw new \RuntimeException("Failed to move database from {$tempPath} to {$originalPath} after {$maxRetries} retries.");
             }
 
             Log::info('Successfully created new prezet index');
-
         } catch (\Exception $e) {
             Log::error('Failed to create prezet index', [
                 'error' => $e->getMessage(),
@@ -46,6 +59,7 @@ class CreateIndex
                 unlink($tempPath);
             }
         }
+
     }
 
     protected function ensureDirectoryExists(string $path): void
