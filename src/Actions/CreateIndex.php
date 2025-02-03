@@ -24,12 +24,12 @@ class CreateIndex
 
             $this->runMigrations($tempPath);
 
-            // Ensure the SQLite connection is properly closed to release locks.
+            // Ensure the SQLite connection is properly closed to release locks
             DB::connection('prezet')->disconnect();
 
             $this->ensureDirectoryExists($originalPath);
 
-            // Retry mechanism for handling Windows file locks.
+            // Retry mechanism for handling file locks.
             $maxRetries = 5;
             $retryDelay = 200; // milliseconds
             for ($i = 0; $i < $maxRetries; $i++) {
