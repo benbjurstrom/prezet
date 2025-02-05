@@ -81,7 +81,7 @@
                 @endforeach
             </ul>
             <div class="pt-12">
-                {{ $paginator->links() }}
+                {{ $paginator->appends(request()->query())->links() }}
             </div>
         </div>
     </section>
