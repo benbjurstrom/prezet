@@ -5,7 +5,11 @@ declare(strict_types=1);
 use BenBjurstrom\Prezet\SEO\SEOManager;
 
 if (! function_exists('seo')) {
-    function seo(string|array $key = null): SEOManager|string|array|null
+    /**
+     * @param  string|array<string, string|null>|null  $key
+     * @return SEOManager|string|array<string, string|null>|null
+     */
+    function seo(string|array|null $key = null): SEOManager|string|array|null
     {
         if ($key === null) {
             return app('seo');
@@ -18,4 +22,4 @@ if (! function_exists('seo')) {
         // String key
         return app('seo')->get($key);
     }
-} 
+}

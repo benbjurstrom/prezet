@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace BenBjurstrom\Prezet\SEO;
 
 use Closure;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 /**
@@ -58,9 +57,9 @@ class SEOManager
     protected function getKeys(): array
     {
         return collect([
-                'site', 'title', 'image', 'description', 'url', 'type', 'locale',
-                'twitter.creator', 'twitter.site', 'twitter.title', 'twitter.image', 'twitter.description',
-            ])
+            'site', 'title', 'image', 'description', 'url', 'type', 'locale',
+            'twitter.creator', 'twitter.site', 'twitter.title', 'twitter.image', 'twitter.description',
+        ])
             ->merge(array_keys($this->defaults))
             ->merge(array_keys($this->values))
             ->unique()
@@ -80,7 +79,7 @@ class SEOManager
     }
 
     /** Get a modified value. */
-    protected function modify(string $key): string|null
+    protected function modify(string $key): ?string
     {
         return isset($this->modifiers[$key])
             ? $this->modifiers[$key](value($this->values[$key]))
@@ -90,7 +89,7 @@ class SEOManager
     /**
      * Set one or more values.
      *
-     * @param string|array<string, string> $key
+     * @param  string|array<string, string>  $key
      */
     public function set(string|array $key, string|Closure|null $value = null): string|array|null
     {
@@ -115,7 +114,7 @@ class SEOManager
     }
 
     /** Resolve a value. */
-    public function get(string $key): string|null
+    public function get(string $key): ?string
     {
         return isset($this->values[$key])
             ? $this->modify($key)
@@ -125,7 +124,7 @@ class SEOManager
     }
 
     /** Get a value without modifications. */
-    public function raw(string $key): string|null
+    public function raw(string $key): ?string
     {
         return isset($this->values[$key])
             ? value($this->values[$key])
@@ -135,7 +134,7 @@ class SEOManager
     }
 
     /** Configure an extension. */
-    public function extension(string $name, bool $enabled = true, string $view = null): static
+    public function extension(string $name, bool $enabled = true, ?string $view = null): static
     {
         $this->extensions[$name] = $enabled;
 
@@ -153,7 +152,7 @@ class SEOManager
             ->filter(fn (bool $enabled) => $enabled)
             ->keys()
             ->mapWithKeys(fn (string $extension) => [
-                $extension => $this->meta("extensions.$extension.view") ?? ('prezet::components.seo.extensions.' . $extension),
+                $extension => $this->meta("extensions.$extension.view") ?? ('prezet::components.seo.extensions.'.$extension),
             ])
             ->toArray();
     }
@@ -162,7 +161,7 @@ class SEOManager
     public function withUrl(?string $origin = null): static
     {
         if ($origin) {
-            $this->url(trim($origin, '/') . '/' . trim(request()->path(), '/'));
+            $this->url(trim($origin, '/').'/'.trim(request()->path(), '/'));
         } else {
             $this->url(request()->url());
         }
@@ -189,7 +188,7 @@ class SEOManager
     }
 
     /** Add a head tag. */
-    public function rawTag(string $key, string $tag = null): static
+    public function rawTag(string $key, ?string $tag = null): static
     {
         $tag ??= $key;
 
@@ -210,11 +209,12 @@ class SEOManager
 
     /**
      * Get or set metadata.
-     * @param string|array $key The key or key-value pair being set.
-     * @param string|array|null $value The value (if a single key is provided).
+     *
+     * @param  string|array  $key  The key or key-value pair being set.
+     * @param  string|array|null  $value  The value (if a single key is provided).
      * @return $this|string|null
      */
-    public function meta(string|array $key, string|array $value = null): mixed
+    public function meta(string|array $key, string|array|null $value = null): mixed
     {
         if (is_array($key)) {
             /** @var array<string, string> $key */
@@ -294,7 +294,7 @@ class SEOManager
     }
 
     /** Handle magic get. */
-    public function __get(string $key): string|null
+    public function __get(string $key): ?string
     {
         return $this->get(Str::snake($key, '.'));
     }

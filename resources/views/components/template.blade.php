@@ -6,7 +6,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-        <x-prezet::seo.meta />
+        <x-prezet::meta />
 
         <!-- Scripts -->
         <script
