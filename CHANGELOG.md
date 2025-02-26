@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.0-rc6](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc5...v1.0.0-rc6) - 2025-02-26
+
+### What's Changed
+
+* 175 fix ogimages by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/176
+* 179 drop seo dependency by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/180
+* Retain other query parameters in the paginator by @edjw in https://github.com/benbjurstrom/prezet/pull/177
+* 181 laravel 12 support by @benbjurstrom in https://github.com/benbjurstrom/prezet/pull/182
+
+### New Contributors
+
+* @edjw made their first contribution in https://github.com/benbjurstrom/prezet/pull/177
+
+**Full Changelog**: https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc5...v1.0.0-rc6
+
 ## [v1.0.0-rc5](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc4...v1.0.0-rc5) - 2025-02-03
 
 ### What's Changed
