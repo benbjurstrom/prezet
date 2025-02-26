@@ -34,6 +34,8 @@ use BenBjurstrom\Prezet\Data\YoutubeData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
+use BenBjurstrom\Prezet\Services\Seo;
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -83,6 +85,22 @@ class PrezetServiceProvider extends PackageServiceProvider
         Heading::class => Heading::class,
         Tag::class => Tag::class,
     ];
+
+    public function register(): void
+    {
+        parent::register();
+
+        $this->app->scoped('seo', Seo::class);
+    }
+
+    public function boot(): void
+    {
+        parent::boot();
+
+        Blade::directive('seo', function ($expression) {
+            return "<?php echo seo()->render($expression); ?>";
+        });
+    }
 
     public function configurePackage(Package $package): void
     {

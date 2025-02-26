@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Tests;
 
-use ArchTech\SEO\SEOServiceProvider;
 use BenBjurstrom\Prezet\PrezetServiceProvider;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +18,6 @@ class TestCase extends Orchestra
     {
         return [
             PrezetServiceProvider::class,
-            SEOServiceProvider::class,
         ];
     }
 

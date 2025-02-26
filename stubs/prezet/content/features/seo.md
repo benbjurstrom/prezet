@@ -48,11 +48,11 @@ To help you visualize the SEO metadata for your pages, Prezet includes a blade c
 You can use this component in your templates as follows:
 
     ```html +parse
-    <x-prezet::meta></x-prezet::meta>
+    <x-prezet::metacard></x-prezet::metacard>
     ```
 
 Here's what it looks like rendered on this page:
 
 ```html +parse
-<x-prezet::meta></x-prezet::meta>
+<x-prezet::metacard></x-prezet::metacard>
 ```
