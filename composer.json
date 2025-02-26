@@ -45,7 +45,7 @@
             "BenBjurstrom\\Prezet\\": "src/"
         },
         "files": [
-            "src/SEO/helpers.php"
+            "src/helpers.php"
         ]
     },
     "autoload-dev": {

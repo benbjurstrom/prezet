@@ -1,13 +1,13 @@
 <?php
 
-use BenBjurstrom\Prezet\SEO\SEOManager;
+use BenBjurstrom\Prezet\Services\Seo;
 
 test('set returns the set value', function () {
     expect(seo()->set('foo', 'bar'))->toBe('bar');
 });
 
 test('the __call proxy is chainable', function () {
-    expect(seo()->foo('bar'))->toBeInstanceOf(SEOManager::class);
+    expect(seo()->foo('bar'))->toBeInstanceOf(Seo::class);
 });
 
 test('default values can be set in the proxy call', function () {
@@ -71,7 +71,7 @@ test('thunks can be used as defaults', function () {
 });
 
 test('setting the defaults returns the manager instance', function () {
-    expect(seo()->title(default: 'foo'))->toBeInstanceOf(SEOManager::class);
+    expect(seo()->title(default: 'foo'))->toBeInstanceOf(Seo::class);
 });
 
 test('meta tags can be added to the template', function () {
@@ -206,7 +206,7 @@ test('modifiers can be bypassed by using the raw method', function () {
 });
 
 test('the seo helper returns a SEOManager instance when no arguments are passed', function () {
-    expect(seo())->toBeInstanceOf(SEOManager::class);
+    expect(seo())->toBeInstanceOf(Seo::class);
 });
 
 test('the seo helper returns a value when an argument is passed', function () {

@@ -4,3 +4,23 @@ parameters:
 			message: "#^Parameter \\#1 \\$currentPaths of method BenBjurstrom\\\\Prezet\\\\Actions\\\\UpdateIndex\\:\\:removeDeletedDocuments\\(\\) expects array\\<int, string\\>, array given\\.$#"
 			count: 1
 			path: src/Actions/UpdateIndex.php
+
+		-
+			message: "#^Method BenBjurstrom\\\\Prezet\\\\Services\\\\Seo\\:\\:all\\(\\) should return array\\<string, string\\|null\\> but returns array\\.$#"
+			count: 1
+			path: src/Services/Seo.php
+
+		-
+			message: "#^Method BenBjurstrom\\\\Prezet\\\\Services\\\\Seo\\:\\:getKeys\\(\\) should return array\\<int, string\\> but returns array\\.$#"
+			count: 1
+			path: src/Services/Seo.php
+
+		-
+			message: "#^Method BenBjurstrom\\\\Prezet\\\\Services\\\\Seo\\:\\:set\\(\\) should return array\\<string, string\\|null\\>\\|string\\|null but returns array\\.$#"
+			count: 1
+			path: src/Services/Seo.php
+
+		-
+			message: "#^Right side of \\|\\| is always false\\.$#"
+			count: 1
+			path: src/Services/Seo.php

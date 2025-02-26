@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-use BenBjurstrom\Prezet\SEO\SEOManager;
+use BenBjurstrom\Prezet\Services\Seo;
 
 if (! function_exists('seo')) {
     /**
-     * @param array<string, string>|string $key
-     * @return SEOManager|string|array<string, string|null>|null
+     * @param  array<string, string>|string  $key
+     * @return Seo|string|array<string, string|null>|null
      */
-    function seo(string|array|null $key = null): SEOManager|string|array|null
+    function seo(string|array|null $key = null): Seo|string|array|null
     {
         if ($key === null) {
             return app('seo');

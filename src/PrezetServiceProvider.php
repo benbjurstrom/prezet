@@ -34,7 +34,7 @@ use BenBjurstrom\Prezet\Data\YoutubeData;
 use BenBjurstrom\Prezet\Models\Document;
 use BenBjurstrom\Prezet\Models\Heading;
 use BenBjurstrom\Prezet\Models\Tag;
-use BenBjurstrom\Prezet\SEO\SEOManager;
+use BenBjurstrom\Prezet\Services\Seo;
 use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -90,7 +90,7 @@ class PrezetServiceProvider extends PackageServiceProvider
     {
         parent::register();
 
-        $this->app->scoped('seo', SEOManager::class);
+        $this->app->scoped('seo', Seo::class);
     }
 
     public function boot(): void
