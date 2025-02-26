@@ -44,7 +44,7 @@ https://github.com/benbjurstrom/prezet/assets/12499093/771efccc-6ac3-414a-a852-6
 #### Install the Prezet package:
 
 ```bash
-composer require benbjurstrom/prezet:1.0.0-rc5
+composer require benbjurstrom/prezet:1.0.0-rc6
 ```
 
 #### Run the package installer:
