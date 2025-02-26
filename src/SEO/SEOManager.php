@@ -16,7 +16,6 @@ use Illuminate\Support\Str;
  * @method $this image(string $url = null, ...$args) Set the cover image.
  * @method $this type(string $type = null, ...$args) Set the page type.
  * @method $this locale(string $locale = null, ...$args) Set the page locale.
- * @method $this twitter(bool $enabled = true, ...$args) Enable the Twitter extension.
  * @method $this twitterCreator(string $username = null, ...$args) Set the Twitter author.
  * @method $this twitterSite(string $username = null, ...$args) Set the Twitter author.
  * @method $this twitterTitle(string $title = null, ...$args) Set the Twitter title.
@@ -33,11 +32,6 @@ class SEOManager
 
     /** User-configured values. */
     protected array $values = [];
-
-    /** List of extensions. */
-    protected array $extensions = [
-        'twitter' => false,
-    ];
 
     /** Metadata for additional features. */
     protected array $meta = [];
@@ -63,18 +57,6 @@ class SEOManager
             ->merge(array_keys($this->defaults))
             ->merge(array_keys($this->values))
             ->unique()
-            ->filter(function (string $key) {
-                if (count($parts = explode('.', $key)) > 1) {
-                    if (isset($this->extensions[$parts[0]])) {
-                        // Is the extension allowed?
-                        return $this->extensions[$parts[0]];
-                    }
-
-                    return false;
-                }
-
-                return true;
-            })
             ->toArray();
     }
 
@@ -106,10 +88,6 @@ class SEOManager
 
         $this->values[$key] = $value;
 
-        if (Str::contains($key, '.')) {
-            $this->extension(Str::before($key, '.'), enabled: true);
-        }
-
         return $this->get($key);
     }
 
@@ -133,38 +111,10 @@ class SEOManager
             ));
     }
 
-    /** Configure an extension. */
-    public function extension(string $name, bool $enabled = true, ?string $view = null): static
-    {
-        $this->extensions[$name] = $enabled;
-
-        if ($view) {
-            $this->meta("extensions.$name.view", $view);
-        }
-
-        return $this;
-    }
-
-    /** Get a list of enabled extensions. */
-    public function extensions(): array
-    {
-        return collect($this->extensions)
-            ->filter(fn (bool $enabled) => $enabled)
-            ->keys()
-            ->mapWithKeys(fn (string $extension) => [
-                $extension => $this->meta("extensions.$extension.view") ?? ('prezet::components.seo.extensions.'.$extension),
-            ])
-            ->toArray();
-    }
-
     /** Append canonical URL tags to the document head. */
-    public function withUrl(?string $origin = null): static
+    public function withUrl(): static
     {
-        if ($origin) {
-            $this->url(trim($origin, '/').'/'.trim(request()->path(), '/'));
-        } else {
-            $this->url(request()->url());
-        }
+        $this->url(request()->url());
 
         return $this;
     }
@@ -202,7 +152,7 @@ class SEOManager
     {
         $content = e($content);
 
-        $this->rawTag("meta.{$property}", "<meta property=\"{$property}\" content=\"{$content}\" />");
+        $this->rawTag("meta.{$property}", "<meta property=\"{$property}\" content=\"{$content}\">");
 
         return $this;
     }
@@ -263,10 +213,6 @@ class SEOManager
     /** Handle magic method calls. */
     public function __call(string $name, array $arguments): string|array|null|static
     {
-        if (isset($this->extensions[$name])) {
-            return $this->extension($name, $arguments[0] ?? true);
-        }
-
         $key = Str::snake($name, '.');
 
         if (isset($arguments['default'])) {

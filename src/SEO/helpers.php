@@ -6,7 +6,7 @@ use BenBjurstrom\Prezet\SEO\SEOManager;
 
 if (! function_exists('seo')) {
     /**
-     * @param  string|array<string, string|null>|null  $key
+     * @param array<string, string>|string $key
      * @return SEOManager|string|array<string, string|null>|null
      */
     function seo(string|array|null $key = null): SEOManager|string|array|null
