@@ -296,11 +296,12 @@ class InstallCommand extends Command
 
         foreach ($files as $file) {
             $fileName = $file->getFilename();
-            $destinationPath = $destinationDir . '/' . $fileName;
+            $destinationPath = $destinationDir.'/'.$fileName;
 
             // Skip if file already exists in destination
             if ($this->files->exists($destinationPath)) {
                 $this->line("  - Skipping {$fileName}: already exists in destination.");
+
                 continue;
             }
 
