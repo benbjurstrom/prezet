@@ -96,6 +96,7 @@ class InstallCommand extends Command
             $this->addDatabase();
             $this->addRoutes();
             $this->copyContentStubs();
+            $this->copyControllers();
             $this->publishVendorFiles();
             $this->option('tailwind3') ? $this->copyTailwind3Files() : $this->copyTailwindFiles();
 
@@ -117,9 +118,22 @@ class InstallCommand extends Command
     {
         $source = __DIR__.'/../../routes/prezet.php';
         $destination = base_path('routes/prezet.php');
+
         if (! $this->files->exists($destination)) {
             $this->info('Copying prezet routes');
-            $this->files->copy($source, $destination);
+
+            // Read the source file content
+            $content = $this->files->get($source);
+
+            // Replace the controller namespace in the use statements
+            $content = str_replace(
+                'use BenBjurstrom\Prezet\Http\Controllers\\',
+                'use App\Http\Controllers\Prezet\\',
+                $content
+            );
+
+            // Write the modified content to the destination file
+            $this->files->put($destination, $content);
         }
 
         $include = "require __DIR__.'/prezet.php';";
@@ -263,6 +277,48 @@ class InstallCommand extends Command
             $disksPosition += strlen("'disks' => [");
             $newConfig = substr_replace($config, $diskConfig, $disksPosition, 0);
             file_put_contents($configFile, $newConfig);
+        }
+    }
+
+    protected function copyControllers(): void
+    {
+        $sourceDir = __DIR__.'/../../src/Http/Controllers';
+        $destinationDir = app_path('Http/Controllers/Prezet');
+
+        if (! $this->files->isDirectory($destinationDir)) {
+            $this->files->makeDirectory($destinationDir, 0755, true);
+        }
+
+        $this->info('Copying controllers to app/Http/Controllers/Prezet');
+
+        // Get all PHP files in the source directory
+        $files = $this->files->files($sourceDir);
+
+        foreach ($files as $file) {
+            $fileName = $file->getFilename();
+            $destinationPath = $destinationDir.'/'.$fileName;
+
+            // Skip if file already exists in destination
+            if ($this->files->exists($destinationPath)) {
+                $this->line("  - Skipping {$fileName}: already exists in destination.");
+
+                continue;
+            }
+
+            // Read the file content
+            $content = $this->files->get($file->getPathname());
+
+            // Replace the namespace
+            $content = str_replace(
+                'namespace BenBjurstrom\Prezet\Http\Controllers;',
+                'namespace App\Http\Controllers\Prezet;',
+                $content
+            );
+
+            // Write the modified content to the destination file
+            $this->files->put($destinationPath, $content);
+
+            $this->line("  - Copied {$fileName}");
         }
     }
 }
