@@ -1,7 +1,5 @@
 .idea
 .phpunit.cache
-.prettierignore
-.prettierrc
 build
 composer.lock
 coverage
@@ -13,5 +11,4 @@ pnpm-lock.yaml
 testbench.yaml
 vendor
 node_modules
-stubs/prezet/.obsidian
-stubs/prezet.sqlite
+tests/Resources/prezet.sqlite
