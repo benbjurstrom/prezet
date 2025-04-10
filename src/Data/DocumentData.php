@@ -71,7 +71,7 @@ class DocumentData extends ValidatedDTO
     protected function casts(): array
     {
         $fmData = get_class(app(FrontmatterData::class));
-        if(!$fmData) {
+        if (! $fmData) {
             throw new \Exception("Class {$fmData} does not exist");
         }
 
