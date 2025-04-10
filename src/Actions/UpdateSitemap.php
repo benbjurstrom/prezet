@@ -2,7 +2,6 @@
 
 namespace BenBjurstrom\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Support\Facades\Route;
 use Spatie\Sitemap\Sitemap;
@@ -42,7 +41,7 @@ class UpdateSitemap
 
     public function ensureRoutesAreRegistered(): void
     {
-        Route::get('prezet/{slug}', ShowController::class)
+        Route::get('prezet/{slug}', function ($slug) {})
             ->name('prezet.show')
             ->where('slug', '.*');
     }

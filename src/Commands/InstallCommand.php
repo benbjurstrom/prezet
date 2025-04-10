@@ -89,18 +89,18 @@ class InstallCommand extends Command
         }
     }
 
+    protected function publishConfig(): void
+    {
+        $this->info('Publishing vendor files');
+        $this->runCommands(['php artisan vendor:publish --provider="BenBjurstrom\Prezet\PrezetServiceProvider" --tag=prezet-config']);
+    }
+
     protected function runInstall(): int
     {
         try {
             $this->addStorageDisk();
             $this->addDatabase();
-            $this->addRoutes();
-            $this->copyContentStubs();
-            $this->copyControllers();
-            $this->publishVendorFiles();
-            $this->option('tailwind3') ? $this->copyTailwind3Files() : $this->copyTailwindFiles();
-
-            $this->installNodeDependencies();
+            $this->publishConfig();
 
             // run in separate process so config changes above are applied
             Process::run('php artisan prezet:index --fresh');
@@ -112,119 +112,6 @@ class InstallCommand extends Command
 
             return self::FAILURE;
         }
-    }
-
-    protected function addRoutes(): void
-    {
-        $source = __DIR__.'/../../routes/prezet.php';
-        $destination = base_path('routes/prezet.php');
-
-        if (! $this->files->exists($destination)) {
-            $this->info('Copying prezet routes');
-
-            // Read the source file content
-            $content = $this->files->get($source);
-
-            // Replace the controller namespace in the use statements
-            $content = str_replace(
-                'use BenBjurstrom\Prezet\Http\Controllers\\',
-                'use App\Http\Controllers\Prezet\\',
-                $content
-            );
-
-            // Write the modified content to the destination file
-            $this->files->put($destination, $content);
-        }
-
-        $include = "require __DIR__.'/prezet.php';";
-        $web = base_path('routes/web.php');
-        $contents = $this->files->get(base_path('routes/web.php'));
-        $includePos = strpos($contents, $include);
-        if ($includePos !== false) {
-            $this->warn('Skipping adding prezet routes to web.php: already exists.');
-
-            return;
-        }
-
-        $this->files->append($web, "\nrequire __DIR__.'/prezet.php';");
-    }
-
-    protected function copyTailwindFiles(): void
-    {
-        $this->info('Copying Tailwind configuration files');
-
-        // Remove postcss.config.js if it exists, we'll be using the vite plugin
-        if (file_exists(base_path('postcss.config.js'))) {
-            $this->files->delete(base_path('postcss.config.js'));
-        }
-
-        $this->files->copy(__DIR__.'/../../stubs/prezet.css', resource_path('css/prezet.css'));
-        $this->files->copy(__DIR__.'/../../stubs/vite.config.js', base_path('vite.config.js'));
-
-        // Copy appropriate app.css based on whether tailwind.config.js exists
-        if (file_exists(base_path('tailwind.config.js'))) {
-            $this->files->copy(__DIR__.'/../../stubs/app-config.css', resource_path('css/app.css'));
-        } else {
-            $this->files->copy(__DIR__.'/../../stubs/app.css', resource_path('css/app.css'));
-        }
-
-        $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
-    }
-
-    protected function copyTailwind3Files(): void
-    {
-        $this->info('Copying Tailwind3 configuration files');
-        $this->files->copy(__DIR__.'/../../stubs/tailwind3/tailwind.prezet.config.js', base_path('tailwind.prezet.config.js'));
-        $this->files->copy(__DIR__.'/../../stubs/tailwind3/postcss.config.js', base_path('postcss.config.js'));
-        $this->files->copy(__DIR__.'/../../stubs/tailwind3/prezet.css', resource_path('css/prezet.css'));
-        $this->files->copy(__DIR__.'/../../stubs/tailwind3/vite.config.js', base_path('vite.config.js'));
-
-        $this->warn('Please check your vite.config.js to ensure it meets your project requirements.');
-    }
-
-    protected function copyContentStubs(): void
-    {
-        $sourceDir = __DIR__.'/../../stubs/prezet';
-        $destinationDir = base_path('prezet');
-
-        if (! $this->files->isDirectory($sourceDir)) {
-            $this->warn('Skipping content stubs: source directory already exists.');
-
-            return;
-        }
-        $this->info('Copying content stubs');
-
-        $this->files->copyDirectory($sourceDir, $destinationDir);
-    }
-
-    protected function publishVendorFiles(): void
-    {
-        $this->info('Publishing vendor files');
-        $this->runCommands(['php artisan vendor:publish --provider="BenBjurstrom\Prezet\PrezetServiceProvider" --tag=prezet-views --tag=prezet-config']);
-    }
-
-    protected function installNodeDependencies(): void
-    {
-        $this->info('Installing node dependencies');
-
-        if ($this->option('tailwind3')) {
-            $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography autoprefixer postcss tailwindcss@3.x vite-plugin-watch-and-run';
-        } else {
-            $packages = 'alpinejs @tailwindcss/forms @tailwindcss/typography @tailwindcss/vite tailwindcss@4 vite-plugin-watch-and-run';
-        }
-
-        if (file_exists(base_path('pnpm-lock.yaml'))) {
-            $bin = 'pnpm';
-        } elseif (file_exists(base_path('yarn.lock'))) {
-            $bin = 'yarn';
-        } else {
-            $bin = 'npm';
-        }
-
-        $this->runCommands([
-            $bin.' install --save-dev '.$packages,
-            $bin.' run build',
-        ]);
     }
 
     protected function addDatabase(): void
@@ -243,7 +130,7 @@ class InstallCommand extends Command
             return;
         }
 
-        $diskConfig = "\n        'prezet' => [\n            'driver' => 'sqlite',\n            'database' => base_path('prezet/prezet.sqlite'),\n            'prefix' => '',\n            'foreign_key_constraints' => true,\n        ],";
+        $diskConfig = "\n        'prezet' => [\n            'driver' => 'sqlite',\n            'database' => base_path('database/prezet.sqlite'),\n            'prefix' => '',\n            'foreign_key_constraints' => true,\n        ],";
 
         $disksPosition = strpos($config, "'connections' => [");
         if ($disksPosition !== false) {
@@ -277,48 +164,6 @@ class InstallCommand extends Command
             $disksPosition += strlen("'disks' => [");
             $newConfig = substr_replace($config, $diskConfig, $disksPosition, 0);
             file_put_contents($configFile, $newConfig);
-        }
-    }
-
-    protected function copyControllers(): void
-    {
-        $sourceDir = __DIR__.'/../../src/Http/Controllers';
-        $destinationDir = app_path('Http/Controllers/Prezet');
-
-        if (! $this->files->isDirectory($destinationDir)) {
-            $this->files->makeDirectory($destinationDir, 0755, true);
-        }
-
-        $this->info('Copying controllers to app/Http/Controllers/Prezet');
-
-        // Get all PHP files in the source directory
-        $files = $this->files->files($sourceDir);
-
-        foreach ($files as $file) {
-            $fileName = $file->getFilename();
-            $destinationPath = $destinationDir.'/'.$fileName;
-
-            // Skip if file already exists in destination
-            if ($this->files->exists($destinationPath)) {
-                $this->line("  - Skipping {$fileName}: already exists in destination.");
-
-                continue;
-            }
-
-            // Read the file content
-            $content = $this->files->get($file->getPathname());
-
-            // Replace the namespace
-            $content = str_replace(
-                'namespace BenBjurstrom\Prezet\Http\Controllers;',
-                'namespace App\Http\Controllers\Prezet;',
-                $content
-            );
-
-            // Write the modified content to the destination file
-            $this->files->put($destinationPath, $content);
-
-            $this->line("  - Copied {$fileName}");
         }
     }
 }
