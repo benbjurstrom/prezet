@@ -11,20 +11,20 @@ Route::withoutMiddleware([
     VerifyCsrfToken::class,
 ])
     ->group(function () {
-        Route::get('prezet/search', function (){})->name('prezet.search');
+        Route::get('prezet/search', function () {})->name('prezet.search');
 
-        Route::get('prezet/img/{path}', function (){})
+        Route::get('prezet/img/{path}', function () {})
             ->name('prezet.image')
             ->where('path', '.*');
 
-        Route::get('/prezet/ogimage/{slug}', function (){})
+        Route::get('/prezet/ogimage/{slug}', function () {})
             ->name('prezet.ogimage')
             ->where('slug', '.*');
 
-        Route::get('prezet', function (){})
+        Route::get('prezet', function () {})
             ->name('prezet.index');
 
-        Route::get('prezet/{slug}', function (){})
+        Route::get('prezet/{slug}', function () {})
             ->name('prezet.show')
             ->where('slug', '.*'); // https://laravel.com/docs/11.x/routing#parameters-encoded-forward-slashes
     });
