@@ -1,10 +1,5 @@
 <?php
 
-use BenBjurstrom\Prezet\Http\Controllers\ImageController;
-use BenBjurstrom\Prezet\Http\Controllers\IndexController;
-use BenBjurstrom\Prezet\Http\Controllers\OgimageController;
-use BenBjurstrom\Prezet\Http\Controllers\SearchController;
-use BenBjurstrom\Prezet\Http\Controllers\ShowController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Route;
@@ -16,20 +11,20 @@ Route::withoutMiddleware([
     VerifyCsrfToken::class,
 ])
     ->group(function () {
-        Route::get('prezet/search', SearchController::class)->name('prezet.search');
+        Route::get('prezet/search', function (){})->name('prezet.search');
 
-        Route::get('prezet/img/{path}', ImageController::class)
+        Route::get('prezet/img/{path}', function (){})
             ->name('prezet.image')
             ->where('path', '.*');
 
-        Route::get('/prezet/ogimage/{slug}', OgimageController::class)
+        Route::get('/prezet/ogimage/{slug}', function (){})
             ->name('prezet.ogimage')
             ->where('slug', '.*');
 
-        Route::get('prezet', IndexController::class)
+        Route::get('prezet', function (){})
             ->name('prezet.index');
 
-        Route::get('prezet/{slug}', ShowController::class)
+        Route::get('prezet/{slug}', function (){})
             ->name('prezet.show')
             ->where('slug', '.*'); // https://laravel.com/docs/11.x/routing#parameters-encoded-forward-slashes
     });

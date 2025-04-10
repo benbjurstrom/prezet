@@ -42,7 +42,8 @@
     },
     "autoload": {
         "psr-4": {
-            "BenBjurstrom\\Prezet\\": "src/"
+            "BenBjurstrom\\Prezet\\": "src/",
+            "BenBjurstrom\\Prezet\\Database\\Factories\\": "database/factories/"
         },
         "files": [
             "src/helpers.php"
@@ -51,8 +52,7 @@
     "autoload-dev": {
         "psr-4": {
             "BenBjurstrom\\Prezet\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/",
-            "BenBjurstrom\\Prezet\\Database\\Factories\\": "database/factories/"
+            "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {

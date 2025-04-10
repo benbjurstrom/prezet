@@ -1,6 +1,0 @@
-/**
- * Using tailwind.config.js for backward compatibility
- * https://tailwindcss.com/docs/upgrade-guide#using-a-javascript-config-file
- */
-@import "tailwindcss";
-@config "../../tailwind.config.js";

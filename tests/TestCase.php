@@ -27,11 +27,11 @@ class TestCase extends Orchestra
 
         config()->set('filesystems.disks.prezet', [
             'driver' => 'local',
-            'root' => __DIR__.'/../stubs/prezet',
+            'root' => __DIR__.'/Resources/content',
             'throw' => true,
         ]);
 
-        $dbPath = __DIR__.'/../stubs/prezet.sqlite';
+        $dbPath = __DIR__.'/Resources/prezet.sqlite';
         touch($dbPath);
         config()->set('database.connections.prezet', [
             'driver' => 'sqlite',
@@ -43,7 +43,7 @@ class TestCase extends Orchestra
         config()->set('database.default', 'prezet');
 
         Route::group([], function () {
-            require __DIR__.'/../routes/prezet.php';
+            require __DIR__.'/Resources/routes.php';
         });
 
         $migrations = __DIR__.'/../database/migrations';
