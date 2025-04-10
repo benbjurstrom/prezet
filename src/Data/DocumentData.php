@@ -70,8 +70,13 @@ class DocumentData extends ValidatedDTO
      */
     protected function casts(): array
     {
+        $fmData = get_class(app(FrontmatterData::class));
+        if(!$fmData) {
+            throw new \Exception("Class {$fmData} does not exist");
+        }
+
         return [
-            'frontmatter' => new DTOCast(get_class(app(FrontmatterData::class))),
+            'frontmatter' => new DTOCast($fmData),
             'createdAt' => new CarbonCast,
             'updatedAt' => new CarbonCast,
         ];
