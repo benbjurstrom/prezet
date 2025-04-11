@@ -14,8 +14,9 @@ class SearchHeadings
     public function handle(string $query): Collection
     {
         $headingModel = app(Heading::class);
-        if (! class_exists($headingModel)) {
-            throw new \Exception('Heading model not found');
+
+        if (! $query) {
+            return collect();
         }
 
         return $headingModel::where('text', 'LIKE', "%{$query}%")
@@ -23,7 +24,7 @@ class SearchHeadings
             ->whereRelation('document', 'draft', false)
             ->limit(5)
             ->get()
-            ->map(function ($heading) {
+            ->map(function (Heading $heading) {
                 return app(HeadingData::class)::fromModel($heading);
             });
     }
