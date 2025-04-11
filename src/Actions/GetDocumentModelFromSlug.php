@@ -1,10 +1,10 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Config;
+use Prezet\Prezet\Models\Document;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GetDocumentModelFromSlug

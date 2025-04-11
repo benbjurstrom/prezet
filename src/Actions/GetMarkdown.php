@@ -1,11 +1,11 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Exceptions\FileNotFoundException;
-use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Exceptions\FileNotFoundException;
+use Prezet\Prezet\Exceptions\MissingConfigurationException;
+use Prezet\Prezet\Prezet;
 
 class GetMarkdown
 {

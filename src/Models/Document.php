@@ -1,15 +1,15 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Models;
+namespace Prezet\Prezet\Models;
 
-use BenBjurstrom\Prezet\Data\FrontmatterData;
-use BenBjurstrom\Prezet\Database\Factories\DocumentFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Prezet\Prezet\Data\FrontmatterData;
+use Prezet\Prezet\Database\Factories\DocumentFactory;
 
 /**
  * @property string $key

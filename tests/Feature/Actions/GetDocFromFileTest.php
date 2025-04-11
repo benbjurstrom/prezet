@@ -1,9 +1,9 @@
 <?php
 
-use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Exceptions\FrontmatterMissingException;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 
 it('can get docdata from a markdown file', function () {
     Storage::fake('prezet');

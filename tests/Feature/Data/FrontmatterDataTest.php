@@ -1,8 +1,8 @@
 <?php
 
-use BenBjurstrom\Prezet\Data\FrontmatterData;
-use BenBjurstrom\Prezet\Exceptions\FrontmatterException;
 use Carbon\Carbon;
+use Prezet\Prezet\Data\FrontmatterData;
+use Prezet\Prezet\Exceptions\FrontmatterException;
 
 it('can create a valid FrontmatterData instance', function () {
     $data = [

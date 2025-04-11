@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BenBjurstrom\Prezet\Services;
+namespace Prezet\Prezet\Services;
 
 use Closure;
 use Illuminate\Support\Collection;

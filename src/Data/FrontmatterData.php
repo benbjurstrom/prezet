@@ -1,9 +1,9 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Data;
+namespace Prezet\Prezet\Data;
 
-use BenBjurstrom\Prezet\Exceptions\FrontmatterException;
 use Carbon\Carbon;
+use Prezet\Prezet\Exceptions\FrontmatterException;
 use WendellAdriel\ValidatedDTO\Attributes\Rules;
 use WendellAdriel\ValidatedDTO\Casting\CarbonCast;
 use WendellAdriel\ValidatedDTO\Concerns\EmptyRules;

@@ -1,12 +1,12 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
+use Prezet\Prezet\Exceptions\FrontmatterMissingException;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 
 class SetOgImage
 {

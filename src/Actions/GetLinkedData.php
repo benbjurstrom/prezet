@@ -1,10 +1,10 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
 use Illuminate\Support\Facades\Config;
+use Prezet\Prezet\Data\DocumentData;
+use Prezet\Prezet\Data\FrontmatterData;
 
 class GetLinkedData
 {

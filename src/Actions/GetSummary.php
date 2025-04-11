@@ -1,10 +1,10 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Prezet;
 
 class GetSummary
 {

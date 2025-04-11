@@ -1,7 +1,7 @@
 <?php
 
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Prezet;
 
 it('can parse the SUMMARY.md file', function () {
     $filename = 'SUMMARY.md';

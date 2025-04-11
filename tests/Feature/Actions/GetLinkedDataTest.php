@@ -1,9 +1,9 @@
 <?php
 
-use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Config;
+use Prezet\Prezet\Data\DocumentData;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 
 beforeEach(function () {
     Config::set('prezet.authors', [

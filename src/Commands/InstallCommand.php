@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Commands;
+namespace Prezet\Prezet\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -92,7 +92,7 @@ class InstallCommand extends Command
     protected function publishConfig(): void
     {
         $this->info('Publishing vendor files');
-        $this->runCommands(['php artisan vendor:publish --provider="BenBjurstrom\Prezet\PrezetServiceProvider" --tag=prezet-config']);
+        $this->runCommands(['php artisan vendor:publish --provider="Prezet\Prezet\PrezetServiceProvider" --tag=prezet-config']);
     }
 
     protected function runInstall(): int

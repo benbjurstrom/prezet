@@ -42,8 +42,8 @@
     },
     "autoload": {
         "psr-4": {
-            "BenBjurstrom\\Prezet\\": "src/",
-            "BenBjurstrom\\Prezet\\Database\\Factories\\": "database/factories/"
+            "Prezet\\Prezet\\": "src/",
+            "Prezet\\Prezet\\Database\\Factories\\": "database/factories/"
         },
         "files": [
             "src/helpers.php"
@@ -51,7 +51,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "BenBjurstrom\\Prezet\\Tests\\": "tests/",
+            "Prezet\\Prezet\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -83,10 +83,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "BenBjurstrom\\Prezet\\PrezetServiceProvider"
+                "Prezet\\Prezet\\PrezetServiceProvider"
             ],
             "aliases": {
-                "Prezet": "BenBjurstrom\\Prezet\\Facades\\Prezet"
+                "Prezet": "Prezet\\Prezet\\Facades\\Prezet"
             }
         }
     },

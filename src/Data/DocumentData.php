@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Data;
+namespace Prezet\Prezet\Data;
 
 use Carbon\Carbon;
 use WendellAdriel\ValidatedDTO\Attributes\Rules;

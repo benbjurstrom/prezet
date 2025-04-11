@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Prezet;
+use Prezet\Prezet\Prezet;
 
 test('it replaces existing frontmatter in markdown', function () {
     $markdown = <<<'EOD'

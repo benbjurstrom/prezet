@@ -1,9 +1,9 @@
 <?php
 
-use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
-use BenBjurstrom\Prezet\Models\Document;
 use Carbon\Carbon;
+use Prezet\Prezet\Data\DocumentData;
+use Prezet\Prezet\Data\FrontmatterData;
+use Prezet\Prezet\Models\Document;
 
 it('can create a valid DocumentData instance', function () {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Data\DocumentData;
+use Prezet\Prezet\Prezet;
 
 class GetDocumentDataFromFiles
 {

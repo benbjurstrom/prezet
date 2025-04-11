@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Commands;
+namespace Prezet\Prezet\Commands;
 
 use RuntimeException;
 use Symfony\Component\Process\Process;

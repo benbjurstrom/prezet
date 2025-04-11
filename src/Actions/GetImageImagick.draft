@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet;
+namespace Prezet\Prezet;
 
 use Illuminate\Support\Facades\Storage;
 use Imagick;

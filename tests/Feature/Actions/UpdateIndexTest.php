@@ -1,14 +1,14 @@
 <?php
 
-use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
-use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Models\Heading;
-use BenBjurstrom\Prezet\Models\Tag;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Actions\GetDocumentDataFromFiles;
+use Prezet\Prezet\Data\DocumentData;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Models\Heading;
+use Prezet\Prezet\Models\Tag;
+use Prezet\Prezet\Prezet;
 
 test('throws exception when database missing', function () {
     unlink(Config::get('database.connections.prezet.database'));

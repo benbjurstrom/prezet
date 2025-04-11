@@ -1,11 +1,11 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 use Spatie\Browsershot\Browsershot as SpatieBrowsershot;
 
 class GenerateOgImage

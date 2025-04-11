@@ -1,10 +1,10 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Data\HeadingData;
-use BenBjurstrom\Prezet\Models\Heading;
 use Illuminate\Support\Collection;
+use Prezet\Prezet\Data\HeadingData;
+use Prezet\Prezet\Models\Heading;
 
 class SearchHeadings
 {
