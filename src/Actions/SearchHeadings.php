@@ -24,7 +24,7 @@ class SearchHeadings
             ->whereRelation('document', 'draft', false)
             ->limit(5)
             ->get()
-            ->map(function ($heading) {
+            ->map(function (Heading $heading) {
                 return app(HeadingData::class)::fromModel($heading);
             });
     }
