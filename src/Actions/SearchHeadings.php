@@ -15,6 +15,10 @@ class SearchHeadings
     {
         $headingModel = app(Heading::class);
 
+        if (! $query) {
+            return collect();
+        }
+
         return $headingModel::where('text', 'LIKE', "%{$query}%")
             ->with('document')
             ->whereRelation('document', 'draft', false)
