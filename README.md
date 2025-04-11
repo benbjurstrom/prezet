@@ -28,19 +28,19 @@
 
 ## ✨ Core Features
 
-✔ **SQLite Index**<br><sub>Indexes your markdown files to support search, pagination, sorting, and filtering.</sub>
+✳️ **SQLite Index**<br><sub>Indexes your markdown files to support search, pagination, sorting, and filtering.</sub>
 
-✔ **Automatic Image Optimization**<br><sub>Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.</sub>
+✳️ **Automatic Image Optimization**<br><sub>Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.</sub>
 
-✔ **Validated Front Matter**<br><sub>Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.</sub>
+✳️ **Validated Front Matter**<br><sub>Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.</sub>
 
-✔ **Open Graph (OG) images**<br><sub>Generate OG images from front matter using a customizable template.</sub>
+✳️ **Open Graph (OG) images**<br><sub>Generate OG images from front matter using a customizable template.</sub>
 
-✔ **Dynamic Table of Contents**<br><sub>Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents.</sub>
+✳️ **Dynamic Table of Contents**<br><sub>Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents.</sub>
 
-✔ **SEO Optimization**<br><sub>Automatically generate meta tags based on front matter data for better search engine discoverability.</sub>
+✳️ **SEO Optimization**<br><sub>Automatically generate meta tags based on front matter data for better search engine discoverability.</sub>
 
-✔ **Blade Components**<br><sub>Include Laravel Blade components in your markdown for enriched, interactive content.</sub>
+✳️ **Blade Components**<br><sub>Include Laravel Blade components in your markdown for enriched, interactive content.</sub>
 
 ## 🚀 Quick Start
 
