@@ -22,9 +22,9 @@
 
 ## Table of Contents
 
-*   [Core Features](#-core-features)
+*   [Framework Features](#-framework-features)
 *   [Quick Start](#-quick-start)
-*   [Documentation](#-documentation)
+*   [Documentation](#documentation)
 
 ## ✨ Framework Features
 
