@@ -28,9 +28,13 @@
 
 ## ✨ Core Features
 
-✅ **SQLite Index**<br><sub>Indexes your markdown files to support search, pagination, sorting, and filtering.</sub>
+<dl>
+  <dt>✅ **SQLite Index**</dt>
+  <dd>Indexes your markdown files to support search, pagination, sorting, and filtering.</dd>
 
-✅ **Automatic Image Optimization**<br><sub>Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.</sub>
+  <dt>✅ **Automatic Image Optimization**</dt>
+  <dd><sub>Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.</sub></dd>
+</dl>
 
 ✅ **Validated Front Matter**<br><sub>Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.</sub>
 
