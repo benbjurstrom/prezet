@@ -1,5 +1,5 @@
 @php
-    $ytData = app(\BenBjurstrom\Prezet\Data\YoutubeData::class)::fromArray($attributes->getAttributes());
+    $ytData = app(\Prezet\Prezet\Data\YoutubeData::class)::fromArray($attributes->getAttributes());
 @endphp
 
 <div class="aspect-video" {{ $attributes }}>

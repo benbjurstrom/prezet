@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Prezet;
+use Prezet\Prezet\Prezet;
 
 it('parses markdown into html', function () {
     $markdown = <<<'MD'

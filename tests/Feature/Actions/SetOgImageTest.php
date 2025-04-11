@@ -1,8 +1,8 @@
 <?php
 
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 
 it('sets the ogimage frontmatter', function () {
     // Setup
@@ -44,4 +44,4 @@ it('throws exception when frontmatter is missing', function () {
     ]);
 
     Prezet::setOgImage($doc, 'test-image.jpg');
-})->throws(\BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException::class);
+})->throws(\Prezet\Prezet\Exceptions\FrontmatterMissingException::class);

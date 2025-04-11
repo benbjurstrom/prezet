@@ -1,11 +1,11 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Data\FrontmatterData;
-use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
-use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
+use Prezet\Prezet\Data\FrontmatterData;
+use Prezet\Prezet\Exceptions\FrontmatterMissingException;
+use Prezet\Prezet\Exceptions\InvalidConfigurationException;
 
 class ParseFrontmatter
 {

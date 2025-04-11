@@ -1,11 +1,11 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Database\Factories;
+namespace Prezet\Prezet\Database\Factories;
 
-use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Prezet\Prezet\Models\Document;
 
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model;

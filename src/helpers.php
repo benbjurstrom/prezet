@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use BenBjurstrom\Prezet\Services\Seo;
+use Prezet\Prezet\Services\Seo;
 
 if (! function_exists('seo')) {
     /**

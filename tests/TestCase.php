@@ -1,11 +1,11 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Tests;
+namespace Prezet\Prezet\Tests;
 
-use BenBjurstrom\Prezet\PrezetServiceProvider;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Prezet\Prezet\PrezetServiceProvider;
 
 class TestCase extends Orchestra
 {

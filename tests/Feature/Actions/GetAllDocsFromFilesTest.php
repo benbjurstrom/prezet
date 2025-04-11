@@ -1,8 +1,8 @@
 <?php
 
-use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Exceptions\FrontmatterMissingException;
+use Prezet\Prezet\Prezet;
 
 it('can get all posts', function () {
     Storage::fake('prezet');

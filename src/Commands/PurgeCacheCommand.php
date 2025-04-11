@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Commands;
+namespace Prezet\Prezet\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;

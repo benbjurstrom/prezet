@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Models;
+namespace Prezet\Prezet\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

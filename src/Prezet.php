@@ -1,34 +1,34 @@
 <?php
 
-namespace BenBjurstrom\Prezet;
+namespace Prezet\Prezet;
 
-use BenBjurstrom\Prezet\Actions\CreateIndex;
-use BenBjurstrom\Prezet\Actions\GenerateOgImage;
-use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFile;
-use BenBjurstrom\Prezet\Actions\GetDocumentDataFromFiles;
-use BenBjurstrom\Prezet\Actions\GetDocumentModelFromSlug;
-use BenBjurstrom\Prezet\Actions\GetFlatHeadings;
-use BenBjurstrom\Prezet\Actions\GetHeadings;
-use BenBjurstrom\Prezet\Actions\GetImage;
-use BenBjurstrom\Prezet\Actions\GetLinkedData;
-use BenBjurstrom\Prezet\Actions\GetMarkdown;
-use BenBjurstrom\Prezet\Actions\GetPrezetDisk;
-use BenBjurstrom\Prezet\Actions\GetSlugFromFilepath;
-use BenBjurstrom\Prezet\Actions\GetSummary;
-use BenBjurstrom\Prezet\Actions\ParseFrontmatter;
-use BenBjurstrom\Prezet\Actions\ParseMarkdown;
-use BenBjurstrom\Prezet\Actions\SearchHeadings;
-use BenBjurstrom\Prezet\Actions\SetFrontmatter;
-use BenBjurstrom\Prezet\Actions\SetKey;
-use BenBjurstrom\Prezet\Actions\SetOgImage;
-use BenBjurstrom\Prezet\Actions\UpdateIndex;
-use BenBjurstrom\Prezet\Actions\UpdateSitemap;
-use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
-use BenBjurstrom\Prezet\Data\HeadingData;
-use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Support\Collection;
 use League\CommonMark\Output\RenderedContentInterface;
+use Prezet\Prezet\Actions\CreateIndex;
+use Prezet\Prezet\Actions\GenerateOgImage;
+use Prezet\Prezet\Actions\GetDocumentDataFromFile;
+use Prezet\Prezet\Actions\GetDocumentDataFromFiles;
+use Prezet\Prezet\Actions\GetDocumentModelFromSlug;
+use Prezet\Prezet\Actions\GetFlatHeadings;
+use Prezet\Prezet\Actions\GetHeadings;
+use Prezet\Prezet\Actions\GetImage;
+use Prezet\Prezet\Actions\GetLinkedData;
+use Prezet\Prezet\Actions\GetMarkdown;
+use Prezet\Prezet\Actions\GetPrezetDisk;
+use Prezet\Prezet\Actions\GetSlugFromFilepath;
+use Prezet\Prezet\Actions\GetSummary;
+use Prezet\Prezet\Actions\ParseFrontmatter;
+use Prezet\Prezet\Actions\ParseMarkdown;
+use Prezet\Prezet\Actions\SearchHeadings;
+use Prezet\Prezet\Actions\SetFrontmatter;
+use Prezet\Prezet\Actions\SetKey;
+use Prezet\Prezet\Actions\SetOgImage;
+use Prezet\Prezet\Actions\UpdateIndex;
+use Prezet\Prezet\Actions\UpdateSitemap;
+use Prezet\Prezet\Data\DocumentData;
+use Prezet\Prezet\Data\FrontmatterData;
+use Prezet\Prezet\Data\HeadingData;
+use Prezet\Prezet\Models\Document;
 
 class Prezet
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
 class GetSlugFromFilepath
 {

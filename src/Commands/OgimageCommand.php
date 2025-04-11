@@ -1,10 +1,10 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Commands;
+namespace Prezet\Prezet\Commands;
 
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Console\Command;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 
 use function Laravel\Prompts\info;
 

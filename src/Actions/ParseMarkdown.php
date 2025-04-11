@@ -1,15 +1,15 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
-use BenBjurstrom\Prezet\Extensions\MarkdownBladeExtension;
 use Exception;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Exception\CommonMarkException;
 use League\CommonMark\Extension\ExtensionInterface;
 use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Output\RenderedContentInterface;
+use Prezet\Prezet\Exceptions\InvalidConfigurationException;
+use Prezet\Prezet\Extensions\MarkdownBladeExtension;
 
 class ParseMarkdown
 {

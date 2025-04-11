@@ -1,19 +1,19 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Data\DocumentData;
-use BenBjurstrom\Prezet\Data\FrontmatterData;
-use BenBjurstrom\Prezet\Exceptions\FileNotFoundException;
-use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
-use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
-use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
-use BenBjurstrom\Prezet\Models\Document;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Prezet\Prezet\Data\DocumentData;
+use Prezet\Prezet\Data\FrontmatterData;
+use Prezet\Prezet\Exceptions\FileNotFoundException;
+use Prezet\Prezet\Exceptions\FrontmatterMissingException;
+use Prezet\Prezet\Exceptions\InvalidConfigurationException;
+use Prezet\Prezet\Exceptions\MissingConfigurationException;
+use Prezet\Prezet\Models\Document;
+use Prezet\Prezet\Prezet;
 
 class GetDocumentDataFromFile
 {

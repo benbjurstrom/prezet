@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Exceptions;
+namespace Prezet\Prezet\Exceptions;
 
 use Exception;
 use Illuminate\Support\MessageBag;

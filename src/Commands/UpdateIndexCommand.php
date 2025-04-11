@@ -1,11 +1,11 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Commands;
+namespace Prezet\Prezet\Commands;
 
-use BenBjurstrom\Prezet\Exceptions\FrontmatterException;
-use BenBjurstrom\Prezet\Exceptions\FrontmatterMissingException;
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Console\Command;
+use Prezet\Prezet\Exceptions\FrontmatterException;
+use Prezet\Prezet\Exceptions\FrontmatterMissingException;
+use Prezet\Prezet\Prezet;
 
 class UpdateIndexCommand extends Command
 {

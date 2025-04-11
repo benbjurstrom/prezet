@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Services\Seo;
+use Prezet\Prezet\Services\Seo;
 
 test('set returns the set value', function () {
     expect(seo()->set('foo', 'bar'))->toBe('bar');

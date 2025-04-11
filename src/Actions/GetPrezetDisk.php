@@ -1,8 +1,8 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Exceptions\MissingConfigurationException;
+use Prezet\Prezet\Exceptions\MissingConfigurationException;
 
 class GetPrezetDisk
 {

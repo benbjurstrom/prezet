@@ -1,9 +1,9 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Models\Document;
 use Illuminate\Support\Facades\Route;
+use Prezet\Prezet\Models\Document;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 

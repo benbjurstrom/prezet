@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Tests\TestCase;
+use Prezet\Prezet\Tests\TestCase;
 
 uses(
     TestCase::class,

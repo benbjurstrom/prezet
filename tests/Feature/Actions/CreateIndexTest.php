@@ -1,12 +1,12 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Tests\Feature\Actions;
+namespace Prezet\Prezet\Tests\Feature\Actions;
 
-use BenBjurstrom\Prezet\Prezet;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Prezet\Prezet\Prezet;
 
 beforeEach(function () {
     // Get the test database path from the prezet connection

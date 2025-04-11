@@ -1,6 +1,6 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Extensions;
+namespace Prezet\Prezet\Extensions;
 
 use Illuminate\Container\Container;
 use Illuminate\Contracts\View\Factory as ViewFactory;

@@ -1,13 +1,13 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Extensions;
+namespace Prezet\Prezet\Extensions;
 
-use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
 use Illuminate\Support\Str;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Image;
 use League\CommonMark\Extension\ExtensionInterface;
+use Prezet\Prezet\Exceptions\InvalidConfigurationException;
 
 class MarkdownImageExtension implements ExtensionInterface
 {

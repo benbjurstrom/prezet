@@ -1,6 +1,6 @@
 <?php
 
-use BenBjurstrom\Prezet\Prezet;
+use Prezet\Prezet\Prezet;
 
 it('gets the headings html', function () {
     $html = <<<'HTML'

@@ -1,11 +1,11 @@
 <?php
 
-namespace BenBjurstrom\Prezet\Actions;
+namespace Prezet\Prezet\Actions;
 
-use BenBjurstrom\Prezet\Exceptions\InvalidConfigurationException;
-use BenBjurstrom\Prezet\Prezet;
 use GdImage;
 use Illuminate\Support\Facades\Storage;
+use Prezet\Prezet\Exceptions\InvalidConfigurationException;
+use Prezet\Prezet\Prezet;
 
 class GetImage
 {
