@@ -62,7 +62,6 @@
     php artisan prezet:install
     ```
 
-
 2.  **Install a Frontend Template:**
 
     The Prezet framework provides the backend engine. A template package provides the frontend (routes, controllers, views, CSS).
