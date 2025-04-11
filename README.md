@@ -55,6 +55,7 @@
 
 1.  **Install the Prezet framework:**
     ```bash
+    # Install the framework package
     composer require prezet/prezet:^1.0
 
     # Run the framework installer
@@ -63,6 +64,7 @@
 
 
 2.  **Install a Frontend Template:**
+
     The Prezet framework provides the backend engine. A template package provides the frontend (routes, controllers, views, CSS).
 
     *Example using the Official Docs Template:*
