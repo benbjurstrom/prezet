@@ -27,7 +27,7 @@
         "wendelladriel/laravel-validated-dto": "^4.1"
     },
     "require-dev": {
-        "larastan/larastan": "2.9.8",
+        "larastan/larastan": "3.3.1",
         "laravel/pint": "^1.22",
         "nunomaduro/collision": "^8.8",
         "orchestra/testbench": "^9.13",
@@ -36,9 +36,9 @@
         "pestphp/pest-plugin-laravel": "^3.1",
         "phpstan/extension-installer": "1.4.3",
         "phpstan/phpdoc-parser": "2.1.0",
-        "phpstan/phpstan": "1.12.23",
-        "phpstan/phpstan-deprecation-rules": "1.2.1",
-        "phpstan/phpstan-phpunit": "1.4.2",
+        "phpstan/phpstan": "2.1.11",
+        "phpstan/phpstan-deprecation-rules": "2.0.1",
+        "phpstan/phpstan-phpunit": "2.0.6",
         "spatie/browsershot": ">=5.0.8"
     },
     "autoload": {
