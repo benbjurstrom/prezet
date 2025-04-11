@@ -14,7 +14,7 @@ class SearchHeadings
     public function handle(string $query): Collection
     {
         $headingModel = app(Heading::class);
-        if (! class_exists($headingModel)) {
+        if (! class_exists($headingModel::class)) {
             throw new \Exception('Heading model not found');
         }
 
