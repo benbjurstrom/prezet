@@ -8,9 +8,7 @@
 <a href="https://github.com/prezet/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/prezet/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square" alt="GitHub Code Style Action Status"></a>
 </p>
 
-<p align="center">
 # Prezet: Markdown Blogging for Laravel
-</p>
 
 **Go from markdown files to SEO-friendly blogs, articles, and documentation in seconds!** The Prezet framework makes it easy to parse, index, and serve your Markdown content efficiently within a Laravel application.
 
