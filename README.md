@@ -10,7 +10,7 @@
 
 # Prezet: Markdown Blogging for Laravel
 
-**Go from markdown files to SEO-friendly blogs, articles, and documentation in seconds!** Prezet provides the backend power to parse, index, and serve your Markdown content efficiently within a Laravel application.
+**Go from markdown files to SEO-friendly blogs, articles, and documentation in seconds!**
 
 *(Looking for a ready-to-use frontend? Check out template packages like [prezet/docs-template](https://github.com/prezet/docs-template)!)*
 
