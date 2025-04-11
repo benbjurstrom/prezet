@@ -56,12 +56,11 @@
 1.  **Install the Prezet framework:**
     ```bash
     composer require prezet/prezet:^1.0
-    ```
 
     # Run the framework installer
-    ```bash
     php artisan prezet:install
     ```
+
 
 2.  **Install a Frontend Template:**
     The Prezet framework provides the backend engine. A template package provides the frontend (routes, controllers, views, CSS).
@@ -74,7 +73,7 @@
     # Run the template's installer
     php artisan docs-template:install
     ```
-    *(This example installs the necessary frontend files and then removes the `prezet/docs-template` package).*
+    This will install the necessary frontend files and then remove the `prezet/docs-template` package
 
 3.  **Index Your Content:**
     After adding or modifying Markdown files in your content directory update the Prezet index:
