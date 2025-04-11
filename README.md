@@ -1,96 +1,100 @@
-<div align="center">
-    <img src="https://prezet.com/ogimage.png" width="600" alt="PREZET">
-</div>
+# Prezet: Markdown Blogging Engine for Laravel
 
-<p align="center">
-<a href="https://packagist.org/packages/benbjurstrom/prezet"><img src="https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square" alt="Latest Version on Packagist"></a>
-<a href="https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square" alt="GitHub Tests Action Status"></a>
-<a href="https://github.com/benbjurstrom/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square" alt="GitHub Code Style Action Status"></a>
-</p>
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/benbjurstrom/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/benbjurstrom/prezet.svg?style=flat-square)](https://packagist.org/packages/benbjurstrom/prezet)
 
-# Prezet: Markdown Blogging for Laravel
+**Go from markdown files to SEO-friendly blogs, articles, and documentation in seconds!** Prezet provides the backend power to parse, index, and serve your Markdown content efficiently within a Laravel application.
 
-Go from markdown files to SEO-friendly blogs, articles, and documentation in seconds!
+*(Looking for a ready-to-use frontend? Check out template packages like [prezet/docs-template](https://github.com/prezet/docs-template)!)*
 
-https://github.com/benbjurstrom/prezet/assets/12499093/771efccc-6ac3-414a-a852-62ce66e87f57
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/screenshot-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/screenshot-light.png">
+  <img alt="Screenshot of Prezet blog" src="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/screenshot-light.png">
+</picture>
 
-## Table of contents
-- [Features](https://github.com/benbjurstrom/prezet#user-content--features)
-- [Quick Start](https://github.com/benbjurstrom/prezet#user-content--quick-start)
-- [Documentation](https://github.com/benbjurstrom/prezet#user-content--documentation)
+## Table of Contents
 
-## 🌟 Features
+*   [Core Features](#-core-features)
+*   [Quick Start](#-quick-start)
+*   [Documentation](#-documentation)
 
-✅ **Installs in seconds**<br>Set up your project with a single command.
+## ✨ Core Features
 
-✅ **Automatic Image Optimization**<br>Automated image compression, scaling, and responsive srcset handling.
+Prezet's core engine focuses on efficiently processing and managing your Markdown content:
 
-✅ **SQLite Index**<br>Indexes your markdown files to support search, pagination, sorting, and filtering.
+✅ **SQLite Index**
+Indexes your markdown files into a flat-file SQLite database for fast searching, pagination, sorting, and filtering, without requiring a traditional database.
 
-✅ **Validated Front Matter**<br>Cast front matter into validated DTOs for consistency across your content.
+✅ **Automatic Image Optimization**
+Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.
 
-✅ **Open Graph (OG) images**<br>Generate OG images from front matter using a customizable template.
+✅ **Validated Front Matter**
+Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.
 
-✅ **Dynamic Table of Contents**<br>Automatically generate a nested, scroll-synced TOC from your article's headings.
+✅ **Open Graph (OG) Image Generation**
+Provides the backend logic to generate Open Graph images dynamically based on front matter data. *(Frontend template required for display).*
 
-✅ **SEO Optimization**<br>Automatically generate meta tags based on front matter data for better search engine discoverability.
+✅ **Dynamic Table of Contents (TOC) Generation**
+Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents. *(Frontend template required for display).*
 
-✅ **Blade Components**<br>Include Laravel Blade components in your markdown for enriched, interactive content.
+✅ **SEO Optimization Logic**
+Generates structured data for meta tags (title, description, OG tags) based on front matter. *(Frontend template required for display).*
 
-✅ **Complete Customization**<br>Prezet is built to allow full customization of your routes, front matter, and blade templates.
+✅ **Blade Component Support**
+Easily embed your existing Laravel Blade components directly within your Markdown files.
 
-## 🚀 Quick start
+✅ **Configurable & Customizable**
+Offers configuration options for content paths, DTOs, image handling, and more.
 
-#### Install the Prezet package:
+## 🚀 Quick Start
 
-```bash
-composer require benbjurstrom/prezet:1.0.0-rc6
-```
+1.  **Install Prezet Core:**
+    ```bash
+    composer require benbjurstrom/prezet:^1.0
+    ```
+    *(Replace `^1.0` with the desired version constraint).*
 
-#### Run the package installer:
+2.  **Install a Frontend Template (Required):**
+    Prezet Core provides the backend engine. You need a template package to provide the frontend (routes, controllers, views, CSS).
 
-_⚠️ NOTE: For existing applications it is recommended to switch to a clean branch so you can review the changes Prezet made during the installation process._
+    *Example using the Official Docs Template:*
+    ```bash
+    # Install the template package
+    composer require prezet/docs-template --dev
 
-```bash
-php artisan prezet:install
-```
+    # Run the template's installer
+    php artisan docs-template:install
+    ```
+    *(This example installs the necessary frontend files and then removes the `prezet/docs-template` package).*
 
-or if you prefer Tailwind v3
+3.  **Index Your Content:**
+    After adding or modifying Markdown files in your content directory (e.g., `base_path('prezet')` if using the docs template), update the Prezet index:
+    ```bash
+    php artisan prezet:index --fresh
+    ```
+    This command scans your content directory and updates the SQLite index with the latest front matter information. Run this whenever you:
+    *   Add new Markdown files.
+    *   Change a file's slug (filename).
+    *   Modify front matter and need it reflected in listings or searches.
+        *(Changes to the main body content of Markdown files are reflected automatically when viewing a single page).*
 
-```bash
-artisan prezet:install --tailwind3
-```
-
-#### Update the index:
-
-After adding or modifying your markdown files, you need to update the index to reflect these changes:
-
-```bash
-php artisan prezet:index --fresh
-```
-
-This command updates the SQLite index with the latest front matter information from your markdown files. Run this command whenever you:
-
-- Add a new markdown file 
-- Change a markdown file's slug 
-- Modify front matter and want to see those changes reflected on the index page
-
-Note that changes to the main content of your markdown files don't require updating the index, as this content is read directly from the file when displaying a single post.
-
-#### Start your server:
-```bash
-php artisan serve
-```
-
-Check out your new markdown blog at [http://localhost:8000/prezet](http://localhost:8000/prezet)
+4.  **Start Your Server:**
+    ```bash
+    php artisan serve
+    ```
+    Visit the routes defined by your installed frontend template (e.g., `/prezet` if using `prezet/docs-template`).
 
 ## Documentation
-Detailed documentation available at [prezet.com](https://prezet.com)
+
+Detailed documentation is available at [prezet.com](https://prezet.com)
 
 ## Credits
 
-- [Ben Bjurstrom](https://github.com/benbjurstrom)
-- [All Contributors](../../contributors)
+*   [Ben Bjurstrom](https://github.com/benbjurstrom)
+*   [All Contributors](../../contributors)
 
 ## License
 
