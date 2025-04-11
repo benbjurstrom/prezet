@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.0-rc7](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc6...v1.0.0-rc7) - 2025-04-11
+
+### What's Changed
+
+* 183 copy controllers to app on install by @benbjurstrom in https://github.com/prezet/prezet/pull/184
+* 188 move frontend to template package by @benbjurstrom in https://github.com/prezet/prezet/pull/189
+* 190 update namespace by @benbjurstrom in https://github.com/prezet/prezet/pull/191
+* 192 fix heading search by @benbjurstrom in https://github.com/prezet/prezet/pull/193
+* 194 fix migration path by @benbjurstrom in https://github.com/prezet/prezet/pull/195
+
+**Full Changelog**: https://github.com/prezet/prezet/compare/v1.0.0-rc6...v1.0.0-rc7
+
 ## [v1.0.0-rc6](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc5...v1.0.0-rc6) - 2025-02-26
 
 ### What's Changed
