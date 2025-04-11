@@ -26,45 +26,45 @@
 *   [Quick Start](#-quick-start)
 *   [Documentation](#-documentation)
 
-## ✨ Core Features
+## ✨ Framework Features
 
 <dl>
   <dt>•&nbsp;SQLite Index</dt>
-  <dd><sub>Indexes your markdown files to support search, pagination, sorting, and filtering.</sub></dd>
+  <dd>Indexes your markdown files to support search, pagination, sorting, and filtering.</dd>
 
   <dt>•&nbsp;Automatic Image Optimization</dt>
-  <dd><sub>Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.</sub></dd>
+  <dd>Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.</dd>
 
   <dt>•&nbsp;Validated Front Matter</dt>
-  <dd><sub>Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.</sub></dd>
+  <dd>Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.</dd>
 
   <dt>•&nbsp;Open Graph (OG) images</dt>
-  <dd><sub>Generate OG images from front matter using a customizable template.</sub></dd>
+  <dd>Generate OG images from front matter using a customizable template.</dd>
 
   <dt>•&nbsp;Dynamic Table of Contents</dt>
-  <dd><sub>Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents.</sub></dd>
+  <dd>Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents.</dd>
 
   <dt>•&nbsp;SEO Optimization</dt>
-  <dd><sub>Automatically generate meta tags based on front matter data for better search engine discoverability.</sub></dd>
+  <dd>Automatically generate meta tags based on front matter data for better search engine discoverability.</dd>
 
   <dt>•&nbsp;Blade Components</dt>
-  <dd><sub>Include Laravel Blade components in your markdown for enriched, interactive content.</sub></dd>
+  <dd>Include Laravel Blade components in your markdown for enriched, interactive content.</dd>
 </dl>
 
 ## 🚀 Quick Start
 
-1.  **Install Prezet Core:**
+1.  **Install the Prezet framework:**
     ```bash
     composer require prezet/prezet:^1.0
     ```
 
-    # Run the core installer
+    # Run the framework installer
     ```bash
     php artisan prezet:install
     ```
 
 2.  **Install a Frontend Template:**
-    Prezet Core provides the backend engine. A template package provides the frontend (routes, controllers, views, CSS).
+    The Prezet framework provides the backend engine. A template package provides the frontend (routes, controllers, views, CSS).
 
     *Example using the Official Docs Template:*
     ```bash
@@ -77,7 +77,7 @@
     *(This example installs the necessary frontend files and then removes the `prezet/docs-template` package).*
 
 3.  **Index Your Content:**
-    After adding or modifying Markdown files in your content directory (e.g., `base_path('prezet')` if using the docs template), update the Prezet index:
+    After adding or modifying Markdown files in your content directory update the Prezet index:
     ```bash
     php artisan prezet:index --fresh
     ```
