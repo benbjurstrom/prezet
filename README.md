@@ -3,9 +3,9 @@
 </div>
 
 <p align="center">
-<a href="https://packagist.org/packages/benbjurstrom/prezet"><img src="https://img.shields.io/packagist/v/benbjurstrom/prezet.svg?style=flat-square" alt="Latest Version on Packagist"></a>
-<a href="https://github.com/benbjurstrom/prezet/actions?query=workflow%3Arun-tests+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/run-tests.yml?branch=main&label=tests&style=flat-square" alt="GitHub Tests Action Status"></a>
-<a href="https://github.com/benbjurstrom/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/benbjurstrom/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square" alt="GitHub Code Style Action Status"></a>
+<a href="https://packagist.org/packages/prezet/prezet"><img src="https://img.shields.io/packagist/v/prezet/prezet.svg?style=flat-square" alt="Latest Version on Packagist"></a>
+<a href="https://github.com/prezet/prezet/actions?query=workflow%3Arun-tests+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/prezet/prezet/run-tests.yml?branch=main&label=tests&style=flat-square" alt="GitHub Tests Action Status"></a>
+<a href="https://github.com/prezet/prezet/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/prezet/prezet/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square" alt="GitHub Code Style Action Status"></a>
 </p>
 
 # Prezet: Markdown Blogging for Laravel
@@ -15,9 +15,9 @@
 *(Looking for a ready-to-use frontend? Check out template packages like [prezet/docs-template](https://github.com/prezet/docs-template)!)*
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/screenshot-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/screenshot-light.png">
-  <img alt="Screenshot of Prezet blog" src="https://raw.githubusercontent.com/benbjurstrom/prezet/main/art/screenshot-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/prezet/prezet/main/art/screenshot-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/prezet/prezet/main/art/screenshot-light.png">
+  <img alt="Screenshot of Prezet blog" src="https://raw.githubusercontent.com/prezet/prezet/main/art/screenshot-light.png">
 </picture>
 
 ## Table of Contents
@@ -29,22 +29,27 @@
 ## ✨ Core Features
 
 <dl>
-  <dt>✅ **SQLite Index**</dt>
-  <dd>Indexes your markdown files to support search, pagination, sorting, and filtering.</dd>
+  <dt>•&nbsp;SQLite Index</dt>
+  <dd><sub>Indexes your markdown files to support search, pagination, sorting, and filtering.</sub></dd>
 
-  <dt>✅ **Automatic Image Optimization**</dt>
+  <dt>•&nbsp;Automatic Image Optimization</dt>
   <dd><sub>Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.</sub></dd>
+
+  <dt>•&nbsp;Validated Front Matter</dt>
+  <dd><sub>Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.</sub></dd>
+
+  <dt>•&nbsp;Open Graph (OG) images</dt>
+  <dd><sub>Generate OG images from front matter using a customizable template.</sub></dd>
+
+  <dt>•&nbsp;Dynamic Table of Contents</dt>
+  <dd><sub>Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents.</sub></dd>
+
+  <dt>•&nbsp;SEO Optimization</dt>
+  <dd><sub>Automatically generate meta tags based on front matter data for better search engine discoverability.</sub></dd>
+
+  <dt>•&nbsp;Blade Components</dt>
+  <dd><sub>Include Laravel Blade components in your markdown for enriched, interactive content.</sub></dd>
 </dl>
-
-✅ **Validated Front Matter**<br><sub>Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.</sub>
-
-✅ **Open Graph (OG) images**<br><sub>Generate OG images from front matter using a customizable template.</sub>
-
-✅ **Dynamic Table of Contents**<br><sub>Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents.</sub>
-
-✅ **SEO Optimization**<br><sub>Automatically generate meta tags based on front matter data for better search engine discoverability.</sub>
-
-✅ **Blade Components**<br><sub>Include Laravel Blade components in your markdown for enriched, interactive content.</sub>
 
 ## 🚀 Quick Start
 

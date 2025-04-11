@@ -1,12 +1,12 @@
 {
-    "name": "benbjurstrom/prezet",
+    "name": "prezet/prezet",
     "description": "Prezet: Markdown Blogging for Laravel",
     "keywords": [
         "Prezet",
         "laravel",
         "prezet"
     ],
-    "homepage": "https://github.com/benbjurstrom/prezet",
+    "homepage": "https://github.com/prezet/prezet",
     "license": "MIT",
     "authors": [
         {
