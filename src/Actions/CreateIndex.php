@@ -83,7 +83,7 @@ class CreateIndex
         }
 
         $result = Artisan::call('migrate', [
-            '--path' => base_path('vendor/benbjurstrom/prezet/database/migrations'),
+            '--path' => base_path('vendor/prezet/prezet/database/migrations'),
             '--database' => 'prezet',
             '--realpath' => true,
             '--no-interaction' => true,
