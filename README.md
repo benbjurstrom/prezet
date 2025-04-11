@@ -77,7 +77,6 @@
     # Run the template's installer
     php artisan docs-template:install
     ```
-    This will install the necessary frontend files and then remove the `prezet/docs-template` package
 
 3.  **Index Your Content:**
     After adding or modifying Markdown files in your content directory update the Prezet index:
