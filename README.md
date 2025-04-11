@@ -28,31 +28,23 @@
 
 ## ✨ Core Features
 
-Prezet's core engine focuses on efficiently processing and managing your Markdown content:
+✅ **Installs in seconds**<br>Set up your project with a single command.
 
-✅ **SQLite Index**
-Indexes your markdown files into a flat-file SQLite database for fast searching, pagination, sorting, and filtering, without requiring a traditional database.
+✅ **Automatic Image Optimization**<br>Automated image compression, scaling, and responsive srcset handling.
 
-✅ **Automatic Image Optimization**
-Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.
+✅ **SQLite Index**<br>Indexes your markdown files to support search, pagination, sorting, and filtering.
 
-✅ **Validated Front Matter**
-Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.
+✅ **Validated Front Matter**<br>Cast front matter into validated DTOs for consistency across your content.
 
-✅ **Open Graph (OG) Image Generation**
-Provides the backend logic to generate Open Graph images dynamically based on front matter data. *(Frontend template required for display).*
+✅ **Open Graph (OG) images**<br>Generate OG images from front matter using a customizable template.
 
-✅ **Dynamic Table of Contents (TOC) Generation**
-Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents. *(Frontend template required for display).*
+✅ **Dynamic Table of Contents**<br>Automatically generate a nested, scroll-synced TOC from your article's headings.
 
-✅ **SEO Optimization Logic**
-Generates structured data for meta tags (title, description, OG tags) based on front matter. *(Frontend template required for display).*
+✅ **SEO Optimization**<br>Automatically generate meta tags based on front matter data for better search engine discoverability.
 
-✅ **Blade Component Support**
-Easily embed your existing Laravel Blade components directly within your Markdown files.
+✅ **Blade Components**<br>Include Laravel Blade components in your markdown for enriched, interactive content.
 
-✅ **Configurable & Customizable**
-Offers configuration options for content paths, DTOs, image handling, and more.
+✅ **Complete Customization**<br>Prezet is built to allow full customization of your routes, front matter, and blade templates.
 
 ## 🚀 Quick Start
 
