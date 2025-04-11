@@ -28,9 +28,7 @@
 
 ## ✨ Core Features
 
-✅ **Installs in seconds**<br>Set up your project with a single command.
-
-✅ **Automatic Image Optimization**<br>Automated image compression, scaling, and responsive srcset handling.
+✅ **Automatic Image Optimization**<br><sub>Automated image compression, scaling, and responsive srcset handling.<\sub>
 
 ✅ **SQLite Index**<br>Indexes your markdown files to support search, pagination, sorting, and filtering.
 
