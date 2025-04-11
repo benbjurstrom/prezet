@@ -28,32 +28,34 @@
 
 ## ✨ Core Features
 
-✅ **Automatic Image Optimization**<br><sub>Automated image compression, scaling, and responsive srcset handling.<\sub>
+✅ **SQLite Index**<br><sub>Indexes your markdown files to support search, pagination, sorting, and filtering.</sub>
 
-✅ **SQLite Index**<br>Indexes your markdown files to support search, pagination, sorting, and filtering.
+✅ **Automatic Image Optimization**<br><sub>Handles image processing, including compression, scaling, and generating responsive `srcset` attributes.</sub>
 
-✅ **Validated Front Matter**<br>Cast front matter into validated DTOs for consistency across your content.
+✅ **Validated Front Matter**<br><sub>Define expected front matter fields and automatically cast them into validated Data Transfer Objects (DTOs) for type-safe access in your application.</sub>
 
-✅ **Open Graph (OG) images**<br>Generate OG images from front matter using a customizable template.
+✅ **Open Graph (OG) images**<br><sub>Generate OG images from front matter using a customizable template.</sub>
 
-✅ **Dynamic Table of Contents**<br>Automatically generate a nested, scroll-synced TOC from your article's headings.
+✅ **Dynamic Table of Contents**<br><sub>Automatically extracts headings from your Markdown content to generate data for a nested Table of Contents.</sub>
 
-✅ **SEO Optimization**<br>Automatically generate meta tags based on front matter data for better search engine discoverability.
+✅ **SEO Optimization**<br><sub>Automatically generate meta tags based on front matter data for better search engine discoverability.</sub>
 
-✅ **Blade Components**<br>Include Laravel Blade components in your markdown for enriched, interactive content.
-
-✅ **Complete Customization**<br>Prezet is built to allow full customization of your routes, front matter, and blade templates.
+✅ **Blade Components**<br><sub>Include Laravel Blade components in your markdown for enriched, interactive content.</sub>
 
 ## 🚀 Quick Start
 
 1.  **Install Prezet Core:**
     ```bash
-    composer require benbjurstrom/prezet:^1.0
+    composer require prezet/prezet:^1.0
     ```
-    *(Replace `^1.0` with the desired version constraint).*
 
-2.  **Install a Frontend Template (Required):**
-    Prezet Core provides the backend engine. You need a template package to provide the frontend (routes, controllers, views, CSS).
+    # Run the core installer
+    ```bash
+    php artisan prezet:install
+    ```
+
+2.  **Install a Frontend Template:**
+    Prezet Core provides the backend engine. A template package provides the frontend (routes, controllers, views, CSS).
 
     *Example using the Official Docs Template:*
     ```bash
