@@ -12,7 +12,9 @@
 
 **Go from markdown files to SEO-friendly blogs, articles, and documentation in seconds!** The Prezet framework makes it easy to parse, index, and serve your Markdown content efficiently within a Laravel application.
 
-*(Looking for a ready-to-use frontend? Check out template packages like [prezet/docs-template](https://github.com/prezet/docs-template)!)*
+*Looking for a ready-to-use frontend? Check out our offical template packages:*
+- [prezet/docs-template](https://github.com/prezet/docs-template)
+- [prezet/blog-template](https://github.com/prezet/blog-template)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/prezet/prezet/main/art/screenshot-dark.png">
