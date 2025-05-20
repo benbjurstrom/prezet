@@ -10,6 +10,7 @@ use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Output\RenderedContentInterface;
 use Prezet\Prezet\Exceptions\InvalidConfigurationException;
 use Prezet\Prezet\Extensions\MarkdownBladeExtension;
+use Phiki\CommonMark\PhikiExtension;
 
 class ParseMarkdown
 {
@@ -27,7 +28,16 @@ class ParseMarkdown
         $extensions = $this->getExtensions();
 
         foreach ($extensions as $extension) {
-            $environment->addExtension(new $extension);
+            if($extension === 'Phiki\CommonMark\PhikiExtension') {
+                $config = config('prezet.commonmark.config.phiki');
+                $environment->addExtension(new PhikiExtension(
+                    $config['theme'],
+                    withWrapper:$config['withWrapper'],
+                    withGutter:$config['withGutter']
+                ));
+            }else{
+                $environment->addExtension(new $extension);
+            }
         }
 
         $converter = new MarkdownConverter($environment);
