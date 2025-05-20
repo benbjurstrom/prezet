@@ -8,9 +8,9 @@ use League\CommonMark\Exception\CommonMarkException;
 use League\CommonMark\Extension\ExtensionInterface;
 use League\CommonMark\MarkdownConverter;
 use League\CommonMark\Output\RenderedContentInterface;
+use Phiki\CommonMark\PhikiExtension;
 use Prezet\Prezet\Exceptions\InvalidConfigurationException;
 use Prezet\Prezet\Extensions\MarkdownBladeExtension;
-use Phiki\CommonMark\PhikiExtension;
 
 class ParseMarkdown
 {
@@ -28,14 +28,14 @@ class ParseMarkdown
         $extensions = $this->getExtensions();
 
         foreach ($extensions as $extension) {
-            if($extension === 'Phiki\CommonMark\PhikiExtension') {
+            if ($extension === 'Phiki\CommonMark\PhikiExtension') {
                 $config = config('prezet.commonmark.config.phiki');
                 $environment->addExtension(new PhikiExtension(
                     $config['theme'],
-                    withWrapper:$config['withWrapper'],
-                    withGutter:$config['withGutter']
+                    withWrapper: $config['withWrapper'],
+                    withGutter: $config['withGutter']
                 ));
-            }else{
+            } else {
                 $environment->addExtension(new $extension);
             }
         }
