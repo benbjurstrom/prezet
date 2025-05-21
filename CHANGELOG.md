@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.1.0](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc7...v1.1.0) - 2025-05-21
+
+### What's Changed
+
+* Update README.md by @pikant in https://github.com/prezet/prezet/pull/198
+* 200 add phikiphp by @benbjurstrom in https://github.com/prezet/prezet/pull/201
+
+### New Contributors
+
+* @pikant made their first contribution in https://github.com/prezet/prezet/pull/198
+
+**Full Changelog**: https://github.com/prezet/prezet/compare/v1.0.0...v1.1.0
+
 ## [v1.0.0-rc7](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc6...v1.0.0-rc7) - 2025-04-11
 
 ### What's Changed
