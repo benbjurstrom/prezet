@@ -32,8 +32,8 @@ class ParseMarkdown
                 $config = config('prezet.commonmark.config.phiki');
                 $environment->addExtension(new PhikiExtension(
                     $config['theme'],
-                    withWrapper: $config['withWrapper'],
-                    withGutter: $config['withGutter']
+                    withWrapper: $config['with_wrapper'],
+                    withGutter: $config['with_gutter']
                 ));
             } else {
                 $environment->addExtension(new $extension);

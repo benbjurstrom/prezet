@@ -79,8 +79,8 @@ return [
             ],
             'phiki' => [
                 'theme' => \Phiki\Theme\Theme::NightOwl,
-                'withGutter' => false,
-                'withWrapper' => true,
+                'with_wrapper' => false,
+                'with_gutter' => true,
             ],
         ],
     ],
