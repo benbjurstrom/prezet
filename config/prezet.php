@@ -52,6 +52,7 @@ return [
             League\CommonMark\Extension\FrontMatter\FrontMatterExtension::class,
             Prezet\Prezet\Extensions\MarkdownBladeExtension::class,
             Prezet\Prezet\Extensions\MarkdownImageExtension::class,
+            Phiki\CommonMark\PhikiExtension::class,
         ],
 
         'config' => [
@@ -75,6 +76,11 @@ return [
                 'nofollow' => 'external',
                 'noopener' => 'external',
                 'noreferrer' => 'external',
+            ],
+            'phiki' => [
+                'theme' => \Phiki\Theme\Theme::NightOwl,
+                'with_wrapper' => false,
+                'with_gutter' => true,
             ],
         ],
     ],
