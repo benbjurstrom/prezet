@@ -3,7 +3,6 @@
 namespace Prezet\Prezet\Exceptions;
 
 use Exception;
-use Illuminate\Support\MessageBag;
 
 class FrontmatterException extends Exception
 {
@@ -13,7 +12,7 @@ class FrontmatterException extends Exception
             $filePath = 'filepath unavailable';
         }
 
-        $message = 'Frontmatter issues found in '.$filePath.'. ' . $message;
+        $message = 'Frontmatter issues found in '.$filePath.'. '.$message;
 
         parent::__construct($message);
     }

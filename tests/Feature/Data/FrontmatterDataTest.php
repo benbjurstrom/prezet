@@ -1,8 +1,8 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 use Prezet\Prezet\Data\FrontmatterData;
-use Prezet\Prezet\Exceptions\FrontmatterException;
 
 it('can create a valid FrontmatterData instance', function () {
     $data = [
@@ -30,7 +30,7 @@ it('throws an exception when required fields are missing', function () {
     ];
 
     new FrontmatterData($data);
-})->throws(FrontmatterException::class);
+})->throws(ValidationException::class);
 
 it('allows nullable fields to be null', function () {
     $data = [

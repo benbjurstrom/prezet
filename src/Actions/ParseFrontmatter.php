@@ -2,7 +2,6 @@
 
 namespace Prezet\Prezet\Actions;
 
-use Illuminate\Support\MessageBag;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use Prezet\Prezet\Data\FrontmatterData;
 use Prezet\Prezet\Exceptions\FrontmatterException;
