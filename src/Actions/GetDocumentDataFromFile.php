@@ -51,6 +51,7 @@ class GetDocumentDataFromFile
             'draft' => $fm->draft,
             'content' => $content,
             'category' => $fm->category,
+            'contentType' => $fm->contentType,
             'frontmatter' => $fm,
             'updatedAt' => $this->storage->lastModified($filePath),
             'createdAt' => $fm->date,

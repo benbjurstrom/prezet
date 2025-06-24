@@ -3,7 +3,6 @@
 namespace Prezet\Prezet\Data;
 
 use Carbon\Carbon;
-use Prezet\Prezet\Exceptions\FrontmatterException;
 use WendellAdriel\ValidatedDTO\Attributes\Rules;
 use WendellAdriel\ValidatedDTO\Casting\CarbonCast;
 use WendellAdriel\ValidatedDTO\Concerns\EmptyRules;
@@ -40,6 +39,9 @@ class FrontmatterData extends ValidatedDTO
     #[Rules(['nullable', 'string'])]
     public ?string $key;
 
+    #[Rules(['string', 'in:article,category,video'])]
+    public string $contentType;
+
     /**
      * @var array<int, string> $tags
      */
@@ -54,6 +56,7 @@ class FrontmatterData extends ValidatedDTO
         return [
             'tags' => [],
             'draft' => false,
+            'contentType' => 'article',
         ];
     }
 
@@ -64,6 +67,7 @@ class FrontmatterData extends ValidatedDTO
     {
         return [
             'description' => 'excerpt',
+            'content_type' => 'contentType',
         ];
     }
 
@@ -75,13 +79,5 @@ class FrontmatterData extends ValidatedDTO
         return [
             'date' => new CarbonCast,
         ];
-    }
-
-    /**
-     * @throws FrontmatterException
-     */
-    protected function failedValidation(): void
-    {
-        throw new FrontmatterException($this->validator->errors(), $this->data['title'] ?? false);
     }
 }

@@ -4,6 +4,7 @@ namespace Prezet\Prezet\Actions;
 
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use Prezet\Prezet\Data\FrontmatterData;
+use Prezet\Prezet\Exceptions\FrontmatterException;
 use Prezet\Prezet\Exceptions\FrontmatterMissingException;
 use Prezet\Prezet\Exceptions\InvalidConfigurationException;
 
@@ -18,7 +19,11 @@ class ParseFrontmatter
         $frontmatter = $this->parseFrontmatter($content, $filePath);
         $frontmatter = $this->normalizeDateInFrontmatter($frontmatter);
 
-        return app(FrontmatterData::class)::fromArray($frontmatter);
+        try {
+            return app(FrontmatterData::class)::fromArray($frontmatter);
+        } catch (\Exception $e) {
+            throw new FrontmatterException($e->getMessage(), $filePath);
+        }
     }
 
     /**
