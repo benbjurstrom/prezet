@@ -40,6 +40,9 @@ class DocumentData extends ValidatedDTO
     #[Rules(['nullable', 'string'])]
     public ?string $content;
 
+    #[Rules(['string'])]
+    public string $contentType;
+
     #[Rules(['required'])]
     public Carbon $createdAt;
 
@@ -62,6 +65,7 @@ class DocumentData extends ValidatedDTO
         return [
             'created_at' => 'createdAt',
             'updated_at' => 'updatedAt',
+            'content_type' => 'contentType',
         ];
     }
 

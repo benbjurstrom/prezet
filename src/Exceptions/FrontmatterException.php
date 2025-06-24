@@ -7,13 +7,13 @@ use Illuminate\Support\MessageBag;
 
 class FrontmatterException extends Exception
 {
-    public function __construct(MessageBag $bag, string|bool $slug)
+    public function __construct(string $message, string|bool $filePath)
     {
-        if ($slug === false) {
-            $slug = 'unknown';
+        if ($filePath === false) {
+            $filePath = 'filepath unavailable';
         }
 
-        $message = 'Frontmatter issues found in '.$slug.'.md: '.$bag->first();
+        $message = 'Frontmatter issues found in '.$filePath.'. ' . $message;
 
         parent::__construct($message);
     }

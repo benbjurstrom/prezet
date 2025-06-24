@@ -31,6 +31,7 @@ class DocumentFactory extends Factory
             'draft' => $this->faker->boolean,
             'hash' => $hash,
             'key' => $key,
+            'content_type' => 'article',
             'frontmatter' => [
                 'title' => $this->faker->sentence,
                 'excerpt' => $this->faker->paragraph,
