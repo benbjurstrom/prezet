@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.2.0](https://github.com/benbjurstrom/prezet/compare/v1.1.0...v1.2.0) - 2025-06-24
+
+### What's Changed
+
+* 203 add contentType by @benbjurstrom in https://github.com/prezet/prezet/pull/204
+
+**Full Changelog**: https://github.com/prezet/prezet/compare/v1.1.0...v1.2.0
+
 ## [v1.1.0](https://github.com/benbjurstrom/prezet/compare/v1.0.0-rc7...v1.1.0) - 2025-05-21
 
 ### What's Changed
