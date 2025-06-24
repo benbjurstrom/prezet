@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->index()->unique();
             $table->string('filepath')->index()->unique();
             $table->string('category')->index()->nullable();
+            $table->string('content_type')->index();
             $table->boolean('draft')->default(false)->index();
             $table->char('hash', length: 32)->index()->unique();
             $table->jsonb('frontmatter');

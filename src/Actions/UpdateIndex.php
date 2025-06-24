@@ -98,6 +98,7 @@ class UpdateIndex
             'category' => $docData->category,
             'draft' => $docData->draft,
             'hash' => $docData->hash,
+            'content_type' => $docData->contentType,
             'frontmatter' => $docData->frontmatter,
             'created_at' => $docData->createdAt,
             'updated_at' => $docData->updatedAt,
